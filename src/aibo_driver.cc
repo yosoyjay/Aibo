@@ -1,9 +1,7 @@
 /*
  *  Player - One Hell of a Robot Server
- *  Copyright (C) 2003  
- *     Brian Gerkey
  *                   
- *	Copyright (C) 2009   
+ *	Copyright (C) 2009 - Aibo Team  
  * 
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -101,6 +99,10 @@ Aibo::Aibo(ConfigFile* cf, int section)
 	// Read port of Walk Remote Control
 	// Need error checking
 	this->walk_com_port = cf->ReadInt(section, "walkRemotePort", 10051);
+
+	//JP:Read port of Head Remote Control . MY FIRST LINE!!
+	// Need error checking
+	this->head_com_port = cf->ReadInt(section, "headRemote", 10052); 
 
 	printf("Constructor finished.\n");	
 

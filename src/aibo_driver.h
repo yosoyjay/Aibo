@@ -1,7 +1,7 @@
 /*
  *  Player - One Hell of a Robot Server
  *
- *  Copyright (C) 2009 - Jesse Lopez
+ *  Copyright (C) 2009 - Jesse Lopez - Pablo Munoz - Joel Gonzalez
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License as published by the Free
@@ -37,6 +37,9 @@ class Aibo : public ThreadedDriver
     
     // Constructor; need that
     Aibo(ConfigFile* cf, int section);
+
+    // Destructor 
+    // ~Aibo();
 
     // This method will be invoked on each incoming message
     int ProcessMessage(QueuePointer &resp_queue, player_msghdr * hdr,
