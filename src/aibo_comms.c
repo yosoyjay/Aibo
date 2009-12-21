@@ -22,6 +22,7 @@
  */
 
 #include "aibo_comms.h"
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -37,4 +38,50 @@ aibo_comm_t* aibo_create(const char *ip)
 
 	return ret;
 }
+
+// Walk command
+int aibo_walk( aibo_comm_t* aibo, float x, float a)
+{
+	char command;
+	float amount = a;
+
+	if(x != 0 && a == 0){
+		command = 'f';
+		// Call function that actually sends the command to the Aibo
+		send_walk_cmd(command, amount);
+	}
+	else if(x == 0 && a != 0){
+		command = 'r';
+		// Call function that actually sends the command to the Aibo
+		send_walk_cmd(command, amount);
+	}
+	// Implement command with rotation and foward
+	else{
+		command = 'f';
+		send_walk_cmd(command, amount);
+	}	
+
+	return -1;	
+}
+
+// Function that actually sends the commands to the Aibo
+int send_walk_cmd(aibo_comm_t* aibo, char walk_t, float amount){
+	
+	// Populate the struct to send data [This would be padded right?]
+	// I'm not sure that this will work at all.	
+	comm_t move;
+	move.walk_t = walk_t;
+	move.amount = amount;
+
+	// Want to write 5 bytes of struct to socket... padding issue
+	if(write(aibo->walk_fd, (void *)&move, 5) < 5){
+		perror("Error writing to socket");
+	}
+
+	return 0;
+}
+	
+
+
+
 

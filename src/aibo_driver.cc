@@ -88,14 +88,10 @@ Aibo::Aibo(ConfigFile* cf, int section)
 		}
 	}
 		
-  // Read options from the configuration file
-  // Read IP of the Aibo
-	// Need error checking
-	// jesse:  the values given here are default values incase they are not provided in the configuration file.
+	// Read of type Sting to get IP
   this->ip = cf->ReadString(section, "ip", "192.168.2.160");
   
 	// Read port of Main
-	// Need error checking
 	this->main_com_port = cf->ReadInt(section, "mainPort", 10020);
 
 	// Read port of Walk Remote Control
@@ -113,7 +109,7 @@ Aibo::Aibo(ConfigFile* cf, int section)
 // jesse: this is where communication set-up belongs create sockets and open ports
 int Aibo::MainSetup()
 { 
-	//Create aibo device give ip
+	//Create aibo device with it's ip as the argument
 	this->aibodev = aibo_create(this->ip);	
   puts("Aibo driver initializing...");
 
@@ -121,7 +117,9 @@ int Aibo::MainSetup()
   // configure a serial port.
 	
 	//Create socket for Main control 
-	/*Write commands to write commands to the port to open the appropriate walk/head ports.  Thereafter, create/connect to sockets or walking[10050], head[10052], estop[10053]*/ 
+	/*Write commands to write commands to the port to open the appropriate walk/head ports.  	Thereafter, create/connect to sockets or walking[10050], head[10052], estop[10053]*/ 
+		
+	
 
 	// Starts the main device thread.  Creates a new thread and executes
 	// Aibo::Main() which contains the main loop for the driver.
@@ -129,8 +127,7 @@ int Aibo::MainSetup()
 
 	// Message for checking status:
   puts("Aibo driver ready");
-
-	// Need to start main thread.  
+ 
   return 0;
 }
 
@@ -141,12 +138,15 @@ void Aibo::MainQuit()
 {
   puts("Shutting Aibo driver down");
 	this->StopThread();
+
   // Need to close sockets, free memory;
 
   puts("Aibo driver has been shutdown");
 	return;
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+// Process Messages
 int Aibo::ProcessMessage(QueuePointer & resp_queue, player_msghdr * hdr,
 													void * data)
 {
@@ -159,18 +159,15 @@ int Aibo::ProcessMessage(QueuePointer & resp_queue, player_msghdr * hdr,
 		//Call the forward function should take an argument
 		//Need to figure out how to seperate functions for forward,
 		//strafe, and rotate.  Look at the data variable.
-		player_position2d_cmd_vel_t positionCmd;
-		positionCmd = *(player_position2d_cmd_vel_t *) data;
-		PLAYER_MSG2(2, "Sending walking commands %f %f %f", position_cmd.vel.px, position_cmd.vel.pa);
+		player_position2d_cmd_vel_t position_cmd;
+		position_cmd = *(player_position2d_cmd_vel_t *) data;
+		PLAYER_MSG2(2, "Sending walking commands %f %f", position_cmd.vel.px, position_cmd.vel.pa);
 
-		//Jesse: Create/Call function to send command via socket to Aibo to walk forward data amount
-		/*
-		if(!aibo_walk(this->aiboDev, position_cmd.vel.px, position_cmd.vel.pa))
+		if(!aibo_walk(this->aibodev, position_cmd.vel.px, position_cmd.vel.pa))
 		{
 			PLAYER_ERROR("Failed to send walk commands.");
 		}
-		*/
-		}
+	}
 
 		return 0;
 }
@@ -191,7 +188,7 @@ void Aibo::Main()
 
     // Interact with the device, and push out the resulting data, using
     // Driver::Publish()
-
+		/*
 		player_position2d_data_t posData;
 		memset(&posData, 0, sizeof(posData));		
 		
@@ -202,9 +199,10 @@ void Aibo::Main()
 		this->Publish(this->position_addr, PLAYER_MSGTYPE_DATA, 
 					PLAYER_POSITION2D_DATA_STATE, (void*) &posData, sizeof(posData),
 					NULL);
-
+		*/
+		
     // Sleep (you might, for example, block on a read() instead)
-    usleep(100);
+    usleep(100000);
   }
 }
 

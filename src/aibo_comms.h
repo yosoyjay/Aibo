@@ -26,6 +26,9 @@
 //This is completely made up.  Fix this.
 #define IP_SIZE 512
 
+#include <libplayercore/playercore.h>
+
+
 typedef struct
 {
 	// Aibo's IP... fix IP_SIZE I just made it up... 
@@ -43,7 +46,24 @@ typedef struct
 
 } aibo_comm_t;
 
+typedef struct
+{
+	char walk_t;
+	float amount;
+} comm_t;
+
 // Create Aibo
 aibo_comm_t* aibo_create(const char *port);
+
+// Connect to Aibo
+
+// Aibo Walk
+int aibo_walk( aibo_comm_t* aibo, float position_cmd_vel_px, float position_cmd_vel_pa);
+
+// Send commands to the Aibo
+int send_walk_cmd(char walk_t, float amount);
+
+ 
+	
 
 #endif

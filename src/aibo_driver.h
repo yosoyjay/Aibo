@@ -46,7 +46,7 @@ class Aibo : public ThreadedDriver
 
   	// Main function for device thread.
   	virtual void Main();
-  	virtual int MainSetup();
+  	virtual int  MainSetup();
     virtual void MainQuit();
 	
 		// The Aibo object
@@ -61,10 +61,9 @@ class Aibo : public ThreadedDriver
 
 		// Ports for communication
 		const char *ip;
-		int main_com_port;
-		int walk_com_port;		// Position2d	
-		int head_com_port;		// PTZ
-
+		int main_com_port;						// Main - 10020
+		int walk_com_port;						// Position2d - 10050	
+		int head_com_port;						// PTZ - 10052
 		
 };
 
