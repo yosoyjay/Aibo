@@ -34,7 +34,7 @@ typedef struct
 	// Aibo's IP... fix IP_SIZE I just made it up... 
 	char ip[IP_SIZE];	//IP address
 	
-	// File Descriptors
+	// File Descriptors for socket.
 	int main_fd;
 	int walk_fd;
 	int head_fd;
@@ -48,12 +48,12 @@ typedef struct
 
 typedef struct
 {
-	char walk_t;
+	char command;
 	float amount;
 } comm_t;
 
 // Create Aibo
-aibo_comm_t* aibo_create(const char *port);
+aibo_comm_t* aibo_create(const char *ip);
 
 // Connect to Aibo
 
@@ -61,7 +61,7 @@ aibo_comm_t* aibo_create(const char *port);
 int aibo_walk( aibo_comm_t* aibo, float position_cmd_vel_px, float position_cmd_vel_pa);
 
 // Send commands to the Aibo
-int send_walk_cmd(char walk_t, float amount);
+int send_walk_cmd(aibo_comm_t* aibo, char command, float amount);
 
  
 	

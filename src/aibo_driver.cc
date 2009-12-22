@@ -117,9 +117,8 @@ int Aibo::MainSetup()
   // configure a serial port.
 	
 	//Create socket for Main control 
-	/*Write commands to write commands to the port to open the appropriate walk/head ports.  	Thereafter, create/connect to sockets or walking[10050], head[10052], estop[10053]*/ 
-		
-	
+	/*Write commands to write commands to the port to open the appropriate walk/head ports.  	Thereafter, create/connect to sockets or walking[10050], head[10052], estop[10053]*/
+ 	
 
 	// Starts the main device thread.  Creates a new thread and executes
 	// Aibo::Main() which contains the main loop for the driver.

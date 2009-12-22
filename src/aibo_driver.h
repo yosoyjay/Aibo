@@ -59,6 +59,7 @@ class Aibo : public ThreadedDriver
 		// Position2d proxy variables
 		player_position2d_cmd_vel_t position_cmd;
 
+
 		// Ports for communication
 		const char *ip;
 		int main_com_port;						// Main - 10020
