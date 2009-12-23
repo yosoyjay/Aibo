@@ -39,6 +39,36 @@ aibo_comm_t* aibo_create(const char *ip)
 	return ret;
 }
 
+// Create a socket... return socket fd.
+int aibo_sock(const char *server_ip, unsigned int server_port)
+{
+	int sockfd;
+	struct sockaddr_in servaddr;
+
+	if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+  	perror("Error creating socket");
+		return -1;
+	}
+
+  bzero(&servaddr, sizeof(servaddr));
+  servaddr.sin_family = AF_INET;
+  servaddr.sin_port   = htons(server_port);
+
+  if (inet_pton(AF_INET, server_ip, &servaddr.sin_addr) <= 0){
+  	perror("Error with inet_pton");
+		return -1;
+	}
+  if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0){
+  	perror("Error connecting to Aibo");
+		return -1;
+	}
+
+    sleep(1);
+
+	return sockfd;
+}
+	
+
 // Walk command
 int aibo_walk( aibo_comm_t* aibo, float x, float a)
 {
@@ -64,7 +94,7 @@ int aibo_walk( aibo_comm_t* aibo, float x, float a)
 			forward = 0.8;	
 	
 		// Call function that actually sends the command to the Aibo
-		send_walk_cmd( aibo, command, forward);
+		// send_walk_cmd( aibo, command, forward);
 	}
 	
 	//If just rotating
@@ -84,7 +114,7 @@ int aibo_walk( aibo_comm_t* aibo, float x, float a)
 		else
 			rotate = 0.8;
 		// Call function that actually sends the command to the Aibo
-		send_walk_cmd( aibo, command, rotate);
+		//send_walk_cmd( aibo, command, rotate);
 	}
 	// Implement command with rotation and foward
 	else{
@@ -116,30 +146,21 @@ int aibo_walk( aibo_comm_t* aibo, float x, float a)
 		else
 			rotate = 0.8;
 
-		send_walk_cmd( aibo,command, forward);
-		send_walk_cmd( aibo,commandTwo, rotate);
+		//send_walk_cmd( aibo,command, forward);
+		//send_walk_cmd( aibo,commandTwo, rotate);
 	}	
 
 	//If not these should I write an error to Player?
 	return -1;	
-}
+}// End aibo_walk()
 
 // Function that actually sends the commands to the Aibo
-int send_walk_cmd(aibo_comm_t* aibo, char command, float amount){
-	
-	// Populate the struct to send data [This would be padded right?]
-	// I'm not sure that this will work at all.	
-	comm_t move;
-	move.command = command;
-  move.amount = amount;
-
-	// Want to write 5 bytes of struct to socket... padding issue
-	if(write(aibo->walk_fd, (void *)&move, 5) < 5){
-		perror("Error writing to socket");
-	}
-
-	return 0;
-}
+int send_aibo_msg(int sockfd, const char *buffer){
+  if(send(sockfd, (const void *)buffer, strlen(buffer), 0) < 0)
+		return -1;
+	else
+		return 0;
+}// End send_walk_cmd()
 	
 
 

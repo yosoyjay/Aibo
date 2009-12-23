@@ -27,17 +27,22 @@
 #define IP_SIZE 512
 
 #include <libplayercore/playercore.h>
-
+#include "unp.h"
 
 typedef struct
 {
 	// Aibo's IP... fix IP_SIZE I just made it up... 
-	char ip[IP_SIZE];	//IP address
+	char *ip;	//IP address
+	
+	//socket information
+	struct sockaddr_in servaddr;
+	//socketlen_t len;
 	
 	// File Descriptors for socket.
 	int main_fd;
 	int walk_fd;
 	int head_fd;
+	int estop_fd;
 
 	// Position2d variables
 	double vx;					
@@ -55,14 +60,14 @@ typedef struct
 // Create Aibo
 aibo_comm_t* aibo_create(const char *ip);
 
-// Connect to Aibo
+// Create socket to Aibo
+int aibo_sock(const char *aibo_ip, unsigned int aibo_port);
 
 // Aibo Walk
 int aibo_walk( aibo_comm_t* aibo, float position_cmd_vel_px, float position_cmd_vel_pa);
 
 // Send commands to the Aibo
-int send_walk_cmd(aibo_comm_t* aibo, char command, float amount);
-
+int send_aibo_msg(int sockfd, const char *buffer);
  
 	
 

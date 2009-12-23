@@ -35,6 +35,9 @@ class Aibo : public ThreadedDriver
 {
   public:
     
+		virtual int  MainSetup();
+    virtual void MainQuit();
+
     // Constructor; need that
     Aibo(ConfigFile* cf, int section);
 
@@ -46,8 +49,7 @@ class Aibo : public ThreadedDriver
 
   	// Main function for device thread.
   	virtual void Main();
-  	virtual int  MainSetup();
-    virtual void MainQuit();
+ 
 	
 		// The Aibo object
 		aibo_comm_t *aibodev;	
@@ -65,6 +67,7 @@ class Aibo : public ThreadedDriver
 		int main_com_port;						// Main - 10020
 		int walk_com_port;						// Position2d - 10050	
 		int head_com_port;						// PTZ - 10052
+		int estop_com_port;						// ESteop - 10053
 		
 };
 

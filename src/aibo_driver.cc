@@ -65,6 +65,7 @@ Aibo::Aibo(ConfigFile* cf, int section)
 	// Check if the configuration file asks to provide position2d interface
 	if(cf->ReadDeviceAddr(&(this->position_addr), section, "provides", PLAYER_POSITION2D_CODE, -1, NULL) == 0)
 	{
+		puts("Adding Position2d");
 		// If the interface failed to correctly register 
     if((this->AddInterface(this->position_addr)) != 0)
 		{
@@ -78,7 +79,8 @@ Aibo::Aibo(ConfigFile* cf, int section)
 	// Check if the configuration file asks to provide ptz interface
 	if(cf->ReadDeviceAddr(&(this->ptz_addr),section, "provides", PLAYER_PTZ_CODE, -1, NULL) == 0)
 	{
-				// If the interface failed to correctly register 
+		puts("Adding PTZ");
+		// If the interface failed to correctly register 
     if(AddInterface(ptz_addr) != 0)
 		{
 			// Post an error string and quit constructor
@@ -89,15 +91,17 @@ Aibo::Aibo(ConfigFile* cf, int section)
 	}
 		
 	// Read of type Sting to get IP
-  this->ip = cf->ReadString(section, "ip", "192.168.2.160");
+  this->ip = cf->ReadString(section, "ip", "192.168.2.155");
   
 	// Read port of Main
 	this->main_com_port = cf->ReadInt(section, "mainPort", 10020);
 
 	// Read port of Walk Remote Control
-	// Need error checking
 	this->walk_com_port = cf->ReadInt(section, "walkRemotePort", 10051);
 
+	// Read port of EStop 
+	this->estop_com_port = cf->ReadInt(section, "estopPort", 10053);
+	
 	printf("Constructor finished.\n");	
 
   return;
@@ -118,11 +122,36 @@ int Aibo::MainSetup()
 	
 	//Create socket for Main control 
 	/*Write commands to write commands to the port to open the appropriate walk/head ports.  	Thereafter, create/connect to sockets or walking[10050], head[10052], estop[10053]*/
- 	
+
+	aibodev->main_fd = aibo_sock(ip, main_com_port);
+	aibodev->estop_fd = aibo_sock(ip, estop_com_port);
+
+  if(send_aibo_msg(aibodev->main_fd, "!root \"TekkotsuMon\" \"Head Remote Control\"\r\n") < 0){
+		PLAYER_ERROR("Error opening Head socket on Aibo");
+		SetError(-1);
+	}
+	sleep(3);
+
+	if(send_aibo_msg(aibodev->main_fd, "!root \"TekkotsuMon\" \"Walk Remote Control\"\r\n") < 0){
+		PLAYER_ERROR("Error opening Walk socket on Aibo");
+		SetError(-1);
+	}
+	sleep(3);
+
+	if(send_aibo_msg(aibodev->estop_fd, "start\n") < 0){
+		PLAYER_ERROR("Error turning off EStop on Aibo");
+		SetError(-1);
+	}
+	sleep(3);
+
+ 	aibodev->walk_fd = aibo_sock(ip, walk_com_port);
+	aibodev->head_fd = aibo_sock(ip, head_com_port);
+
+	
 
 	// Starts the main device thread.  Creates a new thread and executes
 	// Aibo::Main() which contains the main loop for the driver.
-	this->StartThread();
+	StartThread();
 
 	// Message for checking status:
   puts("Aibo driver ready");
@@ -136,7 +165,7 @@ int Aibo::MainSetup()
 void Aibo::MainQuit()
 {
   puts("Shutting Aibo driver down");
-	this->StopThread();
+	StopThread();
 
   // Need to close sockets, free memory;
 
