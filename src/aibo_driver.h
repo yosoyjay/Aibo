@@ -1,7 +1,7 @@
 /*
  *  Player - One Hell of a Robot Server
  *
- *  Copyright (C) 2009 - Jesse Lopez
+ *  Copyright (C) 2010 - Aibo Team BC Jesse Lopez - Pablo Munoz - Joel Gonzalez
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License as published by the Free
@@ -22,7 +22,6 @@
 #ifndef AIBO_DRIVER_H_
 #define AIBO_DRIVER_H_
 
-
 #include <unistd.h>
 
 #include <libplayercore/playercore.h>
@@ -35,7 +34,7 @@ class Aibo : public ThreadedDriver
 {
   public:
     
-		virtual int  MainSetup();
+	virtual int  MainSetup();
     virtual void MainQuit();
 
     // Constructor; need that
@@ -51,16 +50,15 @@ class Aibo : public ThreadedDriver
   	virtual void Main();
  
 	
-		// The Aibo object
-		aibo_comm_t *aibodev;	
+	// The Aibo object
+	aibo_comm_t *aibodev;	
 		
-		// Device Address for proxies in constructor
+	// Device Address for proxies in constructor
 		player_devaddr_t position_addr;
 		player_devaddr_t ptz_addr;
 
 		// Position2d proxy variables
-		player_position2d_cmd_vel_t position_cmd;
-
+		player_position2d_cmd_vel_t position_cmd; // JP: Jesse, are you using this variable?
 
 		// Ports for communication
 		const char *ip;
@@ -68,9 +66,12 @@ class Aibo : public ThreadedDriver
 		int walk_com_port;						// Position2d - 10050	
 		int head_com_port;						// PTZ - 10052
 		int estop_com_port;						// ESteop - 10053
-		
+
 };
 
+Driver* Aibo_Init(ConfigFile* cf, int section);
+
+void Aibo_Register(DriverTable *table);
 
 //Need to create destructor
 #endif

@@ -3,7 +3,7 @@
  *  Copyright (C) 2003  
  *     Brian Gerkey
  *                   
- *	Copyright (C) 2009   
+ *	Copyright (C) 2010  Aibo Team Jesse Lopez - Pablo Munoz - Joel Gonzalez
  * 
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -40,6 +40,8 @@
 Driver* 
 Aibo_Init(ConfigFile* cf, int section)
 {
+  // JP: Comments:
+  printf("JP: in Aibo_Init() Aibo Driver Registered\n");
   // Create and return a new instance of this driver
   return((Driver*)(new Aibo(cf, section)));
 }
@@ -50,30 +52,41 @@ Aibo_Init(ConfigFile* cf, int section)
 void Aibo_Register(DriverTable* table)
 {
   table->AddDriver("aibo", Aibo_Init);
+  // JP: Comments
+  printf("JP: in Aibo_Register()\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constructor.  Retrieve options from the configuration file and do any
 // pre-Setup() setup.  
 Aibo::Aibo(ConfigFile* cf, int section)
-    : ThreadedDriver(cf, section)
+    : ThreadedDriver(cf, section)//, true, PLAYER_MSGQUEUE_DEFAULT_MAXLEN)
 {
 	memset(&this->position_addr, 0, sizeof(player_devaddr_t));
 	memset(&this->ptz_addr, 0, sizeof(player_devaddr_t));
-
+	
+	// JP: Comments
+	printf("JP: in Aibo constructor\n");
 
 	// Check if the configuration file asks to provide position2d interface
 	if(cf->ReadDeviceAddr(&(this->position_addr), section, "provides", PLAYER_POSITION2D_CODE, -1, NULL) == 0)
 	{
 		puts("Adding Position2d");
 		// If the interface failed to correctly register 
-    if((this->AddInterface(this->position_addr)) != 0)
+    	if((this->AddInterface(this->position_addr)) != 0)
 		{
 			// Post an error string and quit constructor
 			PLAYER_ERROR("Error adding Position2d interface\n");
 			this->SetError(-1);
 			return;
 		}
+		puts("Added Position2d interface to Aibo");
+	}
+	else
+	{
+		PLAYER_ERROR("Error.  Constructor not adding Position2d interface\n");
+		this->SetError(-1);
+		return;
 	}
 	
 	// Check if the configuration file asks to provide ptz interface
@@ -81,23 +94,37 @@ Aibo::Aibo(ConfigFile* cf, int section)
 	{
 		puts("Adding PTZ");
 		// If the interface failed to correctly register 
-    if(AddInterface(ptz_addr) != 0)
+    	if(this->AddInterface(this->ptz_addr) != 0)
 		{
 			// Post an error string and quit constructor
 			PLAYER_ERROR("Error adding PTZ interface\n");
 			SetError(-1);
 			return;
 		}
+		puts("Added PTZ interface to Aibo");
 	}
-		
-	// Read of type Sting to get IP
-  this->ip = cf->ReadString(section, "ip", "192.168.2.155");
+	else{
+		PLAYER_ERROR("Error.  Constructor not adding PTZ interface\n");
+		this->SetError(-1);
+		return;
+	}
+	
+	// Read of type String to get IP
+        // JP: 192.168.2.3 is for testing on simulator
+    this->ip = cf->ReadString(section, "ip", "192.168.2.4"); // JP: Change this to Aibo"192.168.2.155");
+
+	//JP: Comments. JL: Nice/Useful
+	printf("Using ip: %s \n", ip);
   
 	// Read port of Main
 	this->main_com_port = cf->ReadInt(section, "mainPort", 10020);
-
+	
 	// Read port of Walk Remote Control
-	this->walk_com_port = cf->ReadInt(section, "walkRemotePort", 10051);
+	this->walk_com_port = cf->ReadInt(section, "walkRemotePort", 10050); // JP: Should not be 10050? Check wii python code.
+																		 // JL: Yup.  Changed.
+
+	//JP: Added this on 01/13/2009
+	this->head_com_port = cf->ReadInt(section, "headRemotePort", 10052);
 
 	// Read port of EStop 
 	this->estop_com_port = cf->ReadInt(section, "estopPort", 10053);
@@ -115,10 +142,10 @@ int Aibo::MainSetup()
 { 
 	//Create aibo device with it's ip as the argument
 	this->aibodev = aibo_create(this->ip);	
-  puts("Aibo driver initializing...");
+  	puts("Aibo driver initializing...");
 
-  // Here you do whatever is necessary to setup the device, like open and
-  // configure a serial port.
+  	// Here you do whatever is necessary to setup the device, like open and
+  	// configure a serial port.
 	
 	//Create socket for Main control 
 	/*Write commands to write commands to the port to open the appropriate walk/head ports.  	Thereafter, create/connect to sockets or walking[10050], head[10052], estop[10053]*/
@@ -126,7 +153,7 @@ int Aibo::MainSetup()
 	aibodev->main_fd = aibo_sock(ip, main_com_port);
 	aibodev->estop_fd = aibo_sock(ip, estop_com_port);
 
-  if(send_aibo_msg(aibodev->main_fd, "!root \"TekkotsuMon\" \"Head Remote Control\"\r\n") < 0){
+  	if(send_aibo_msg(aibodev->main_fd, "!root \"TekkotsuMon\" \"Head Remote Control\"\r\n") < 0){
 		PLAYER_ERROR("Error opening Head socket on Aibo");
 		SetError(-1);
 	}
@@ -143,20 +170,27 @@ int Aibo::MainSetup()
 		SetError(-1);
 	}
 	sleep(3);
+	// JP: Comments
+	// printf("walk_com_port: %i\n", walk_com_port);
 
+	// JP: I commented this because the connection has been refused
  	aibodev->walk_fd = aibo_sock(ip, walk_com_port);
-	aibodev->head_fd = aibo_sock(ip, head_com_port);
+	// JP: Comments
+	//printf("JP: Walk socket opened\n");
+	sleep(3); // JP added this on 01/13/2010
 
-	
+	aibodev->head_fd = aibo_sock(ip, head_com_port);
+	sleep(3); // JP added this on 01/13/2010
 
 	// Starts the main device thread.  Creates a new thread and executes
 	// Aibo::Main() which contains the main loop for the driver.
-	StartThread();
+
+        StartThread();
 
 	// Message for checking status:
-  puts("Aibo driver ready");
+  	puts("Aibo driver ready");
  
-  return 0;
+  	return 0;
 }
 
 
@@ -167,16 +201,13 @@ void Aibo::MainQuit()
   puts("Shutting Aibo driver down");
 	StopThread();
 
-  // Need to close sockets, free memory;
-
   puts("Aibo driver has been shutdown");
 	return;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 // Process Messages
-int Aibo::ProcessMessage(QueuePointer & resp_queue, player_msghdr * hdr,
-													void * data)
+int Aibo::ProcessMessage(QueuePointer & resp_queue, player_msghdr * hdr, void * data)
 {
   // Process messages here.  Send a response if necessary, using Publish().
   // If you handle the message successfully, return 0.  Otherwise,
@@ -194,24 +225,145 @@ int Aibo::ProcessMessage(QueuePointer & resp_queue, player_msghdr * hdr,
 		if(!aibo_walk(this->aibodev, position_cmd.vel.px, position_cmd.vel.pa))
 		{
 			PLAYER_ERROR("Failed to send walk commands.");
+                        // JP: Added this on 01/13/2010
+                        return -1;
 		}
+                // JP: Added this on 01/13/2010
+                return 0;
 	}
+	// JP: Ptz message processing
+	else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_PTZ_CMD_STATE, this->ptz_addr))
+        {
+            // JP: Still working on it. I SHOULD PUT THIS IN A SEPARATE FUNCTION
+            // JP: NEEDS ERROR CHECKING. SPECIALLY WRITING TO SOCKET AND CHECKING LIMITS OF JOINTS.
+            // JP: RANGE JOINTS
+            // Pan 1.0 to -1.0 Center is 0
+            // Tilt 0 to -1 Center is 0
+            // Roll THis should be called SECONDTILT 1 to -1 (I should double check the negative of this)
+            // JP: Comment
+            printf("Processing message for PTZ\n");
+            assert(hdr->size == sizeof(player_ptz_cmd_t));
+            player_ptz_cmd_t cmdPosCamera;
+            cmdPosCamera = *(player_ptz_cmd_t *) data;
 
-		return 0;
+            aibodev->tilt = cmdPosCamera.tilt;
+            aibodev->pan = cmdPosCamera.pan;
+            aibodev->roll = cmdPosCamera.zoom; // JP: THIS IS NOT GOOD. I AM USING ZOOM AS ROLL. Find a better way to do it.
+            char tiltch = 't';
+            char panch = 'p';
+            char rollch = 'r';
+            
+            // JP: DO NOT FORGET TO SET THE LIMITS ON THE MOVEMENTS!
+            if(aibodev->tilt > 0.0)
+                aibodev->tilt = 0.0;
+            else if(aibodev->tilt < -1.0)
+                aibodev->tilt = -1.0;
+            if(aibodev->pan > 1.0)
+                aibodev->pan = 1.0;
+            else if(aibodev->pan < -1.0)
+                aibodev->pan = -1.0;
+            if(aibodev->roll > 1.0)
+                aibodev->roll = 1.0;
+            else if(aibodev->roll < -1.0)
+                aibodev->roll = -1.0;
+            
+            printf("Pan %f Tilt %f Roll %f \n", aibodev->pan, aibodev->tilt, aibodev->roll);
+
+            // Send tilt
+            char outbuf[5];
+            char * p = outbuf;
+            memcpy(p, &tiltch, sizeof(tiltch));
+            //p+=1;
+            long convertedFloat = *reinterpret_cast<long *>(&aibodev->tilt);
+            // The Tekkotsu way
+            int i = ((convertedFloat >> 24) & 0xff);
+            outbuf[4] = i;
+            i = ((convertedFloat >> 16) & 0xff);
+            outbuf[3] = i;
+            i = ((convertedFloat >> 8) & 0xff);
+            outbuf[2] = i;
+            i = (convertedFloat & 0xff);
+            outbuf[1] = i;
+
+            if(send_aibo_msg(aibodev->head_fd, outbuf) < 0)
+            {
+                PLAYER_ERROR("Failed to send head commands.");
+            }
+            else
+                printf("Message Sent\n");
+
+            // Send pan
+            p = outbuf;
+            memcpy(p, &panch, sizeof(panch));
+            //p+=1;
+            convertedFloat = *reinterpret_cast<long *>(&aibodev->pan);
+            // The Tekkotsu way
+            i = ((convertedFloat >> 24) & 0xff);
+            outbuf[4] = i;
+            i = ((convertedFloat >> 16) & 0xff);
+            outbuf[3] = i;
+            i = ((convertedFloat >> 8) & 0xff);
+            outbuf[2] = i;
+            i = (convertedFloat & 0xff);
+            outbuf[1] = i;
+
+            if(send_aibo_msg(aibodev->head_fd, outbuf) < 0)
+            {
+                PLAYER_ERROR("Failed to send head commands.");
+            }
+            else
+                printf("Message Sent\n");
+
+            // Send roll
+            p = outbuf;
+            memcpy(p, &rollch, sizeof(rollch));
+            //p+=1;
+            convertedFloat = *reinterpret_cast<long *>(&aibodev->roll);
+            // The Tekkotsu way
+            i = ((convertedFloat >> 24) & 0xff);
+            outbuf[4] = i;
+            i = ((convertedFloat >> 16) & 0xff);
+            outbuf[3] = i;
+            i = ((convertedFloat >> 8) & 0xff);
+            outbuf[2] = i;
+            i = (convertedFloat & 0xff);
+            outbuf[1] = i;
+
+            if(send_aibo_msg(aibodev->head_fd, outbuf) < 0)
+            {
+                PLAYER_ERROR("Failed to send head commands.");
+            }
+            else
+                printf("Message Sent\n");
+
+            // TODO: Call function aibo_head to send commands to aibo
+
+
+            return 0;
+        }
+
+        // JP: Changed this on 01/13/10 to return -1 from return 0.
+	return -1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main function for device thread
 void Aibo::Main() 
 {
+  //JP: Comments 
+  puts("In Aibo::Main()\n");
+
   // The main loop; interact with the device here
   for(;;)
   {
     // test if we are supposed to cancel
-    pthread_testcancel();
+    // JP: Commented this on 01/13/2010. Do we need it?
+    //pthread_testcancel();
 
     // Process incoming messages.  Aibo ::ProcessMessage() is
     // called on each message.
+    // JP: Comments
+    // printf("Going to process messages\n");
     this->ProcessMessages();
 
     // Interact with the device, and push out the resulting data, using
@@ -230,7 +382,9 @@ void Aibo::Main()
 		*/
 		
     // Sleep (you might, for example, block on a read() instead)
-    usleep(100000);
+
+    //sleep(1); // JP: I had it originally at 1. It worked on 0 but it was going back to 1 head position on pan
+    usleep(60000);
   }
 }
 
@@ -241,9 +395,9 @@ void Aibo::Main()
 extern "C" {
   int player_driver_init(DriverTable* table)
   {
-    puts("Aibo driver initializing");
+    puts("Adding Aibo driver to driver table");
     Aibo_Register(table);
-    puts("Aibo driver done");
+    puts("Aibo driver finished registering.  Now to initialize.");
     return(0);
   }
 }
