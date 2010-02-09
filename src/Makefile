@@ -1,4 +1,4 @@
-SRC = aibo_driver.cc aibo_driver.h aibo_comms.c aibo_comms.h 
+SRC = aibo_driver.cc aibo_driver.h aibo_comms.c aibo_comms.h unp.h 
 OBJLIBS = libAibo_Driver.so
 OBJS = aibo_driver.o aibo_comms.o 
 
