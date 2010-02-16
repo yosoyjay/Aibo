@@ -51,35 +51,35 @@ int aibo_sock(const char *server_ip, unsigned int server_port)
 {
 	int sockfd;
 	struct sockaddr_in servaddr;
-
+	
 	if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
-  	perror("Error creating socket");
+		perror("Error creating socket");
 		return -1;
 	}
-
-  bzero(&servaddr, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_port   = htons(server_port);
-
-  if (inet_pton(AF_INET, server_ip, &servaddr.sin_addr) <= 0){
-  	perror("Error with inet_pton");
+	
+	bzero(&servaddr, sizeof(servaddr));
+	servaddr.sin_family = AF_INET;
+	servaddr.sin_port   = htons(server_port);
+	
+	if (inet_pton(AF_INET, server_ip, &servaddr.sin_addr) <= 0){
+		perror("Error with inet_pton");
 		return -1;
 	}
-  if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0){
-  	perror("Error connecting to Aibo");
+	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0){
+		perror("Error connecting to Aibo");
 		return -1;
 	}
-  // JP: Added this on 01/15/2010 to disable Nagle's Algorithm . I had to include tcp.h , too.
-  // We need to confirm that these lines are working.
-  int flag = 1;
-  if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, (char *) &flag, sizeof(int)) < 0) {
-      perror("Error enabling TCP_NODELAY");
-  }
-  else
-      printf("TCP_NODELAY disabled");
-
-    sleep(1);
-
+	// JP: Added this on 01/15/2010 to disable Nagle's Algorithm . I had to include tcp.h , too.
+	// We need to confirm that these lines are working.
+	int flag = 1;
+	if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, (char *) &flag, sizeof(int)) < 0) {
+		perror("Error enabling TCP_NODELAY");
+	}
+	else{
+		printf("TCP_NODELAY disabled");
+	}
+	sleep(1);
+	
 	return sockfd;
 }
 
@@ -87,6 +87,7 @@ int aibo_sock(const char *server_ip, unsigned int server_port)
 int aibo_walk( aibo_comm_t* aibo, float x, float a)
 {
 	char command;
+	char* outbuf;
 	float forward, rotate;
 	forward = 0;
 	rotate = 0;
@@ -107,23 +108,8 @@ int aibo_walk( aibo_comm_t* aibo, float x, float a)
 		else
 			forward = 0.8;	
 		
-		char outbuf[5];
-        char * p = outbuf;
-        memcpy(p, &command, sizeof(command));
-        //p+=1;
-        long convertedFloat = *reinterpret_cast<long *>(&x);
-        // The Tekkotsu way
-        int i = ((convertedFloat >> 24) & 0xff);
-        outbuf[4] = i;
-        i = ((convertedFloat >> 16) & 0xff);
-        outbuf[3] = i;
-        i = ((convertedFloat >> 8) & 0xff);
-        outbuf[2] = i;
-        i = (convertedFloat & 0xff);
-        outbuf[1] = i;
-
+		outbuf = tekkotsu_command(command, forward);	
 		send_aibo_msg(aibo->walk_fd, outbuf);		
-		// send_walk_cmd( aibo, command, forward);
 	}
 
 	/*		
@@ -180,16 +166,40 @@ int aibo_walk( aibo_comm_t* aibo, float x, float a)
 	}	
 
 	//If not these should I write an error to Player?
-	return -1;
-	*/	
+	return -1;*/
+	return 0;
+		
 }// End aibo_walk()
 
 // Function that actually sends the commands to the Aibo
 int send_aibo_msg(int sockfd, const char *buffer){
-  if(send(sockfd, (const void *)buffer, strlen(buffer), 0) < 0)
+  if(send(sockfd, (const void *)buffer, strlen(buffer), 0) < 0){
+		perror("Error sending message to Aibo");		
 		return -1;
-	else
+  }
+  else{
 		return 0;
+  }
 }// End send_walk_cmd()
-	
 
+// Convert Command and Float to Tekkotstu friendly format
+char* tekkotsu_command(char command, float amount){
+
+        char outbuf[5];
+        char *p = outbuf;
+        memcpy(p, &command, sizeof(command));
+        //p+=1;
+        long convertedFloat = *reinterpret_cast<long *>(&amount);
+        // The Tekkotsu way
+        int i = ((convertedFloat >> 24) & 0xff);
+        outbuf[4] = i;
+        i = ((convertedFloat >> 16) & 0xff);
+        outbuf[3] = i;
+        i = ((convertedFloat >> 8) & 0xff);
+        outbuf[2] = i;
+        i = (convertedFloat & 0xff);
+        outbuf[1] = i;
+		p = outbuf;
+
+		return p;
+}
