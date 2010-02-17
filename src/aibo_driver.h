@@ -23,7 +23,6 @@
 #define AIBO_DRIVER_H_
 
 #include <unistd.h>
-
 #include <libplayercore/playercore.h>
 
 #include "aibo_comms.h"
@@ -34,39 +33,36 @@ class Aibo : public ThreadedDriver
 {
   public:
     
-	virtual int  MainSetup();
+    virtual int  MainSetup();
     virtual void MainQuit();
 
-    // Constructor; need that
+    // Constructor; 
     Aibo(ConfigFile* cf, int section);
 
     // This method will be invoked on each incoming message
-    int ProcessMessage(QueuePointer &resp_queue, player_msghdr * hdr,
-				void * data);
+    int ProcessMessage(QueuePointer &resp_queue, player_msghdr * hdr, void * data);
 
   private:
 
   	// Main function for device thread.
   	virtual void Main();
  
-	
 	// The Aibo object
 	aibo_comm_t *aibodev;	
 		
 	// Device Address for proxies in constructor
-		player_devaddr_t position_addr;
-		player_devaddr_t ptz_addr;
+	player_devaddr_t position_addr;
+	player_devaddr_t ptz_addr;
 
-		// Position2d proxy variables
-		player_position2d_cmd_vel_t position_cmd; // JP: Jesse, are you using this variable?
+	// Position2d proxy variables
+	player_position2d_cmd_vel_t position_cmd; // Used in ProcessMessage() 
 
-		// Ports for communication
-		const char *ip;
-		int main_com_port;						// Main - 10020
-		int walk_com_port;						// Position2d - 10050	
-		int head_com_port;						// PTZ - 10052
-		int estop_com_port;						// ESteop - 10053
-
+	// Ports for communication
+	const char *ip;
+	int main_com_port;						// Main - 10020
+	int walk_com_port;						// Position2d - 10050	
+	int head_com_port;						// PTZ - 10052
+	int estop_com_port;						// ESteop - 10053
 };
 
 Driver* Aibo_Init(ConfigFile* cf, int section);

@@ -23,9 +23,6 @@
 #ifndef	AIBO_COMMS_H_
 #define	AIBO_COMMS_H_
 
-//This is completely made up.  Fix this.
-#define IP_SIZE 512
-
 #include <libplayercore/playercore.h>
 #include "unp.h"
 
@@ -34,7 +31,6 @@
 
 typedef struct
 {
-	// Aibo's IP... fix IP_SIZE I just made it up... 
 	char *ip;	//IP address
 	
 	//socket information
@@ -58,6 +54,9 @@ typedef struct
 	double tilt;
     double roll;
 
+	// Tekkotsu command
+	char* tek_com;
+
 } aibo_comm_t;
 
 typedef struct
@@ -80,5 +79,8 @@ int aibo_walk( aibo_comm_t* aibo, float position_cmd_vel_px, float position_cmd_
 
 // Send commands to the Aibo
 int send_aibo_msg(int sockfd, const char *buffer);
+
+// function to create Tekkotsu friendly buffer
+char* tekkotsu_command(char command, float amount);
 
 #endif
