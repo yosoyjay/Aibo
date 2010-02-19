@@ -1,3 +1,5 @@
 *.gch
 *.o
 *.swp
+src/nbproject/*
+src/player_driver/*
