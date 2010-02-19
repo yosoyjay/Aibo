@@ -81,6 +81,6 @@ int aibo_walk( aibo_comm_t* aibo, float position_cmd_vel_px, float position_cmd_
 int send_aibo_msg(int sockfd, const char *buffer);
 
 // function to create Tekkotsu friendly buffer
-char* tekkotsu_command(char command, float amount);
+int tekkotsu_command(char *buffer, char command, float amount);
 
 #endif

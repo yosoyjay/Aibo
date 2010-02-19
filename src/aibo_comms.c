@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define _AIBO_ASM_ 1
+
 aibo_comm_t* aibo_create(const char *ip)
 {
 	//JP: Comments
@@ -87,7 +89,7 @@ int aibo_sock(const char *server_ip, unsigned int server_port)
 int aibo_walk( aibo_comm_t* aibo, float x, float a)
 {
 	char command;
-	char* outbuf;
+	char outbuf[5];
 	float forward, rotate;
 	forward = 0;
 	rotate = 0;
@@ -108,7 +110,7 @@ int aibo_walk( aibo_comm_t* aibo, float x, float a)
 		else
 			forward = 0.8;	
 		
-		outbuf = tekkotsu_command(command, forward);	
+		tekkotsu_command(outbuf, command, forward);	
 		send_aibo_msg(aibo->walk_fd, outbuf);		
 	}
 
@@ -183,23 +185,30 @@ int send_aibo_msg(int sockfd, const char *buffer){
 }// End send_walk_cmd()
 
 // Convert Command and Float to Tekkotstu friendly format
-char* tekkotsu_command(char command, float amount){
+int tekkotsu_command(char *buffer, char command, float amount){
 
-        char outbuf[5];
-        char *p = outbuf;
-        memcpy(p, &command, sizeof(command));
+#ifdef _AIBO_ASM_
+	asm ( "bswap %%eax\t\n"
+	    : "+a"(amount):);
+
+	memcpy(&buffer[1], &amount, sizeof(amount));
+	buffer[0] = command;
+#else
+	buffer[0] = command;
         //p+=1;
         long convertedFloat = *reinterpret_cast<long *>(&amount);
         // The Tekkotsu way
         int i = ((convertedFloat >> 24) & 0xff);
-        outbuf[4] = i;
+        buffer[4] = i;
         i = ((convertedFloat >> 16) & 0xff);
-        outbuf[3] = i;
+        buffer[3] = i;
         i = ((convertedFloat >> 8) & 0xff);
-        outbuf[2] = i;
+        buffer[2] = i;
         i = (convertedFloat & 0xff);
-        outbuf[1] = i;
-		p = outbuf;
+        buffer[1] = i;
 
-		return p;
+#endif
+
+	return 0;
+
 }
