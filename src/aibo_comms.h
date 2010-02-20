@@ -31,38 +31,38 @@
 
 typedef struct
 {
-	char *ip;	//IP address
-	
-	//socket information
-	struct sockaddr_in servaddr;
-	//socketlen_t len;
-	
-	// File Descriptors for socket.
-	int main_fd;
-	int walk_fd;
-	int head_fd;
-	int estop_fd;
+    char *ip;	//IP address
 
-	// Position2d variables
-	double vx;					
-	double vy;
-	double va;
+    //socket information
+    struct sockaddr_in servaddr;
+    //socketlen_t len;
 
-	// JP: Added this on 01/12/2010
-	// Ptz variables
-	double pan;
-	double tilt;
+    // File Descriptors for socket.
+    int main_fd;
+    int walk_fd;
+    int head_fd;
+    int estop_fd;
+
+    // Position2d variables
+    double vx;
+    double vy;
+    double va;
+
+    // JP: Added this on 01/12/2010
+    // Ptz variables
+    double pan;
+    double tilt;
     double roll;
 
-	// Tekkotsu command
-	char* tek_com;
+    // Tekkotsu command
+    char* tek_com;
 
 } aibo_comm_t;
 
 typedef struct
 {
-	char command;
-	float amount;
+    char command;
+    float amount;
 } comm_t;
 
 // Create Aibo
