@@ -9,7 +9,7 @@ all: $(OBJLIBS)
 
 $(OBJS): $(SRC)
 	echo "Building the AiboDriver plugin..."
-	$(CXX) -Wall -fpic -I $(INCLUDE) -g3 -c $(SRC)
+	$(CXX) -Wall -g -m32 -fpic -I $(INCLUDE) -g3 -c $(SRC)
 
 $(OBJLIBS): $(OBJS)
 	$(CXX) -shared -nostartfiles -L$(LIB) -lplayercore.3.0 -lplayercommon -o $@ $^
