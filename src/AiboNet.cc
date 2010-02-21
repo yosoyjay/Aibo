@@ -1,8 +1,9 @@
-#include "aibo_net.h"
+#include "AiboNet.h"
+
+#define DATA_SIZE 5
 
 AiboNet::AiboNet(char aibo_ip[], unsigned int aibo_port)
 {
-
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("Error creating socket");
@@ -25,7 +26,6 @@ AiboNet::AiboNet(char aibo_ip[], unsigned int aibo_port)
     // JP: Added this on 01/15/2010 to disable Nagle's Algorithm . I had to include tcp.h , too.
 
     int flag = 1;
-
     if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, (void *) &flag, sizeof(int)) < 0)
     {
        perror("Error enabling TCP_NODELAY");
@@ -38,12 +38,12 @@ AiboNet::AiboNet(char aibo_ip[], unsigned int aibo_port)
 int AiboNet::send_data(char command, float magnitude)
 {
     // Pack data into a 5-byte array
-    buffer = new char[5];
+    buffer = new char[DATA_SIZE];
     float *p = reinterpret_cast<float *>(&buffer[1]);
     buffer[0] = command;
     *p = magnitude;
 
-    if(send(sockfd, (const void *)buffer, 5, 0) < 0)
+    if(send(sockfd, (const void *)buffer, DATA_SIZE, 0) < 0)
     {
         perror("Error sending message to Aibo");
         return -1;
@@ -60,13 +60,13 @@ int AiboNet::send_data(char command[], float magnitude[], int size)
     int j = 0;
     
     // Pack data into a size byte array
-    for(int i = 0; i < size; j += 5, ++i){
+    for(int i = 0; i < size; j += DATA_SIZE, ++i){
 	float *p = reinterpret_cast<float *>(&buffer[j+1]);
 	buffer[j] = command[i];
 	*p = magnitude[i];
     }
 
-    if(send(sockfd, (const void *)buffer, (size*5), 0) < 0)
+    if(send(sockfd, (const void *)buffer, (size*DATA_SIZE), 0) < 0)
     {
         perror("Error sending message to Aibo");
         return -1;

@@ -1,9 +1,10 @@
-#ifndef AIBO_NET
-#define AIBO_NET
+#ifndef AIBO_NET_H
+#define AIBO_NET_H
 
 #include <netinet/tcp.h>
 #include "unp.h"
 
+//! \breif Class responsible for low level network communications
 class AiboNet
 {
 public:
