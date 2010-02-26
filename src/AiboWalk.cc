@@ -6,9 +6,10 @@ AiboWalk::AiboWalk()
 
 }
 
-void AiboWalk::connect(char ip_addr[]){
+void AiboWalk::connect(char ip_addr[])
+{
 
-  aibolink = new AiboNet(ip_addr, AIBO_WALK_PORT);
+    aibolink = new AiboNet(ip_addr, AIBO_WALK_PORT);
 
 }
 
@@ -63,6 +64,6 @@ int AiboWalk::rotate_counter_clockwise(float magnitude)
 AiboWalk::~AiboWalk()
 {
 
-  delete aibolink;
+    delete aibolink;
 
 }

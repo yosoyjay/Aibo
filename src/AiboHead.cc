@@ -5,9 +5,10 @@ AiboHead::AiboHead()
 
 }
 
-void AiboHead::connect(char ip_addr[]){
+void AiboHead::connect(char ip_addr[])
+{
 
-  aibolink = new AiboNet(ip_addr, AIBO_HEAD_PORT);
+    aibolink = new AiboNet(ip_addr, AIBO_HEAD_PORT);
 
 }
 
@@ -56,6 +57,6 @@ int AiboHead::pitch(float magnitude)
 AiboHead::~AiboHead()
 {
 
-  delete aibolink;
+    delete aibolink;
 
 }

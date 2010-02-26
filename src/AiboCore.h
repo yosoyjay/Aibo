@@ -3,6 +3,7 @@
 
 #include "AiboWalk.h"
 #include "AiboHead.h"
+#include "AiboCam.h"
 
 class AiboCore
 {
@@ -15,6 +16,7 @@ public:
 
     AiboWalk walk;
     AiboHead head;
+    AiboCam cam;
 
 private:
     static int aibo_count;

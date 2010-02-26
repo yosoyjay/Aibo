@@ -26,9 +26,10 @@ AiboNet::AiboNet(char aibo_ip[], unsigned int aibo_port)
     // JP: Added this on 01/15/2010 to disable Nagle's Algorithm . I had to include tcp.h , too.
 
     int flag = 1;
+
     if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, (void *) &flag, sizeof(int)) < 0)
     {
-       perror("Error enabling TCP_NODELAY");
+        perror("Error enabling TCP_NODELAY");
     }
 
     sleep(1);
@@ -58,12 +59,13 @@ int AiboNet::send_data(char command[], float magnitude[], int size)
 {
     buffer = new char[size*5];
     int j = 0;
-    
+
     // Pack data into a size byte array
-    for(int i = 0; i < size; j += DATA_SIZE, ++i){
-	float *p = reinterpret_cast<float *>(&buffer[j+1]);
-	buffer[j] = command[i];
-	*p = magnitude[i];
+    for(int i = 0; i < size; j += DATA_SIZE, ++i)
+    {
+        float *p = reinterpret_cast<float *>(&buffer[j+1]);
+        buffer[j] = command[i];
+        *p = magnitude[i];
     }
 
     if(send(sockfd, (const void *)buffer, (size*DATA_SIZE), 0) < 0)
@@ -77,7 +79,13 @@ int AiboNet::send_data(char command[], float magnitude[], int size)
     }
 }
 
-AiboNet::~AiboNet(){
-  close(sockfd);
-  delete [] buffer;
+char *AiboNet::read(int count)
+{
+
+}
+
+AiboNet::~AiboNet()
+{
+    close(sockfd);
+    delete [] buffer;
 }
