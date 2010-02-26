@@ -12,10 +12,10 @@ void AiboCam::connect(char ip_addr[])
 
 }
 
-int AiboCam::recieve_image()
+char *AiboCam::recieve_image()
 {
 
-    return sizeof(image_packet);
+  aibolink->read(6);
 
 }
 

@@ -1,6 +1,7 @@
 #include "AiboNet.h"
 
-#define DATA_SIZE 5
+const int DATA_SIZE = 5;
+const int MAX_BUFF_SIZE = 10000;
 
 AiboNet::AiboNet(char aibo_ip[], unsigned int aibo_port)
 {
@@ -57,7 +58,7 @@ int AiboNet::send_data(char command, float magnitude)
 
 int AiboNet::send_data(char command[], float magnitude[], int size)
 {
-    buffer = new char[size*5];
+    buffer = new char[size*DATA_SIZE];
     int j = 0;
 
     // Pack data into a size byte array
@@ -81,7 +82,22 @@ int AiboNet::send_data(char command[], float magnitude[], int size)
 
 char *AiboNet::read(int count)
 {
+  static char buf[MAX_BUFF_SIZE];
+  char ch[5];
+  bzero(buf, MAX_BUFF_SIZE);
+  int numbytes;
 
+  for (int i = 0; i < count; ++i){
+
+    numbytes = recv(sockfd, ch, 1, 0);
+    if (numbytes == 1){
+      buf[i] = ch[0];
+    }else{
+      i--;
+    }
+  }
+   
+  return buf;
 }
 
 AiboNet::~AiboNet()

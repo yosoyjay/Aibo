@@ -5,7 +5,7 @@
 
 const int AIBO_CAM_PORT = 10011;
 
-struct image_packet
+struct image_packet // 80-bytes
 {
     char header[4];
     char image_id[14];
@@ -29,7 +29,7 @@ class AiboCam
 public:
     AiboCam();
     void connect(char ip_addr[]);
-    int recieve_image();
+    char *recieve_image();
     ~AiboCam();
 
 private:
