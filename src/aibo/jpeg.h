@@ -43,7 +43,7 @@ int
 jpeg_compress(char *dst, char *src, int width, int height, int dstsize, int quality);
 
 void
-jpeg_decompress(unsigned char *dst, int dst_size, unsigned char *src, int src_size);
+jpeg_decompressPyro(unsigned char *dst, int dst_size, unsigned char *src, int src_size);
 
 void
 jpeg_decompress_from_file(unsigned char *dst, char *file, int size, int *width, int *height);

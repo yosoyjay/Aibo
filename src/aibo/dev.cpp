@@ -13,7 +13,7 @@ dev::dev(int wi, int he, int de) {
 }
 
 dev::~dev() {
-  delete [] image;
+  // delete [] image;
 }
 
 void dev::setRGB(int r, int g, int b) {
@@ -31,7 +31,7 @@ int dev::initialize(int wi, int he, int de, int r, int g, int b) {
   for (int d = 0; d < depth; d++){
     // set offsets for RGB
     rgb[d] = rgb_order[d];	
-	}
+  }
 
   image = new unsigned char [width * height * depth];
   memset(image, 0, width * height * depth);

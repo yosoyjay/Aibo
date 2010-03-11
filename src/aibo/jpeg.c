@@ -1,4 +1,4 @@
-// From Player/Stage and JPEG Standards
+// From Player/Stage and JPEG Standards...
 
 #include <assert.h>
 #include <stdio.h>
@@ -69,7 +69,7 @@ GLOBAL(void)
 jpeg_memory_dest(j_compress_ptr cinfo, JOCTET *buffer,int bufsize)
 {
   mem_dest_ptr dest;
-  if (cinfo->dest == NULL) {    /* first time for this JPEG object? */
+  if (cinfo->dest == NULL) {    /* first time for this JPEG object? 0248 prepare_range_limit_table (j_decompress_ptr cinfe*/
     cinfo->dest = (struct jpeg_destination_mgr *)
       (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_PERMANENT,
                                   sizeof(memory_destination_mgr));
@@ -83,6 +83,35 @@ jpeg_memory_dest(j_compress_ptr cinfo, JOCTET *buffer,int bufsize)
   dest->pub.term_destination = term_destination;
 }
 
+LOCAL(void)
+prepare_range_limit_table (j_decompress_ptr cinfo)
+/* Allocate and fill in the sample_range_limit table */
+{
+  JSAMPLE * table;
+  int i;
+
+  table = (JSAMPLE *)
+    (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_IMAGE,
+        (5 * (MAXJSAMPLE+1) + CENTERJSAMPLE) * sizeof(JSAMPLE));
+  table += (MAXJSAMPLE+1);  /* allow negative subscripts of simple table */
+  cinfo->sample_range_limit = table;
+  /* First segment of "simple" table: limit[x] = 0 for x < 0 */
+  memset(table - (MAXJSAMPLE+1), 0, (MAXJSAMPLE+1) * sizeof(JSAMPLE));
+  /* Main part of "simple" table: limit[x] = x */
+  for (i = 0; i <= MAXJSAMPLE; i++)
+    table[i] = (JSAMPLE) i;
+  table += CENTERJSAMPLE;   /* Point to where post-IDCT table starts */
+  /* End of simple table, rest of first half of post-IDCT table */
+  for (i = CENTERJSAMPLE; i < 2*(MAXJSAMPLE+1); i++)
+    table[i] = MAXJSAMPLE;
+  /* Second half of post-IDCT table */
+  memset(table + (2 * (MAXJSAMPLE+1)),0,
+      (2 * (MAXJSAMPLE+1) - CENTERJSAMPLE) * sizeof(JSAMPLE));
+  memcpy(table + (4 * (MAXJSAMPLE+1) - CENTERJSAMPLE),
+        cinfo->sample_range_limit, CENTERJSAMPLE * sizeof(JSAMPLE));
+}
+
+ 
 int
 jpeg_compress(char *dst, char *src, int width, int height, int dstsize, int quality)
 {
@@ -182,7 +211,7 @@ jpeg_memory_src(j_decompress_ptr cinfo, unsigned char *ptr, size_t size)
 }
 
 void
-jpeg_decompress(unsigned char *dst, int dst_size, 
+jpeg_decompressPyro(unsigned char *dst, int dst_size, 
 		unsigned char *src, int src_size) {
   struct jpeg_decompress_struct cinfo;
   //struct jpeg_error_mgr jerr;
@@ -208,10 +237,14 @@ jpeg_decompress(unsigned char *dst, int dst_size,
   *h = cinfo.output_height;
   */
   line_size = cinfo.output_width*cinfo.output_components;
-  assert(line_size * cinfo.output_height <= dst_size);
+  assert(line_size * (int) cinfo.output_height <= dst_size);
+  /* Ripped this function from jpeg library in an attempt
+   * to prevent sample_image_limit from overflowing
+   */ 
+  prepare_range_limit_table(&cinfo);
 
   dstcur = dst;
-  for (y = 0; y < cinfo.output_height ; y++) {
+  for (y = 0; y < (int)cinfo.output_height; y++) {
     jpeg_read_scanlines(&cinfo,(JSAMPARRAY) &dstcur,1);
     dstcur += line_size;
   }
@@ -241,7 +274,7 @@ jpeg_decompress_from_file(unsigned char *dst, char *file, int size, int *w, int 
   line_size = cinfo.output_width*cinfo.output_components;
 
   dstcur = dst;
-  for (y = 0; y < cinfo.output_height ; y++) {
+  for (y = 0; y < (int) cinfo.output_height ; y++) {
     jpeg_read_scanlines(&cinfo,(JSAMPARRAY) &dstcur,1);
     dstcur += line_size;
   }

@@ -6,13 +6,13 @@
 #include <stdio.h>
 #define MAXBUFSIZE 10000
 
-FakeSocket::FakeSocket(char *buf) {
+CamFakeSocket::CamFakeSocket(char *buf) {
   printf("here we are!\n");
   buffer = buf; // memory allocated in Socket
   current = 0;
 }
 
-char *FakeSocket::read(int cnt) {
+char *CamFakeSocket::read(int cnt) {
   static char retval[MAXBUFSIZE];
   strncpy(retval, &buffer[current], cnt);
   retval[cnt + 1] = '\0';
@@ -20,10 +20,10 @@ char *FakeSocket::read(int cnt) {
   return retval;
 }
 
-char *FakeSocket::readUntil(char stop) {
+char *CamFakeSocket::readUntil(char stop) {
   static char retval[MAXBUFSIZE];
-  int numbytes = 0;
-  char ch[5];
+  //int numbytes = 0;
+  //char ch[5];
   int pos = 0;
   while (buffer[current] != stop && pos < 50) { // no text is > 50
     retval[pos++] = buffer[current++];
@@ -33,7 +33,7 @@ char *FakeSocket::readUntil(char stop) {
   return retval;
 }
 
-Socket::Socket(const char *hostname, int port, int tcp) {
+CamSocket::CamSocket(const char *hostname, int port, int tcp) {
   char buf[MAXBUFSIZE];
   char buf2[MAXBUFSIZE];
   bzero(buf2, MAXBUFSIZE);
@@ -75,7 +75,8 @@ Socket::Socket(const char *hostname, int port, int tcp) {
   }
 }
 
-char *Socket::read(int cnt) {
+
+char *CamSocket::read(int cnt) {
   static char buf[MAXBUFSIZE];
   //struct timeval timeVal;
   //fd_set readSet;
@@ -100,7 +101,8 @@ char *Socket::read(int cnt) {
     if (numbytes == 1) {
       //printf("read: %d ", (int)ch[0]);
       buf[i] = ch[0];
-    } else {
+    } 
+    else {
       i--;
     }
     //    } else {
@@ -112,11 +114,40 @@ char *Socket::read(int cnt) {
   return buf;
 }
 
-int Socket::write(char *message) {
+/*
+char *Socket::read(int cnt) {
+  	static char buf[MAXBUFSIZE];
+  	char ch[64];
+  	bzero(buf, MAXBUFSIZE);
+
+	int p = 0; 
+  	int read = 0;
+	int count = 1;
+  	while(cnt > 0){
+		printf("read number %d\n", count);
+		read = recv(sock, ch, 64, 0);
+		for(int i = 0; i < read; i++){
+			printf("%x:", ch[i]);
+			buf[p++] = ch[i];
+			printf("%x ",buf[p-1
+			
+			]);
+		}
+		printf("\n");
+		cnt -= read;
+		count++;
+	}
+  
+  printf("\nread %d bytes: ", p);
+  return buf;
+}
+*/
+
+int CamSocket::write(char *message) {
   return send(sock, message, strlen(message), 0);
 }
 
-char *Socket::readUntil(char stop) {
+char *CamSocket::readUntil(char stop) {
   static char retval[MAXBUFSIZE];
   int numbytes = 0;
   char ch[5];
@@ -131,4 +162,7 @@ char *Socket::readUntil(char stop) {
   return retval;
 }
 
-
+CamSocket::~CamSocket(){
+	// Just close the socket
+	close(sock);
+}

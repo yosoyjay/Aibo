@@ -6,9 +6,10 @@
 #include <netdb.h>
 #include <sys/socket.h> 
 
-class Socket {
+class CamSocket {
  public:
-  Socket(const char *hostname, int port, int tcp);
+  CamSocket(const char *hostname, int port, int tcp);
+  ~CamSocket();
   char *read(int cnt);
   char *readUntil(char stop);
   int write(char *message);
@@ -19,9 +20,9 @@ class Socket {
   struct hostent *host_id;
 };
 
-class FakeSocket {
+class CamFakeSocket {
  public:
-  FakeSocket(char *buf);
+  CamFakeSocket(char *buf);
   char *read(int cnt);
   char *readUntil(char stop);
  private:

@@ -19,7 +19,7 @@ FC=
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-MacOSX
 CND_CONF=Default
 CND_DISTDIR=dist
 
