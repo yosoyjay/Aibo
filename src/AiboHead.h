@@ -16,6 +16,7 @@ public:
     int right(float magnitude);
     int pitch(float magnitude);
     int yaw(float magnitude);
+	int move(float pan, float tilt, float zoom);
     ~AiboHead();
 
 private:

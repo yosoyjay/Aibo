@@ -2,6 +2,7 @@
 #define AIBO_WALK_H
 
 #include "AiboNet.h"
+#include <cmath>
 
 const int AIBO_WALK_PORT = 10050;
 
@@ -16,6 +17,7 @@ public:
     int strafe_left(float magnitude);
     int rotate_clockwise(float magnitude);
     int rotate_counter_clockwise(float magnitude);
+    int walk(float px, float py, float pa);
     ~AiboWalk();
 
 private:

@@ -2,20 +2,6 @@
 
 int AiboCore::aibo_count = 0;
 
-/*  Appears not work with Player's ThreadedDriver
-AiboCore::AiboCore() : ThreadedDriver(cf, section)
-{
-    ++AiboCore::aibo_count;
-}
-
-AiboCore::AiboCore(const char *ip_addr) : ThreadedDriver(cf, section)
-{
-    walk.connect(ip_addr);
-    head.connect(ip_addr);
-    //cam.connect(ip_addr);
-    ++AiboCore::aibo_count;
-}*/
-
 void AiboCore::connect(char *ip_addr)
 {
 
@@ -58,10 +44,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
     : ThreadedDriver(cf, section)
 {
 
-	//Create aibo device with it's ip as the argument
-	//aibodev = this;
-
-
+	// Needed to add interfaces
 	memset(&position_addr, 0, sizeof(player_devaddr_t));
   	memset(&ptz_addr, 0, sizeof(player_devaddr_t));
 	memset(&camera_addr, 0, sizeof(player_devaddr_t));
@@ -116,18 +99,14 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
 	
   	ip = cf->ReadString(section, "ip", "192.168.2.155"); 					// 155 is default if non is provided
 	printf("Using IP: %s \n", ip);
+	protocol = cf->ReadInt(section, "protocol", 1);
 
 	// Create head, walk, cam objects
-	//walk.connect(ip);
-    //head.connect(ip);
+	walk.connect(ip);
+    head.connect(ip);
     //cam.connect(ip);
     ++AiboCore::aibo_count;
 
-	//  Now held in AiboCore, AiboWalk, and AiboHead
-	main_com_port = cf->ReadInt(section, "mainPort", 10020);	    		// Main port
-	//walk_com_port = cf->ReadInt(section, "walkRemotePort", 10050);  		// Walk port
-	//head_com_port = cf->ReadInt(section, "headRemotePort", 10052);  		// Head port
-	estop_com_port = cf->ReadInt(section, "estopPort", 10053);      		// Estop Port
 	rawCam_com_port = cf->ReadInt(section, "rawCamPort", 10011);   			// Seg Cam Port 10012, raw 10011
 	
 }
@@ -137,61 +116,18 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
 int AiboCore::MainSetup()
 { 
 	puts("Aibo driver initializing.");
-	sleep(1);
-
-	if((main_fd = aibo_sock(ip, main_com_port)) < 0){
-		PLAYER_ERROR("Error creating main socket");
-		SetError(-1);
-	}
-	puts("Main socket created\n");
-	sleep(1);
-
-	if((estop_fd = aibo_sock(ip, estop_com_port)) < 0){
-		PLAYER_ERROR("Error creating main socket");
-		SetError(-1);
-	}	
-	puts("Estop socket created\n");
-	sleep(1);
 	
-    if(send_aibo_msg(main_fd, "!root \"TekkotsuMon\" \"Head Remote Control\"\r\n") < 0){
-		PLAYER_ERROR("Error opening Head socket on Aibo");
-		SetError(-1);
-	}
-	sleep(1);
-	printf("head open");
-
-	if(send_aibo_msg(main_fd, "!root \"TekkotsuMon\" \"Walk Remote Control\"\r\n") < 0){
-		PLAYER_ERROR("Error opening Walk socket on Aibo");
-		SetError(-1);
-	}
-	sleep(1);
-	printf("walk open");
-	
-	if(send_aibo_msg(main_fd, "!root \"TekkotsuMon\" \"Raw Cam Server\"\r\n") < 0){
-		PLAYER_ERROR("Error starting Raw Cam Server on Aibo");
-		SetError(-1);
-	}
-	sleep(1);
-	
-	send_aibo_msg(main_fd, "!set vision.transport=tcp\r\n");
-	
-	if(send_aibo_msg(estop_fd, "start\n") < 0){
-		PLAYER_ERROR("Error turning off EStop on Aibo");
-		SetError(-1);
-	}
-	sleep(1);
-
-	close(main_fd);
-
-	cam = new AiboCam(ip, rawCam_com_port, 1);
+	cam = new AiboCam(ip, rawCam_com_port, protocol);
 	sleep(1); // JP added this on 01/13/2010
 
 	// Message for checking status:
 	puts("Aibo driver ready");
 
+	// Initialize mutex for walking
+	pthread_mutex_init(&walk_mutex, NULL);	
+	
  	// Starts the main device thread.  Creates a new thread and executes
 	// Aibo::Main() which contains the main loop for the driver.
-	sleep(1);
 	StartThread();
 
   	return 0;
@@ -204,14 +140,9 @@ void AiboCore::MainQuit()
 {
 	puts("Shutting Aibo driver down");
 	StopThread();
-	// We need to set this up so that we don't have to restart the damn aibo everytime.
-	//close(aibodev->main_fd);
-  	//close(aibodev->walk_fd);
-	//close(aibodev->head_fd);
-	//close(aibodev->estop_fd);
-	//close(aibodev->segCam_fd);	
-	//aibodev->cam.~AiboCam();
-	
+	//  Need to put destructors here?
+
+	pthread_mutex_destroy(&walk_mutex);	
 	puts("Aibo driver has been shutdown");
 	return;
 }
@@ -223,24 +154,21 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void 
 	// Catch position2d
 	if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL, position_addr))
 	{
-		//Call the forward function should take an argument
-		//Need to figure out how to seperate functions for forward,
-		//strafe, and rotate.  Look at the data variable.
-		//printf("Processing message for position2d\n");	
+
 		assert(hdr->size == sizeof(player_position2d_cmd_vel_t));
 		position_cmd = *(player_position2d_cmd_vel_t *) data;
 
-		// printf("Sending walking commands %f %f\n", position_cmd.vel.px, position_cmd.vel.pa);
-		
-		// Really these two should be in aibo_walk, but there is some sort of problem with the fd.
-		// Using the Sockets object could fix this in one fell swoop
-	
-		walk.forward(position_cmd.vel.px);
+		walk.walk(position_cmd.vel.px, position_cmd.vel.py, position_cmd.vel.pa);
+
 		return 0;
 	} 
 	// Catch PTZ
 	else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_PTZ_CMD_STATE, ptz_addr))
     {
+		assert(hdr->size == sizeof(player_ptz_cmd_t));
+		head_cmd = *(player_ptz_cmd_t *) data;
+
+		head.move(head_cmd.pan, head_cmd.tilt, head_cmd.zoom);
 
 		return 0;
 	}
@@ -252,18 +180,19 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void 
 // Main function for device thread
 void AiboCore::Main() 
 {
-	puts("In main");
 	// Preparation for Camera interface 
+	cam->updateMMap(1);
+	
 	player_camera_data_t camdata;
 	memset(&camdata, 0, sizeof(camdata));
 
-	camdata.width = 104;
-	camdata.height = 80;    
+	camdata.width = cam->getWidth();
+	camdata.height = cam->getHeight();    
 	camdata.fdiv = 1;
 	camdata.bpp = 24;
 	camdata.format = PLAYER_CAMERA_FORMAT_RGB888;
 	camdata.compression = PLAYER_CAMERA_COMPRESS_RAW;
-	camdata.image_count = 104*80*3;
+	camdata.image_count = camdata.width*camdata.height*3;
 
 	int picSize;
 
@@ -271,24 +200,21 @@ void AiboCore::Main()
     	// Test if we are supposed to cancel.  Need for proper shutdown of the thread
     	pthread_testcancel();
 
-  		// Interact with the device, and push out the resulting data, using
-	  	// Driver::Publish();
-
-		//  This is used to publish position2d data
+		//  This is used to publish position2d data need PTZ as well
 		player_position2d_data_t posData;
 		memset(&posData, 0, sizeof(posData));		
 	
-		//posData.vel.px = vx;
-		//posData.vel.py = aibodev->vy;
-		//posData.vel.pa = aibodev->va;
+		posData.vel.px = position_cmd.vel.px;
+		posData.vel.py = position_cmd.vel.py;
+		posData.vel.pa = position_cmd.vel.pa;
 	
 		Publish(position_addr, PLAYER_MSGTYPE_DATA, PLAYER_POSITION2D_DATA_STATE, 
 				(void*) &posData, sizeof(posData), NULL);
 		
 	
 		// Update Camera data returns size of image
+		// 1 indicates that it decompresses the image
     	picSize = cam->updateMMap(1);
-		//printf("pic size is %d\n", picSize);
 	
 		// Allocate space for image or resize allocated space	
 		if( camdata.image == NULL){
@@ -310,8 +236,10 @@ void AiboCore::Main()
 				(void*) &camdata, sizeof(camdata), NULL);   
 	
 			
-		ProcessMessages();	
-		usleep(25000);
+		ProcessMessages();
+		// Driver manual and experience suggest that it's advantageous to sleep
+		// so that Player doesn't get bogged down with Messages in the while loop.
+		usleep(25000);	
 	}
   
   	free(camdata.image);
