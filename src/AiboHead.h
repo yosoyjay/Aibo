@@ -9,7 +9,7 @@ class AiboHead
 {
 public:
     AiboHead();
-    void connect(char ip_addr[]);
+    void connect(const char ip_addr[]);
     int up(float magnitude);
     int down(float magnitude);
     int left(float magnitude);

@@ -9,8 +9,8 @@ class AiboCore
 {
 public:
     AiboCore();
-    AiboCore(char *ip_addr);
-    void connect(char *ip_addr);
+    AiboCore(const char ip_addr[]);
+    void connect(const char ip_addr[]);
     int count();
     ~AiboCore();
 
@@ -20,7 +20,6 @@ public:
 
 private:
     static int aibo_count;
-    //id_array_struct
 
 };
 

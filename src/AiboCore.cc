@@ -7,7 +7,7 @@ AiboCore::AiboCore()
     ++AiboCore::aibo_count;
 }
 
-AiboCore::AiboCore(char *ip_addr)
+AiboCore::AiboCore(const char ip_addr[])
 {
     walk.connect(ip_addr);
     head.connect(ip_addr);
@@ -15,7 +15,7 @@ AiboCore::AiboCore(char *ip_addr)
     ++AiboCore::aibo_count;
 }
 
-void AiboCore::connect(char *ip_addr)
+void AiboCore::connect(const char ip_addr[])
 {
 
     walk.connect(ip_addr);

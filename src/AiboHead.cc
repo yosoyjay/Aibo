@@ -5,7 +5,7 @@ AiboHead::AiboHead()
 
 }
 
-void AiboHead::connect(char ip_addr[])
+void AiboHead::connect(const char ip_addr[])
 {
 
     aibolink = new AiboNet(ip_addr, AIBO_HEAD_PORT);

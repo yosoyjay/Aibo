@@ -6,7 +6,7 @@ AiboWalk::AiboWalk()
 
 }
 
-void AiboWalk::connect(char ip_addr[])
+void AiboWalk::connect(const char ip_addr[])
 {
 
     aibolink = new AiboNet(ip_addr, AIBO_WALK_PORT);
