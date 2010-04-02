@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><!--
+##################################################################
+######################   Tekkotsu config   #######################
+##################################################################
+#########################   $Name: tekkotsu-4_0-branch $   ##########################
+#####################   $Revision: 1.2.4.1 $   ######################
+################   $Date: 2009/02/06 11:19:34 $   ################
+##################################################################
+
+This is an XML-based format using the Property List (plist) layout.
+
+See tekkotsu.xml for format documentation.
+
+This file contains overrides for settings that should be applied when running in 
+the simulator.  This is not a complete list of available parameters, just those 
+which should be redefined.
+
+These are not settings which control the simulator itself, these are simply 
+different values than those which are normally applied when running on the 
+robot.  The simulator has its own set of configuration parameters, by default 
+stored in 'simulator.plist' in the same directory as the simulator executable.
+-->
+
+<!--======== vision ========-->
+<key>vision</key> <dict>
+	<!--======== rawcam ========-->
+	<key>rawcam</key> <dict>
+		<!--compression: the type of compression to apply the image
+		Value is one of: { none | jpeg } -->
+		<key>compression</key> <string>none</string>
+		
+		<!--transport: the IP protocol to use when sending data-->
+		<key>transport</key> <string>TCP</string>
+		
+		<!--uv_skip: resolution level to transmit uv channel at when using 'color' encoding mode-->
+		<key>uv_skip</key> <integer>1</integer>
+		
+		<!--y_skip: resolution level to transmit y channel
+		Also used as the resolution level when in single-channel encoding mode -->
+		<key>y_skip</key> <integer>1</integer>
+	</dict>
+	
+	<!--======== segcam ========-->
+	<key>segcam</key> <dict>
+		<!--transport: the IP protocol to use when sending data-->
+		<key>transport</key> <string>TCP</string>
+	</dict>
+</dict>
+</dict></plist>

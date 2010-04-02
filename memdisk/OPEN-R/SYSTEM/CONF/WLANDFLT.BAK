@@ -1,0 +1,31 @@
+# Make this your "human readable" name
+# This only really works if you have a DNS server also
+# configured with this name
+HOSTNAME=
+
+# The name of the Wireless network to join
+ESSID=aibonet
+
+# Do you want encryption?
+WEPENABLE=0
+WEPKEY=
+
+# APMODE=0 - "ad-hoc demo mode" (peer-to-peer)
+#       =1 - "infrastructure mode" (access point)
+#       =2 - "auto-detect" (defaults to infrastructure if both are found)
+APMODE=1
+
+# Channel of wireless network - is only needed with APMODE=0
+#CHANNEL=1
+
+# Dynamic Host Configuration Protocol - automatically gets IP address
+# from DHCP server.  Note that you will need either a DNS server or a
+# static IP from the DHCP server or you won't know what IP address the
+# Aibo is running under
+#USE_DHCP=2
+
+# If you don't have DHCP, you'll need to set these manually
+ETHER_IP=192.168.2.155
+ETHER_NETMASK=255.255.255.0
+IP_GATEWAY=192.168.2.1
+
