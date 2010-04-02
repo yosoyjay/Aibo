@@ -1,16 +1,25 @@
-SRC = aibo_driver.cc aibo_driver.h aibo_comms.c aibo_comms.h unp.h 
-OBJLIBS = libAibo_Driver.so
-OBJS = aibo_driver.o aibo_comms.o 
+GCC=g++
 
-all: $(OBJLIBS)
+.PHONY: all clean tags pretty
 
-$(OBJS): $(SRC)
-	echo "Building the AiboDriver plugin..."
-	$(CXX) -Wall -fpic -g3 `pkg-config --cflags playercore` -c $(SRC)
+all: tags cam_test
 
-$(OBJLIBS): $(OBJS)
-	$(CXX) -shared -nostartfiles -o $@ $^
+cam_test: cam_test.o AiboCore.o AiboNet.o AiboWalk.o AiboHead.o AiboCam.o
+	$(GCC) -Wall -Wextra -g -o cam_test $^
+
+%.o: %.cc %.h
+	@$(GCC) -g -o $@ -c $<
 
 clean:
-	echo "Cleaning up the AiboDriver plugin..."
-	rm -f $(OBJS) $(OBJLIBS) *.gch
+	@echo "Cleaning up..."
+	rm -fR *.o *dSYM
+
+tags:
+	@echo "Refreshing tags.."
+	@ctags *.{cc,h}
+
+pretty:
+	@echo "Formatting code.."
+	@astyle -A1 -f --suffix=none *.{cc,h}
+	
+

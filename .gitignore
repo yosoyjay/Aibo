@@ -1,5 +1,6 @@
 *.gch
 *.o
+*.so
 *.swp
-src/nbproject/*
-src/player_driver/*
+*dSYM/
+tags
