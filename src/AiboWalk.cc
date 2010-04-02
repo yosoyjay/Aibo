@@ -66,6 +66,10 @@ int AiboWalk::walk(float px, float py,float pa){
 	// Cut rotation velocity to 1/5 so it doesn't rotate so fast
 	// If I perform this operation in the function it dies.	
 	pa *= 0.2;
+
+	px > 0.9 ? px = 0.9 : px;
+	py > 0.9 ? py = 0.9 : py;
+	pa > 0.9 ? pa = 0.9 : pa;
 	
 	aibolink->send_data('f', px);
 	aibolink->send_data('s', py);
