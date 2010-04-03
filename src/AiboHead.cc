@@ -40,6 +40,13 @@ int AiboHead::right(float magnitude)
     return 0;
 }
 
+int AiboHead::center()
+{
+
+    aibolink->send_data('p', 0);
+    return 0;
+}
+
 int AiboHead::yaw(float magnitude)
 {
 
