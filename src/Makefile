@@ -11,13 +11,25 @@ PLAYER_DRIVER = libAibo_Driver.so
 all: $(PLAYER_DRIVER)
 
 $(PLAYER_DRIVER): $(OBJS)
-	$(CXX) -shared -I $(PLAYER_DIR) -ljpeg -lplayercore -nostartfiles -o $@ $^
+ifeq ($(VENDOR),apple)
+	$(CXX) -shared -nostartfiles -I $(PLAYER_DIR) -ljpeg -lplayercore -o $@ $^
+else
+	$(CXX) -shared -nostartfiles -o $@ $^
+endif
 
 %.o: %.cc %.h
-	@$(CXX) -g -I $(PLAYER_DIR) -o $@ -c $<
+ifeq ($(VENDOR),apple)
+	@$(CXX) -Wall -fpic -g3 -g -I $(PLAYER_DIR) -o $@ -c $<
+else
+	@$(CXX) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
+endif
 
 %.o: %.c %.h
-	@$(GCC) -g -o $@ -c $<
+ifeq ($(VENDOR),apple)
+	@$(GCC) -Wall -fpic -g3 -g -o $@ -c $<
+else
+	@$(GCC) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
+endif
 
 clean:
 	@echo "Cleaning up..."
@@ -30,3 +42,4 @@ tags:
 pretty:
 	@echo "Formatting code.."
 	@astyle -A1 -f --suffix=none *.{cc,h}
+	@echo $(VENDOR)
