@@ -61,6 +61,16 @@ int AiboHead::pitch(float magnitude)
     return 0;
 }
 
+int AiboHead::move(float pan, float tilt, float zoom)
+{
+
+    aibolink->send_data('p', pan);
+    aibolink->send_data('t', tilt);
+    aibolink->send_data('r', zoom);
+
+    return 0;
+}
+
 AiboHead::~AiboHead()
 {
 

@@ -162,8 +162,7 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void 
         assert(hdr->size == sizeof(player_position2d_cmd_vel_t));
         position_cmd = *(player_position2d_cmd_vel_t *) data;
 
-        // NOTE: Ask team about this
-        //walk.walk(position_cmd.vel.px, position_cmd.vel.py, position_cmd.vel.pa);
+        walk.walk(position_cmd.vel.px, position_cmd.vel.py, position_cmd.vel.pa);
 
         return 0;
     }
@@ -173,8 +172,7 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void 
         assert(hdr->size == sizeof(player_ptz_cmd_t));
         head_cmd = *(player_ptz_cmd_t *) data;
 
-        // NOTE: Ask team about this
-        //head.move(head_cmd.pan, head_cmd.tilt, head_cmd.zoom);
+        head.move(head_cmd.pan, head_cmd.tilt, head_cmd.zoom);
 
         return 0;
     }
