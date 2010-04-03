@@ -9,8 +9,8 @@ class AiboCore
 {
 public:
     AiboCore();
-    AiboCore(const char ip_addr[]);
-    void connect(const char ip_addr[]);
+    AiboCore(const char *ip_addr);
+    void connect(const char *ip_addr);
     int count();
     ~AiboCore();
 

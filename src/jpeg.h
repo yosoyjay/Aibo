@@ -32,22 +32,23 @@ extern "C" {
 #include <jerror.h>
 #include <setjmp.h>
 
-struct my_error_mgr {
-	struct jpeg_error_mgr pub;
-	jmp_buf setjmp_buffer;
-};
+    struct my_error_mgr
+    {
+        struct jpeg_error_mgr pub;
+        jmp_buf setjmp_buffer;
+    };
 
-typedef struct my_error_mgr *my_error_ptr;
+    typedef struct my_error_mgr *my_error_ptr;
 
 
-int 
-jpeg_compress(char *dst, char *src, int width, int height, int dstsize, int quality);
+    int
+    jpeg_compress(char *dst, char *src, int width, int height, int dstsize, int quality);
 
-void
-jpeg_decompressPyro(unsigned char *dst, int dst_size, unsigned char *src, int src_size);
+    void
+    jpeg_decompressPyro(unsigned char *dst, int dst_size, unsigned char *src, int src_size);
 
-void
-jpeg_decompress_from_file(unsigned char *dst, char *file, int size, int *width, int *height);
+    void
+    jpeg_decompress_from_file(unsigned char *dst, char *file, int size, int *width, int *height);
 
 #ifdef __cplusplus
 }

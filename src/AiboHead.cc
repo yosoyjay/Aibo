@@ -5,7 +5,7 @@ AiboHead::AiboHead()
 
 }
 
-void AiboHead::connect(const char ip_addr[])
+void AiboHead::connect(const char *ip_addr)
 {
 
     aibolink = new AiboNet(ip_addr, AIBO_HEAD_PORT);
@@ -29,7 +29,7 @@ int AiboHead::down(float magnitude)
 int AiboHead::left(float magnitude)
 {
 
-    aibolink->send_data('p', -magnitude);
+    aibolink->send_data('p', magnitude);
     return 0;
 }
 

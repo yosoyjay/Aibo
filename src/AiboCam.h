@@ -12,7 +12,7 @@ class AiboCam : public dev
 public:
     AiboCam();
     int updateMMap(int decompress);
-    void connect(const char ip_addr[]);
+    void connect(const char *ip_addr);
     RWLock lock;
     ~AiboCam();
 private:

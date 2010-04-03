@@ -9,7 +9,7 @@ class AiboWalk
 {
 public:
     AiboWalk();
-    void connect(const char ip_addr[]);
+    void connect(const char *ip_addr);
     int forward(float magnitude);
     int backward(float magnitude);
     int strafe_right(float magnitude);

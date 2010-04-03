@@ -3,7 +3,7 @@
 const int DATA_SIZE = 5;
 const int MAX_BUFF_SIZE = 10000;
 
-AiboNet::AiboNet(const char aibo_ip[], unsigned int aibo_port)
+AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
 {
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {

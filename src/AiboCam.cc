@@ -20,14 +20,15 @@ AiboCam::AiboCam()
     // set width, height 0 to trigger automatically:
     width = 0;
     height = 0;
-    updateMMap(0); // this will set height and width automatically
     //printf("updated!\n");
-    initialize(width, height, depth, 0, 1, 2); // create some space
     //printf("intialized!\n");
 }
 
-void AiboCam::connect(const char *hostname){
+void AiboCam::connect(const char *hostname)
+{
     aibolink = new AiboNet(hostname, AIBO_CAM_PORT);
+    updateMMap(0); // this will set height and width automatically
+    initialize(width, height, depth, 0, 1, 2); // create some space
 }
 
 int AiboCam::updateMMap(int decompress)
