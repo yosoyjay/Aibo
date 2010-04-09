@@ -2,14 +2,12 @@
 #define AIBO_CORE_H
 
 #include <unistd.h>
+#include <pthread.h>
 #include <libplayercore/playercore.h>
 
 #include "AiboWalk.h"
 #include "AiboHead.h"
-#include "aibo/Aibo.h"
-#include <pthread.h>
-//Commented out until code is cleaned up and AiboCam is actually implemented
-//#include "AiboCam.h"
+#include "AiboCam.h"
 
 class AiboCore : public ThreadedDriver
 {
@@ -17,58 +15,58 @@ public:
     AiboCore();
     AiboCore(const char *ip_addr);
     AiboCore(ConfigFile* cf, int section);
-    void connect(char *ip_addr);
+    void connect(const char *ip_addr);
     int count();
     ~AiboCore();
 
     AiboWalk walk;
     AiboHead head;
-    //AiboCam cam;
+    AiboCam cam;
 
-	/* Functions required for Player
-	 * 
-	 */
-	virtual int  MainSetup();
-	virtual void MainQuit();
+    /* Functions required for Player
+     *
+     */
+    virtual int  MainSetup();
+    virtual void MainQuit();
 
-	int ProcessMessage( QueuePointer &resp_queue, player_msghdr* hdr, void* data );
+    int ProcessMessage( QueuePointer &resp_queue, player_msghdr* hdr, void* data );
 
 private:
     static int aibo_count;
     //id_array_struct
 
-	/* Functions required for Player
-	 *
-	 */
-	virtual void Main();
+    /* Functions required for Player
+     *
+     */
+    virtual void Main();
 
-	// Device addresses for proxies used in constructor
-	player_devaddr_t position_addr;
-	player_devaddr_t ptz_addr;
-	player_devaddr_t camera_addr;
+    // Device addresses for proxies used in constructor
+    player_devaddr_t position_addr;
+    player_devaddr_t ptz_addr;
+    player_devaddr_t camera_addr;
 
-	// IP/Ports - Probably should be moved?
-	const char* ip;
-	int segCam_com_port;
-	int rawCam_com_port;
-	int protocol;
+    // IP/Ports - Probably should be moved?
+    const char* ip;
+    int segCam_com_port;
+    int rawCam_com_port;
+    int protocol;
 
-	// Just a pointer to images from AiboCam
-	uint8_t* picture;
+    // Just a pointer to images from AiboCam
+    uint8_t* picture;
 
-	// File Descriptors for socket.
-	int segCam_fd;
-	int rawCam_fd;
+    // File Descriptors for socket.
+    int segCam_fd;
+    int rawCam_fd;
 
-	// Mutex to stop walking from slowing down system
-	pthread_mutex_t walk_mutex;
+    // Mutex to stop walking from slowing down system
+    pthread_mutex_t walk_mutex;
 
-	// temporary place to hold AiboCam aibo
-	AiboCam* cam;
-		
-	// Position2d proxy variables
-	player_position2d_cmd_vel_t position_cmd;
-	player_ptz_cmd_t head_cmd;
+    // temporary place to hold AiboCam aibo
+    //AiboCam* cam;
+
+    // Position2d proxy variables
+    player_position2d_cmd_vel_t position_cmd;
+    player_ptz_cmd_t head_cmd;
 };
 
 // j - where the heck should these go?

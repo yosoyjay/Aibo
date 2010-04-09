@@ -1,18 +1,45 @@
-SRC = AiboWalk.cc AiboWalk.h AiboCore.cc AiboCore.h AiboHead.cc AiboHead.h AiboNet.cc AiboNet.h unp.h aibo/Socket.cpp aibo/Socket.h aibo/RWLock.cpp aibo/RWLock.h aibo/jpeg.c aibo/jpeg.h aibo/Aibo.cpp aibo/Aibo.h aibo/dev.cpp aibo/dev.h 
+GCC=gcc
+CXX=g++
+PLAYER_DIR = /usr/local/include/player-3.0/
+SRC = AiboWalk.cc AiboWalk.h AiboCore.cc AiboCore.h AiboHead.cc AiboHead.h AiboNet.cc AiboNet.h unp.h RWLock.cc RWLock.h jpeg.c jpeg.h AiboCam.cc AiboCam.h dev.cc dev.h 
+OBJS = RWLock.o jpeg.o dev.o AiboWalk.o AiboCore.o AiboHead.o AiboNet.o AiboCam.o
+
+PLAYER_DRIVER = libAibo_Driver.so
+
+.PHONY: all clean tags pretty
 	  
-OBJLIBS = libAibo_Driver.so
+all: $(PLAYER_DRIVER)
 
-OBJS = Aibo.o Socket.o RWLock.o jpeg.o dev.o AiboWalk.o AiboCore.o AiboHead.o AiboNet.o
-
-all: $(OBJLIBS)
-
-$(OBJS): $(SRC)
-	echo "Building the AiboDriver plugin..."
-	$(CXX) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
-
-$(OBJLIBS): $(OBJS)
+$(PLAYER_DRIVER): $(OBJS)
+ifeq ($(VENDOR),apple)
+	$(CXX) -shared -nostartfiles -I $(PLAYER_DIR) -ljpeg -lplayercore -o $@ $^
+else
 	$(CXX) -shared -nostartfiles -o $@ $^
+endif
+
+%.o: %.cc %.h
+ifeq ($(VENDOR),apple)
+	@$(CXX) -Wall -fpic -g3 -g -I $(PLAYER_DIR) -o $@ -c $<
+else
+	@$(CXX) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
+endif
+
+%.o: %.c %.h
+ifeq ($(VENDOR),apple)
+	@$(GCC) -Wall -fpic -g3 -g -o $@ -c $<
+else
+	@$(GCC) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
+endif
 
 clean:
-	echo "Cleaning up the AiboDriver plugin..."
-	rm -f $(OBJS) $(OBJLIBS) 
+	@echo "Cleaning up..."
+	rm -fR *.o *dSYM *.gch
+
+tags:
+	@echo "Refreshing tags.."
+	@ctags *.{cc,h}
+
+pretty:
+	@echo "Formatting code.."
+	@astyle -A1 -f --suffix=none *.{cc,h}
+	@echo $(VENDOR)

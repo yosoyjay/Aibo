@@ -8,10 +8,11 @@
 class AiboNet
 {
 public:
-    AiboNet(const char* ip_addr, unsigned int aibo_port);
+    AiboNet(const char *ip_addr, unsigned int aibo_port);
     int send_data(char command, float magnitude);
     int send_data(char command[], float magnitude[], int size);
     char *read(int count);
+    char *readUntil(char stop);
     ~AiboNet();
 
 private:

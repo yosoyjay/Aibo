@@ -8,18 +8,19 @@
 
 #include <pthread.h>
 
-class RWLock {
+class RWLock
+{
 private:
-	long m_lCount;
-	pthread_mutex_t m_CountLock,m_AccessLock;
+    long m_lCount;
+    pthread_mutex_t m_CountLock,m_AccessLock;
 public:
-	RWLock(void);
-	~RWLock(void);
-	
-	void ReadLock(void);
-	void ReadUnlock(void);
-	void WriteLock(void);
-	void WriteUnlock(void);
+    RWLock(void);
+    ~RWLock(void);
+
+    void ReadLock(void);
+    void ReadUnlock(void);
+    void WriteLock(void);
+    void WriteUnlock(void);
 };
 
 #endif

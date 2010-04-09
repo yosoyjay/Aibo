@@ -1,40 +1,22 @@
-#ifndef AIBO_CAM_H
-#define AIBO_CAM_H
+#ifndef __AIBOCAM_H__
+#define __AIBOCAM_H__
 
+#define AIBO_CAM_PORT 10011
+
+#include "dev.h"
 #include "AiboNet.h"
+#include "RWLock.h"
 
-const int AIBO_CAM_PORT = 10011;
-
-struct image_packet // 80-bytes
-{
-    char header[4];
-    char image_id[14];
-    int format;
-    int compression;
-    int width;
-    int height;
-    int timestamp;
-    int framenumber;
-    int unknown; // Java doesn't have unknown -- might be pixelsize 1?
-    char creator[9]; //fbkimage
-    int chan_width;
-    int chan_height;
-    int layer;
-    int chan_id;
-    int unknown2; //fmt in Java "blank", "Raw Image", etc
-};
-
-class AiboCam
+class AiboCam : public dev
 {
 public:
     AiboCam();
-    void connect(char ip_addr[]);
-    char *recieve_image();
+    int updateMMap(int decompress);
+    void connect(const char *ip_addr);
+    RWLock lock;
     ~AiboCam();
-
 private:
     AiboNet *aibolink;
-
 };
 
 #endif

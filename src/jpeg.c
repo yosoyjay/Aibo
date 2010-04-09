@@ -223,7 +223,7 @@ jpeg_decompressPyro(unsigned char *dst, int dst_size,
   mderr.pub.error_exit = my_error_exit;
   if(setjmp(mderr.setjmp_buffer)){
 	  jpeg_destroy_decompress(&cinfo);
-	  fprintf(stderr, "sonething very bad has happened\n");
+	  fprintf(stderr, "something very bad has happened\n");
 	  return;
   }
   jpeg_create_decompress(&cinfo);

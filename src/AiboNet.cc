@@ -3,7 +3,7 @@
 const int DATA_SIZE = 5;
 const int MAX_BUFF_SIZE = 10000;
 
-AiboNet::AiboNet(const char* aibo_ip, unsigned int aibo_port)
+AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
 {
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -21,7 +21,7 @@ AiboNet::AiboNet(const char* aibo_ip, unsigned int aibo_port)
 
     if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
     {
-        printf("Error connecting to Aibo ip:%s port:%d\n", aibo_ip, aibo_port);
+        perror("Error connecting to Aibo");
     }
 
     // JP: Added this on 01/15/2010 to disable Nagle's Algorithm . I had to include tcp.h , too.
@@ -82,23 +82,48 @@ int AiboNet::send_data(char command[], float magnitude[], int size)
 
 char *AiboNet::read(int count)
 {
-  static char buf[MAX_BUFF_SIZE];
-  char ch[5];
-  bzero(buf, MAX_BUFF_SIZE);
-  int numbytes;
+    static char buf[MAX_BUFF_SIZE];
+    char ch[5];
+    bzero(buf, MAX_BUFF_SIZE);
+    int numbytes;
 
-  for (int i = 0; i < count; ++i){
+    for (int i = 0; i < count; ++i)
+    {
 
-    numbytes = recv(sockfd, ch, 1, 0);
-    if (numbytes == 1){
-      buf[i] = ch[0];
-    }else{
-      i--;
+        numbytes = recv(sockfd, ch, 1, 0);
+
+        if (numbytes == 1)
+        {
+            buf[i] = ch[0];
+        }
+        else
+        {
+            i--;
+        }
     }
-  }
-   
-  return buf;
+
+    return buf;
 }
+
+char *AiboNet::readUntil(char stop)
+{
+    static char retval[MAX_BUFF_SIZE];
+    int numbytes = 0;
+    char ch[5];
+    int pos = 0;
+    numbytes = recv(sockfd, &ch, 1, 0);
+
+    while (ch[0] != stop && numbytes == 1 && pos < 50)   // no text is > 50
+    {
+        retval[pos++] = ch[0];
+        numbytes = recv(sockfd, &ch, 1, 0);
+    }
+
+    retval[pos] = 0; // end of string
+    //printf("readUntil: read %d chars\n", pos);
+    return retval;
+}
+
 
 AiboNet::~AiboNet()
 {
