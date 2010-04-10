@@ -27,8 +27,9 @@ AiboCam::AiboCam()
 void AiboCam::connect(const char *hostname)
 {
     aibolink = new AiboNet(hostname, AIBO_CAM_PORT);
-    updateMMap(0); // this will set height and width automatically
-    initialize(width, height, depth, 0, 1, 2); // create some space
+
+    //updateMMap(0); // this will set height and width automatically
+    //initialize(width, height, depth, 0, 1, 2); // create some space
 }
 
 int AiboCam::updateMMap(int decompress)

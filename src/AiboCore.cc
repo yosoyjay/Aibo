@@ -122,6 +122,10 @@ int AiboCore::MainSetup()
     puts("Aibo driver initializing.");
 
     //cam = new AiboCam.connect(ip);
+
+    cam.updateMMap(0);
+    cam.initialize(cam.getWidth(),cam.getHeight(),3,0,1,2);
+
     sleep(1); // JP added this on 01/13/2010
 
     // Message for checking status:
