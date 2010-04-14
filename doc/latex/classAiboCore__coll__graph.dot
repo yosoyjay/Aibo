@@ -1,0 +1,18 @@
+digraph G
+{
+  edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
+  node [fontname="FreeSans",fontsize="10",shape=record];
+  Node1 [label="AiboCore",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="cam"];
+  Node2 [label="AiboCam",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAiboCam.html",tooltip="The Aibo&#39;s camera."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="dev",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdev.html",tooltip="This class just wraps the image used by AiboCam."];
+  Node4 -> Node2 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="aibolink"];
+  Node4 [label="AiboNet",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAiboNet.html",tooltip="Class responsible for low level network communications."];
+  Node5 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="walk"];
+  Node5 [label="AiboWalk",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAiboWalk.html",tooltip="Control&#39;s the Aibo&#39;s movement (Walking)."];
+  Node4 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="aibolink"];
+  Node6 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="head"];
+  Node6 [label="AiboHead",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAiboHead.html",tooltip="Controls the Aibo&#39;s head."];
+  Node4 -> Node6 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="aibolink"];
+}

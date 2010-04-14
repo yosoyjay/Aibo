@@ -1,7 +1,10 @@
 #include "AiboCore.h"
 
+
+/* Counter to track number of Aibo's using driver */
 int AiboCore::aibo_count = 0;
 
+/* Called during driver initialization to create socket connections */
 void AiboCore::connect(const char *ip_addr)
 {
 
@@ -11,6 +14,7 @@ void AiboCore::connect(const char *ip_addr)
 
 }
 
+/* Returns the number of Aibo's using the driver */
 int AiboCore::count()
 {
     return AiboCore::aibo_count;

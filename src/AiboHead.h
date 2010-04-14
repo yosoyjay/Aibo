@@ -5,6 +5,7 @@
 
 const int AIBO_HEAD_PORT = 10052;
 
+//! \brief Controls the Aibo's head.
 class AiboHead
 {
 public:

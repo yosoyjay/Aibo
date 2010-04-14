@@ -6,6 +6,8 @@
 
 const int AIBO_WALK_PORT = 10050;
 
+
+//! \brief Control's the Aibo's movement (Walking).
 class AiboWalk
 {
 public:
