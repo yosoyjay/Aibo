@@ -9,6 +9,7 @@
 #include "AiboHead.h"
 #include "AiboCam.h"
 
+//! \brief The entire Aibo and required Player classes. Core of driver.
 class AiboCore : public ThreadedDriver
 {
 public:

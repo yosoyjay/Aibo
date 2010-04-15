@@ -1,0 +1,74 @@
+\hypertarget{classAiboCore}{
+\section{AiboCore Class Reference}
+\label{classAiboCore}\index{AiboCore@{AiboCore}}
+}
+
+
+The entire Aibo and required Player classes. Core of driver.  
+
+
+{\ttfamily \#include $<$AiboCore.h$>$}Collaboration diagram for AiboCore:\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classAiboCore_a673c057ac82df3fc6c0d828a98408bea}{
+{\bfseries AiboCore} (const char $\ast$ip\_\-addr)}
+\label{classAiboCore_a673c057ac82df3fc6c0d828a98408bea}
+
+\item 
+\hypertarget{classAiboCore_a377640056394d6235609688045288fe7}{
+{\bfseries AiboCore} (ConfigFile $\ast$cf, int section)}
+\label{classAiboCore_a377640056394d6235609688045288fe7}
+
+\item 
+\hypertarget{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}{
+void {\bfseries connect} (const char $\ast$ip\_\-addr)}
+\label{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}
+
+\item 
+\hypertarget{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{
+int {\bfseries count} ()}
+\label{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}
+
+\item 
+\hypertarget{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{
+virtual int {\bfseries MainSetup} ()}
+\label{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}
+
+\item 
+\hypertarget{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}{
+virtual void {\bfseries MainQuit} ()}
+\label{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}
+
+\item 
+\hypertarget{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{
+int {\bfseries ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $\ast$hdr, void $\ast$data)}
+\label{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classAiboCore_a0bfbdcab738086d571c8dd9936408221}{
+\hyperlink{classAiboWalk}{AiboWalk} {\bfseries walk}}
+\label{classAiboCore_a0bfbdcab738086d571c8dd9936408221}
+
+\item 
+\hypertarget{classAiboCore_a82f60f050d49dc500a23beff1c80d658}{
+\hyperlink{classAiboHead}{AiboHead} {\bfseries head}}
+\label{classAiboCore_a82f60f050d49dc500a23beff1c80d658}
+
+\item 
+\hypertarget{classAiboCore_ac299b12604a05d4be74eafac7162ba10}{
+\hyperlink{classAiboCam}{AiboCam} {\bfseries cam}}
+\label{classAiboCore_ac299b12604a05d4be74eafac7162ba10}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The entire Aibo and required Player classes. Core of driver. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/home/jesse/Dropbox/Aibo/src/AiboCore.h\item 
+/home/jesse/Dropbox/Aibo/src/AiboCore.cc\end{DoxyCompactItemize}

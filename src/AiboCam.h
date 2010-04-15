@@ -7,6 +7,12 @@
 #include "AiboNet.h"
 #include "RWLock.h"
 
+/**
+ *  This class represents the Aibo's camera.  Note that the 
+ *  initial updateMMap() and connect() calls must exists
+ *  exactly where there are called in MainSetup().
+ */
+//! \brief The Aibo's camera.
 class AiboCam : public dev
 {
 public:
