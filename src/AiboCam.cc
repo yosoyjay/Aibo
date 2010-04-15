@@ -1,3 +1,4 @@
+
 #include "AiboCam.h"
 #include "jpeg.h"
 
@@ -13,6 +14,9 @@ long convert(char *buff)
     return retval;
 }
 
+
+/*! \brief  Aibo's Camera
+ *This clas represents and implements methods to capture images from the Aibo. */
 AiboCam::AiboCam()
 {
     // get image details
@@ -24,15 +28,17 @@ AiboCam::AiboCam()
     //printf("intialized!\n");
 }
 
+/** Creates and connects a socket to capture images from the Aibo */
 void AiboCam::connect(const char *hostname)
 {
     aibolink = new AiboNet(hostname, AIBO_CAM_PORT);
-
-    //updateMMap(0); // this will set height and width automatically
-    //initialize(width, height, depth, 0, 1, 2); // create some space
 }
 
-int AiboCam::updateMMap(int decompress)
+/** Captures images from socket.  Argument is used to toggle 
+    decompression of image.  
+    1 = decompress
+    0 = no-decompress */
+int AiboCam::updateMMap(int decompress=1)
 {
     char *header, *type, *creator, *fmt, *image_buffer;
     long format, compression, newWidth, newHeight, timeStamp, frameNum, unknown1;

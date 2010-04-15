@@ -3,6 +3,7 @@
 
 #define MAXDEPTH 3
 
+//! \brief This class just wraps the image used by AiboCam
 class dev
 {
 
