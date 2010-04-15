@@ -37,6 +37,32 @@ AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
 
 }
 
+// Second constructor for Datagram Socket.
+AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port, int x) // Not the best way to do it. Consult Joel
+{
+    if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0); // JP: Changed this SOCK_STREAM, 0)) < 0); // It should be a datagram socket.
+    {
+        perror("Error creating socket");
+    }
+
+    bzero(&servaddr, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port   = htons(aibo_port);
+
+    if (inet_pton(AF_INET, aibo_ip, &servaddr.sin_addr) <= 0)
+    {
+        perror("Error with inet_pton");
+    }
+
+    if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
+    {
+        perror("Error connecting to Aibo");
+    }
+
+    sleep(1);
+
+}
+
 int AiboNet::send_data(char command, float magnitude)
 {
     // Pack data into a 5-byte array

@@ -32,6 +32,12 @@ void AiboCam::connect(const char *hostname)
     //initialize(width, height, depth, 0, 1, 2); // create some space
 }
 
+// JP: Added this
+void AiboCam::UDPConnect(const char *hostname)
+{
+    aibolink = new AiboNet(hostname, AIBO_CAM_PORT, 1);
+}
+
 int AiboCam::updateMMap(int decompress)
 {
     char *header, *type, *creator, *fmt, *image_buffer;

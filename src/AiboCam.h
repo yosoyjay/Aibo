@@ -13,6 +13,7 @@ public:
     AiboCam();
     int updateMMap(int decompress);
     void connect(const char *ip_addr);
+    void UDPConnect(const char *hostname);
     RWLock lock;
     ~AiboCam();
 private:
