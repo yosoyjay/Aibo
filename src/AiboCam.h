@@ -19,7 +19,7 @@ public:
     AiboCam();
     int updateMMap(int decompress);
     void connect(const char *ip_addr);
-    void UDPConnect(const char *hostname);
+    void connect_udp(const char *ip_addr);
     RWLock lock;
     ~AiboCam();
 private:

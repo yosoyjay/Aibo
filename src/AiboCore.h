@@ -48,6 +48,7 @@ private:
 
     // IP/Ports - Probably should be moved?
     const char* ip;
+    const char* proto;
     int segCam_com_port;
     int rawCam_com_port;
     int protocol;

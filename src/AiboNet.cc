@@ -3,8 +3,10 @@
 const int DATA_SIZE = 5;
 const int MAX_BUFF_SIZE = 10000;
 
-AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
+AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port,
+	const int proto)
 {
+  if(proto == TCP_PROTO){
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("Error creating socket");
@@ -32,14 +34,8 @@ AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
     {
         perror("Error enabling TCP_NODELAY");
     }
+  }else if(proto == UDP_PROTO){
 
-    sleep(1);
-
-}
-
-// Second constructor for Datagram Socket.
-AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port, int x) // Not the best way to do it. Consult Joel
-{
     if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0); // JP: Changed this SOCK_STREAM, 0)) < 0); // It should be a datagram socket.
     {
         perror("Error creating socket");
@@ -58,6 +54,8 @@ AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port, int x) // Not the 
     {
         perror("Error connecting to Aibo");
     }
+
+  }
 
     sleep(1);
 

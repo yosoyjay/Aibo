@@ -1,4 +1,3 @@
-
 #include "AiboCam.h"
 #include "jpeg.h"
 
@@ -35,9 +34,9 @@ void AiboCam::connect(const char *hostname)
 }
 
 // JP: Added this
-void AiboCam::UDPConnect(const char *hostname)
+void AiboCam::connect_udp(const char *hostname)
 {
-    aibolink = new AiboNet(hostname, AIBO_CAM_PORT, 1);
+    aibolink = new AiboNet(hostname, AIBO_CAM_PORT, UDP_PROTO);
 }
 
 /** Captures images from socket.  Argument is used to toggle 
