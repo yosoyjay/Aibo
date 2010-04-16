@@ -53,39 +53,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00012"></a>00012     <a class="code" href="classdev.html" title="This class just wraps the image used by AiboCam.">dev</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, <span class="keywordtype">int</span> d, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b);
 <a name="l00013"></a>00013     <a class="code" href="classdev.html" title="This class just wraps the image used by AiboCam.">dev</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, <span class="keywordtype">int</span> d);
 <a name="l00014"></a>00014     ~<a class="code" href="classdev.html" title="This class just wraps the image used by AiboCam.">dev</a>();
-<a name="l00015"></a>00015     <span class="keywordtype">int</span> initialize(<span class="keywordtype">int</span> wi, <span class="keywordtype">int</span> he, <span class="keywordtype">int</span> de, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b);
-<a name="l00016"></a>00016     <span class="keywordtype">int</span> *getRGB()
-<a name="l00017"></a>00017     {
-<a name="l00018"></a>00018         <span class="keywordflow">return</span> rgb;
-<a name="l00019"></a>00019     }
-<a name="l00020"></a>00020     <span class="keywordtype">void</span> setRGB(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b);
-<a name="l00021"></a>00021     <span class="keywordtype">int</span> getWidth()
-<a name="l00022"></a>00022     {
-<a name="l00023"></a>00023         <span class="keywordflow">return</span> width;
-<a name="l00024"></a>00024     }
-<a name="l00025"></a>00025     <span class="keywordtype">int</span> getHeight()
-<a name="l00026"></a>00026     {
-<a name="l00027"></a>00027         <span class="keywordflow">return</span> height;
-<a name="l00028"></a>00028     }
-<a name="l00029"></a>00029     <span class="keywordtype">int</span> getDepth()
-<a name="l00030"></a>00030     {
-<a name="l00031"></a>00031         <span class="keywordflow">return</span> depth;
-<a name="l00032"></a>00032     }
-<a name="l00033"></a>00033     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *getImage()
-<a name="l00034"></a>00034     {
-<a name="l00035"></a>00035         <span class="keywordflow">return</span> image;
-<a name="l00036"></a>00036     }
-<a name="l00037"></a>00037     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> getByte(<span class="keywordtype">int</span> position);
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">protected</span>:
-<a name="l00040"></a>00040     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *image;
-<a name="l00041"></a>00041     <span class="keywordtype">int</span> width;
-<a name="l00042"></a>00042     <span class="keywordtype">int</span> height;
-<a name="l00043"></a>00043     <span class="keywordtype">int</span> depth;
-<a name="l00044"></a>00044     <span class="keywordtype">int</span> rgb[3];
-<a name="l00045"></a>00045 };
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 <span class="preprocessor">#endif</span>
+<a name="l00022"></a>00022     <span class="keywordtype">int</span> <a class="code" href="classdev.html#aea51d02a9f5c04fdacc63b415d7fba6f">initialize</a>(<span class="keywordtype">int</span> wi, <span class="keywordtype">int</span> he, <span class="keywordtype">int</span> de, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b);
+<a name="l00023"></a>00023     <span class="keywordtype">int</span> *getRGB()
+<a name="l00024"></a>00024     {
+<a name="l00025"></a>00025         <span class="keywordflow">return</span> rgb;
+<a name="l00026"></a>00026     }
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classdev.html#aae6a7a4192d0bf1090456d8fa5d27a09">setRGB</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b);
+<a name="l00031"></a><a class="code" href="classdev.html#adc3b057042e6069d8e2432c48418c173">00031</a>     <span class="keywordtype">int</span> <a class="code" href="classdev.html#adc3b057042e6069d8e2432c48418c173">getWidth</a>()
+<a name="l00032"></a>00032     {
+<a name="l00033"></a>00033         <span class="keywordflow">return</span> width;
+<a name="l00034"></a>00034     }
+<a name="l00037"></a><a class="code" href="classdev.html#a760161504ea05e090293aff31c834634">00037</a>     <span class="keywordtype">int</span> <a class="code" href="classdev.html#a760161504ea05e090293aff31c834634">getHeight</a>()
+<a name="l00038"></a>00038     {
+<a name="l00039"></a>00039         <span class="keywordflow">return</span> height;
+<a name="l00040"></a>00040     }
+<a name="l00044"></a><a class="code" href="classdev.html#a676db2fb79a8b6ddf21527aafa44ddab">00044</a>     <span class="keywordtype">int</span> <a class="code" href="classdev.html#a676db2fb79a8b6ddf21527aafa44ddab">getDepth</a>()
+<a name="l00045"></a>00045     {
+<a name="l00046"></a>00046         <span class="keywordflow">return</span> depth;
+<a name="l00047"></a>00047     }
+<a name="l00050"></a><a class="code" href="classdev.html#accda40f66947d00bc9fd294f47a187f6">00050</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="classdev.html#accda40f66947d00bc9fd294f47a187f6">getImage</a>()
+<a name="l00051"></a>00051     {
+<a name="l00052"></a>00052         <span class="keywordflow">return</span> image;
+<a name="l00053"></a>00053     }
+<a name="l00058"></a>00058     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="classdev.html#a220ca2f10395d25b828e9d5e72feefb7">getByte</a>(<span class="keywordtype">int</span> position);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 <span class="keyword">protected</span>:
+<a name="l00061"></a>00061     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *image;
+<a name="l00062"></a>00062     <span class="keywordtype">int</span> width;
+<a name="l00063"></a>00063     <span class="keywordtype">int</span> height;
+<a name="l00064"></a>00064     <span class="keywordtype">int</span> depth;
+<a name="l00065"></a>00065     <span class="keywordtype">int</span> rgb[3];
+<a name="l00066"></a>00066 };
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Apr 14 14:49:39 2010 for Aibo Player Driver by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Apr 16 11:04:01 2010 for Aibo Player Driver by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -7,7 +7,14 @@
 This class just wraps the image used by \hyperlink{classAiboCam}{AiboCam}.  
 
 
-{\ttfamily \#include $<$dev.h$>$}Inheritance diagram for dev:\subsection*{Public Member Functions}
+{\ttfamily \#include $<$dev.h$>$}Inheritance diagram for dev:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=102pt]{classdev__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{classdev_a1528dde7e946aea9efeb5c25ff163af9}{
@@ -20,45 +27,24 @@ This class just wraps the image used by \hyperlink{classAiboCam}{AiboCam}.
 \label{classdev_adf38a65aa0df77c0c58fb7a35bf57f2e}
 
 \item 
-\hypertarget{classdev_aea51d02a9f5c04fdacc63b415d7fba6f}{
-int {\bfseries initialize} (int wi, int he, int de, int r, int g, int b)}
-\label{classdev_aea51d02a9f5c04fdacc63b415d7fba6f}
-
+int \hyperlink{classdev_aea51d02a9f5c04fdacc63b415d7fba6f}{initialize} (int wi, int he, int de, int r, int g, int b)
 \item 
 \hypertarget{classdev_affbd3c6d38407a67260b0805a2a996ba}{
 int $\ast$ {\bfseries getRGB} ()}
 \label{classdev_affbd3c6d38407a67260b0805a2a996ba}
 
 \item 
-\hypertarget{classdev_aae6a7a4192d0bf1090456d8fa5d27a09}{
-void {\bfseries setRGB} (int r, int g, int b)}
-\label{classdev_aae6a7a4192d0bf1090456d8fa5d27a09}
-
+void \hyperlink{classdev_aae6a7a4192d0bf1090456d8fa5d27a09}{setRGB} (int r, int g, int b)
 \item 
-\hypertarget{classdev_adc3b057042e6069d8e2432c48418c173}{
-int {\bfseries getWidth} ()}
-\label{classdev_adc3b057042e6069d8e2432c48418c173}
-
+int \hyperlink{classdev_adc3b057042e6069d8e2432c48418c173}{getWidth} ()
 \item 
-\hypertarget{classdev_a760161504ea05e090293aff31c834634}{
-int {\bfseries getHeight} ()}
-\label{classdev_a760161504ea05e090293aff31c834634}
-
+int \hyperlink{classdev_a760161504ea05e090293aff31c834634}{getHeight} ()
 \item 
-\hypertarget{classdev_a676db2fb79a8b6ddf21527aafa44ddab}{
-int {\bfseries getDepth} ()}
-\label{classdev_a676db2fb79a8b6ddf21527aafa44ddab}
-
+int \hyperlink{classdev_a676db2fb79a8b6ddf21527aafa44ddab}{getDepth} ()
 \item 
-\hypertarget{classdev_accda40f66947d00bc9fd294f47a187f6}{
-unsigned char $\ast$ {\bfseries getImage} ()}
-\label{classdev_accda40f66947d00bc9fd294f47a187f6}
-
+unsigned char $\ast$ \hyperlink{classdev_accda40f66947d00bc9fd294f47a187f6}{getImage} ()
 \item 
-\hypertarget{classdev_a220ca2f10395d25b828e9d5e72feefb7}{
-unsigned char {\bfseries getByte} (int position)}
-\label{classdev_a220ca2f10395d25b828e9d5e72feefb7}
-
+unsigned char \hyperlink{classdev_a220ca2f10395d25b828e9d5e72feefb7}{getByte} (int position)
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -92,6 +78,47 @@ int {\bfseries rgb} \mbox{[}3\mbox{]}}
 
 \subsection{Detailed Description}
 This class just wraps the image used by \hyperlink{classAiboCam}{AiboCam}. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdev_a220ca2f10395d25b828e9d5e72feefb7}{
+\index{dev@{dev}!getByte@{getByte}}
+\index{getByte@{getByte}!dev@{dev}}
+\subsubsection[{getByte}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char dev::getByte (int {\em position})}}
+\label{classdev_a220ca2f10395d25b828e9d5e72feefb7}
+Returns the specific byte given the position of the byte in the image array. Notice that it is not 2d. \hypertarget{classdev_a676db2fb79a8b6ddf21527aafa44ddab}{
+\index{dev@{dev}!getDepth@{getDepth}}
+\index{getDepth@{getDepth}!dev@{dev}}
+\subsubsection[{getDepth}]{\setlength{\rightskip}{0pt plus 5cm}int dev::getDepth ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classdev_a676db2fb79a8b6ddf21527aafa44ddab}
+Returns the depth of the allocated image buffer No reason it should not be 3. \hypertarget{classdev_a760161504ea05e090293aff31c834634}{
+\index{dev@{dev}!getHeight@{getHeight}}
+\index{getHeight@{getHeight}!dev@{dev}}
+\subsubsection[{getHeight}]{\setlength{\rightskip}{0pt plus 5cm}int dev::getHeight ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classdev_a760161504ea05e090293aff31c834634}
+Returns teh height of the allocated image buffer \hypertarget{classdev_accda40f66947d00bc9fd294f47a187f6}{
+\index{dev@{dev}!getImage@{getImage}}
+\index{getImage@{getImage}!dev@{dev}}
+\subsubsection[{getImage}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ dev::getImage ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classdev_accda40f66947d00bc9fd294f47a187f6}
+Returns the image buffer. \hypertarget{classdev_adc3b057042e6069d8e2432c48418c173}{
+\index{dev@{dev}!getWidth@{getWidth}}
+\index{getWidth@{getWidth}!dev@{dev}}
+\subsubsection[{getWidth}]{\setlength{\rightskip}{0pt plus 5cm}int dev::getWidth ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classdev_adc3b057042e6069d8e2432c48418c173}
+Returns the width of the allocated image buffer \hypertarget{classdev_aea51d02a9f5c04fdacc63b415d7fba6f}{
+\index{dev@{dev}!initialize@{initialize}}
+\index{initialize@{initialize}!dev@{dev}}
+\subsubsection[{initialize}]{\setlength{\rightskip}{0pt plus 5cm}int dev::initialize (int {\em wi}, \/  int {\em he}, \/  int {\em de}, \/  int {\em r}, \/  int {\em g}, \/  int {\em b})}}
+\label{classdev_aea51d02a9f5c04fdacc63b415d7fba6f}
+This function actually allocates space for image for the camera 
+\begin{DoxyParams}{Parameters}
+\item[{\em wi}]-\/ Image width, retrieved from header \item[{\em he}]-\/ Image height, retrieved from header \item[{\em r}]-\/ Red value \item[{\em g}]-\/ Green value \item[{\em b}]-\/ Blue value \end{DoxyParams}
+\hypertarget{classdev_aae6a7a4192d0bf1090456d8fa5d27a09}{
+\index{dev@{dev}!setRGB@{setRGB}}
+\index{setRGB@{setRGB}!dev@{dev}}
+\subsubsection[{setRGB}]{\setlength{\rightskip}{0pt plus 5cm}void dev::setRGB (int {\em r}, \/  int {\em g}, \/  int {\em b})}}
+\label{classdev_aae6a7a4192d0bf1090456d8fa5d27a09}
+Sets the RGB of the image 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 

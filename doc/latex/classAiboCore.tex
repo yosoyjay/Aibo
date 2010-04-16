@@ -7,7 +7,14 @@
 The entire Aibo and required Player classes. Core of driver.  
 
 
-{\ttfamily \#include $<$AiboCore.h$>$}Collaboration diagram for AiboCore:\subsection*{Public Member Functions}
+{\ttfamily \#include $<$AiboCore.h$>$}Collaboration diagram for AiboCore:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{classAiboCore__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{classAiboCore_a673c057ac82df3fc6c0d828a98408bea}{
@@ -15,36 +22,21 @@ The entire Aibo and required Player classes. Core of driver.
 \label{classAiboCore_a673c057ac82df3fc6c0d828a98408bea}
 
 \item 
-\hypertarget{classAiboCore_a377640056394d6235609688045288fe7}{
-{\bfseries AiboCore} (ConfigFile $\ast$cf, int section)}
-\label{classAiboCore_a377640056394d6235609688045288fe7}
-
+\hyperlink{classAiboCore_a377640056394d6235609688045288fe7}{AiboCore} (ConfigFile $\ast$cf, int section)
 \item 
-\hypertarget{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}{
-void {\bfseries connect} (const char $\ast$ip\_\-addr)}
-\label{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}
-
+void \hyperlink{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}{connect} (const char $\ast$ip\_\-addr)
 \item 
-\hypertarget{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{
-int {\bfseries count} ()}
-\label{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}
-
+int \hyperlink{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{count} ()
 \item 
-\hypertarget{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{
-virtual int {\bfseries MainSetup} ()}
-\label{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}
-
-\item 
+virtual int \hyperlink{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{MainSetup} ()
+\begin{DoxyCompactList}\small\item\em Set up the device. Return 0 if things go well, and -\/1 otherwise. \item\end{DoxyCompactList}\item 
 \hypertarget{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}{
-virtual void {\bfseries MainQuit} ()}
+virtual void \hyperlink{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}{MainQuit} ()}
 \label{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}
 
-\item 
-\hypertarget{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{
-int {\bfseries ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $\ast$hdr, void $\ast$data)}
-\label{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}
-
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Shutdown the device. \item\end{DoxyCompactList}\item 
+int \hyperlink{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $\ast$hdr, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Process Messages published from Player. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -67,6 +59,95 @@ int {\bfseries ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $
 
 \subsection{Detailed Description}
 The entire Aibo and required Player classes. Core of driver. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAiboCore_a377640056394d6235609688045288fe7}{
+\index{AiboCore@{AiboCore}!AiboCore@{AiboCore}}
+\index{AiboCore@{AiboCore}!AiboCore@{AiboCore}}
+\subsubsection[{AiboCore}]{\setlength{\rightskip}{0pt plus 5cm}AiboCore::AiboCore (ConfigFile $\ast$ {\em cf}, \/  int {\em section})}}
+\label{classAiboCore_a377640056394d6235609688045288fe7}
+Constructor. Retrieve options from the configuration file and do any pre-\/Setup() setup. 
+
+Needed to add interfaces
+
+Position2d
+
+PTZ (Head)
+
+Camera
+
+Grab ip from aibo.cfg file
+
+Create head, walk, cam objects 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=145pt]{classAiboCore_a377640056394d6235609688045288fe7_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}{
+\index{AiboCore@{AiboCore}!connect@{connect}}
+\index{connect@{connect}!AiboCore@{AiboCore}}
+\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}void AiboCore::connect (const char $\ast$ {\em ip\_\-addr})}}
+\label{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}
+Called during driver initialization to create socket connections 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=141pt]{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{
+\index{AiboCore@{AiboCore}!count@{count}}
+\index{count@{count}!AiboCore@{AiboCore}}
+\subsubsection[{count}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCore::count ()}}
+\label{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}
+Returns the number of Aibo's using the driver \hypertarget{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{
+\index{AiboCore@{AiboCore}!MainSetup@{MainSetup}}
+\index{MainSetup@{MainSetup}!AiboCore@{AiboCore}}
+\subsubsection[{MainSetup}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCore::MainSetup ()\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}
+
+
+Set up the device. Return 0 if things go well, and -\/1 otherwise. 
+
+Must initialize the cam in this function. Trouble otherwise. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{
+\index{AiboCore@{AiboCore}!ProcessMessage@{ProcessMessage}}
+\index{ProcessMessage@{ProcessMessage}!AiboCore@{AiboCore}}
+\subsubsection[{ProcessMessage}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCore::ProcessMessage (QueuePointer \& {\em resp\_\-queue}, \/  player\_\-msghdr $\ast$ {\em hdr}, \/  void $\ast$ {\em data})}}
+\label{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}
+
+
+Process Messages published from Player. 
+
+Catch position2d
+
+Catch PTZ 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525_cgraph}
+\end{center}
+\end{figure}
+
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
