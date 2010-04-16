@@ -52,6 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for AiboCore:</div>
 <div class="dynsection">
+<div class="center"><img src="classAiboCore__coll__graph.png" border="0" usemap="#AiboCore_coll__map" alt="Collaboration graph"/></div>
+<map name="AiboCore_coll__map" id="AiboCore_coll__map">
+<area shape="rect" href="classAiboCam.html" title="Aibo&#39;s Camera This class represents and implements methods to capture images..." alt="" coords="5,101,83,131"/><area shape="rect" href="classdev.html" title="This class just wraps the image used by AiboCam." alt="" coords="13,5,56,35"/><area shape="rect" href="classAiboNet.html" title="Class responsible for low level network communications." alt="" coords="123,5,189,35"/><area shape="rect" href="classAiboWalk.html" title="Control&#39;s the Aibo&#39;s movement (Walking). The walk() function is designed..." alt="" coords="107,101,184,131"/><area shape="rect" href="classAiboHead.html" title="Controls the Aibo&#39;s head. The move() function is designed to work with the parameters..." alt="" coords="208,101,288,131"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classAiboCore-members.html">List of all members.</a></p>
@@ -59,18 +62,16 @@ Collaboration diagram for AiboCore:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a673c057ac82df3fc6c0d828a98408bea"></a><!-- doxytag: member="AiboCore::AiboCore" ref="a673c057ac82df3fc6c0d828a98408bea" args="(const char *ip_addr)" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><b>AiboCore</b> (const char *ip_addr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a377640056394d6235609688045288fe7"></a><!-- doxytag: member="AiboCore::AiboCore" ref="a377640056394d6235609688045288fe7" args="(ConfigFile *cf, int section)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><b>AiboCore</b> (ConfigFile *cf, int section)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a078c3b2541d57e7455094ef7c9e46c80"></a><!-- doxytag: member="AiboCore::connect" ref="a078c3b2541d57e7455094ef7c9e46c80" args="(const char *ip_addr)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>connect</b> (const char *ip_addr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cf6b6a288291b36254dc29ae089d6bc"></a><!-- doxytag: member="AiboCore::count" ref="a7cf6b6a288291b36254dc29ae089d6bc" args="()" -->
-int&nbsp;</td><td class="memItemRight" valign="bottom"><b>count</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a940aa3f41c521cfc8e1ea69b8a616648"></a><!-- doxytag: member="AiboCore::MainSetup" ref="a940aa3f41c521cfc8e1ea69b8a616648" args="()" -->
-virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><b>MainSetup</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCore.html#a377640056394d6235609688045288fe7">AiboCore</a> (ConfigFile *cf, int section)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCore.html#a078c3b2541d57e7455094ef7c9e46c80">connect</a> (const char *ip_addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCore.html#a7cf6b6a288291b36254dc29ae089d6bc">count</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCore.html#a940aa3f41c521cfc8e1ea69b8a616648">MainSetup</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set up the device. Return 0 if things go well, and -1 otherwise.  <a href="#a940aa3f41c521cfc8e1ea69b8a616648"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a06b4d7957998e00ffa662ff9345662"></a><!-- doxytag: member="AiboCore::MainQuit" ref="a4a06b4d7957998e00ffa662ff9345662" args="()" -->
-virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MainQuit</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2612cdb01d22f3b18fa0c42ec15b4525"></a><!-- doxytag: member="AiboCore::ProcessMessage" ref="a2612cdb01d22f3b18fa0c42ec15b4525" args="(QueuePointer &amp;resp_queue, player_msghdr *hdr, void *data)" -->
-int&nbsp;</td><td class="memItemRight" valign="bottom"><b>ProcessMessage</b> (QueuePointer &amp;resp_queue, player_msghdr *hdr, void *data)</td></tr>
+virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCore.html#a4a06b4d7957998e00ffa662ff9345662">MainQuit</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Shutdown the device. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCore.html#a2612cdb01d22f3b18fa0c42ec15b4525">ProcessMessage</a> (QueuePointer &amp;resp_queue, player_msghdr *hdr, void *data)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Process Messages published from Player.  <a href="#a2612cdb01d22f3b18fa0c42ec15b4525"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bfbdcab738086d571c8dd9936408221"></a><!-- doxytag: member="AiboCore::walk" ref="a0bfbdcab738086d571c8dd9936408221" args="" -->
 <a class="el" href="classAiboWalk.html">AiboWalk</a>&nbsp;</td><td class="memItemRight" valign="bottom"><b>walk</b></td></tr>
@@ -81,6 +82,178 @@ int&nbsp;</td><td class="memItemRight" valign="bottom"><b>ProcessMessage</b> (Qu
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>The entire Aibo and required Player classes. Core of driver. </p>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a377640056394d6235609688045288fe7"></a><!-- doxytag: member="AiboCore::AiboCore" ref="a377640056394d6235609688045288fe7" args="(ConfigFile *cf, int section)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AiboCore::AiboCore </td>
+          <td>(</td>
+          <td class="paramtype">ConfigFile *&nbsp;</td>
+          <td class="paramname"> <em>cf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>section</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructor. Retrieve options from the configuration file and do any pre-Setup() setup. </p>
+
+<p><p>Needed to add interfaces</p>
+<p>Position2d</p>
+<p>PTZ (Head)</p>
+<p>Camera</p>
+<p>Grab ip from aibo.cfg file</p>
+<p>Create head, walk, cam objects </p>
+</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classAiboCore_a377640056394d6235609688045288fe7_cgraph.png" border="0" usemap="#classAiboCore_a377640056394d6235609688045288fe7_cgraph_map" alt=""></div>
+<map name="classAiboCore_a377640056394d6235609688045288fe7_cgraph_map" id="classAiboCore_a377640056394d6235609688045288fe7_cgraph">
+<area shape="rect" href="classAiboCam.html#aa450f46c7d0bfc09ec6f6b16cb42fdc6" title="AiboCam::connect" alt="" coords="200,5,331,35"/><area shape="rect" href="classAiboHead.html#a5fef344c99e421b7c704099628ca3542" title="AiboHead::connect" alt="" coords="197,59,333,88"/><area shape="rect" href="classAiboWalk.html#a579e96df4e476be1232080d736f1cbf2" title="AiboWalk::connect" alt="" coords="199,112,332,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a078c3b2541d57e7455094ef7c9e46c80"></a><!-- doxytag: member="AiboCore::connect" ref="a078c3b2541d57e7455094ef7c9e46c80" args="(const char *ip_addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AiboCore::connect </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>ip_addr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Called during driver initialization to create socket connections </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classAiboCore_a078c3b2541d57e7455094ef7c9e46c80_cgraph.png" border="0" usemap="#classAiboCore_a078c3b2541d57e7455094ef7c9e46c80_cgraph_map" alt=""></div>
+<map name="classAiboCore_a078c3b2541d57e7455094ef7c9e46c80_cgraph_map" id="classAiboCore_a078c3b2541d57e7455094ef7c9e46c80_cgraph">
+<area shape="rect" href="classAiboCam.html#aa450f46c7d0bfc09ec6f6b16cb42fdc6" title="AiboCam::connect" alt="" coords="189,5,320,35"/><area shape="rect" href="classAiboHead.html#a5fef344c99e421b7c704099628ca3542" title="AiboHead::connect" alt="" coords="187,59,323,88"/><area shape="rect" href="classAiboWalk.html#a579e96df4e476be1232080d736f1cbf2" title="AiboWalk::connect" alt="" coords="188,112,321,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a7cf6b6a288291b36254dc29ae089d6bc"></a><!-- doxytag: member="AiboCore::count" ref="a7cf6b6a288291b36254dc29ae089d6bc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AiboCore::count </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the number of Aibo's using the driver </p>
+
+</div>
+</div>
+<a class="anchor" id="a940aa3f41c521cfc8e1ea69b8a616648"></a><!-- doxytag: member="AiboCore::MainSetup" ref="a940aa3f41c521cfc8e1ea69b8a616648" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AiboCore::MainSetup </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set up the device. Return 0 if things go well, and -1 otherwise. </p>
+
+<p><p>Must initialize the cam in this function. Trouble otherwise. </p>
+</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648_cgraph.png" border="0" usemap="#classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648_cgraph_map" alt=""></div>
+<map name="classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648_cgraph_map" id="classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648_cgraph">
+<area shape="rect" href="classdev.html#a760161504ea05e090293aff31c834634" title="dev::getHeight" alt="" coords="231,5,340,35"/><area shape="rect" href="classdev.html#adc3b057042e6069d8e2432c48418c173" title="dev::getWidth" alt="" coords="233,59,337,88"/><area shape="rect" href="classdev.html#aea51d02a9f5c04fdacc63b415d7fba6f" title="dev::initialize" alt="" coords="236,112,335,141"/><area shape="rect" href="classAiboCam.html#a72162af9d25b9b24d6449d41b234f8b2" title="AiboCam::updateMMap" alt="" coords="204,165,367,195"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a2612cdb01d22f3b18fa0c42ec15b4525"></a><!-- doxytag: member="AiboCore::ProcessMessage" ref="a2612cdb01d22f3b18fa0c42ec15b4525" args="(QueuePointer &amp;resp_queue, player_msghdr *hdr, void *data)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AiboCore::ProcessMessage </td>
+          <td>(</td>
+          <td class="paramtype">QueuePointer &amp;&nbsp;</td>
+          <td class="paramname"> <em>resp_queue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">player_msghdr *&nbsp;</td>
+          <td class="paramname"> <em>hdr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>data</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Process Messages published from Player. </p>
+
+<p><p>Catch position2d</p>
+<p>Catch PTZ </p>
+</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525_cgraph.png" border="0" usemap="#classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525_cgraph_map" alt=""></div>
+<map name="classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525_cgraph_map" id="classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525_cgraph">
+<area shape="rect" href="classAiboHead.html#adf0f91fafeaa5e32b5e387ac136e0f37" title="AiboHead::move" alt="" coords="249,5,372,35"/><area shape="rect" href="classAiboWalk.html#ace69bca076d0091769b1af5ca7636953" title="AiboWalk::walk" alt="" coords="253,59,368,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/jesse/Dropbox/Aibo/src/<a class="el" href="AiboCore_8h_source.html">AiboCore.h</a></li>
 <li>/home/jesse/Dropbox/Aibo/src/AiboCore.cc</li>
@@ -100,7 +273,7 @@ int&nbsp;</td><td class="memItemRight" valign="bottom"><b>ProcessMessage</b> (Qu
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Apr 14 14:49:39 2010 for Aibo Player Driver by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Apr 16 11:04:05 2010 for Aibo Player Driver by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

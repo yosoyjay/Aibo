@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$classdev.html" title="This class just wraps the image used by AiboCam." alt="" coords="5,5,48,35"/>
+<area shape="rect" href="$classAiboNet.html" title="Class responsible for low level network communications." alt="" coords="72,5,139,35"/>
+</map>

@@ -45,17 +45,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <h1>AiboCam Class Reference</h1><!-- doxytag: class="AiboCam" --><!-- doxytag: inherits="dev" -->
-<p>The Aibo's camera.  
+<p>Aibo's Camera This class represents and implements methods to capture images from the Aibo. Image details are initialized here: depth = 3 - Does not change width = 0 - Automatically resized when initialized() called height = 0 - Automatically rezied when inttialized() called.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="AiboCam_8h_source.html">AiboCam.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AiboCam:</div>
 <div class="dynsection">
+<div class="center"><img src="classAiboCam__inherit__graph.png" border="0" usemap="#AiboCam_inherit__map" alt="Inheritance graph"/></div>
+<map name="AiboCam_inherit__map" id="AiboCam_inherit__map">
+<area shape="rect" href="classdev.html" title="This class just wraps the image used by AiboCam." alt="" coords="23,5,65,35"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for AiboCam:</div>
 <div class="dynsection">
+<div class="center"><img src="classAiboCam__coll__graph.png" border="0" usemap="#AiboCam_coll__map" alt="Collaboration graph"/></div>
+<map name="AiboCam_coll__map" id="AiboCam_coll__map">
+<area shape="rect" href="classdev.html" title="This class just wraps the image used by AiboCam." alt="" coords="5,5,48,35"/><area shape="rect" href="classAiboNet.html" title="Class responsible for low level network communications." alt="" coords="72,5,139,35"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classAiboCam-members.html">List of all members.</a></p>
@@ -63,16 +69,33 @@ Collaboration diagram for AiboCam:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a594411a1df57552aa2b9c609319c74d4"></a><!-- doxytag: member="AiboCam::AiboCam" ref="a594411a1df57552aa2b9c609319c74d4" args="()" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCam.html#a594411a1df57552aa2b9c609319c74d4">AiboCam</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Aibo's Camera This clas represents and implements methods to capture images from the Aibo. <br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Aibo's Camera This class represents and implements methods to capture images from the Aibo. Image details are initialized here: depth = 3 - Does not change width = 0 - Automatically resized when initialized() called height = 0 - Automatically rezied when inttialized() called. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCam.html#a72162af9d25b9b24d6449d41b234f8b2">updateMMap</a> (int decompress)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCam.html#aa450f46c7d0bfc09ec6f6b16cb42fdc6">connect</a> (const char *ip_addr)</td></tr>
-<tr><td colspan="2"><h2>Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa865c8168614456624bdea87b5cd8a71"></a><!-- doxytag: member="AiboCam::lock" ref="aa865c8168614456624bdea87b5cd8a71" args="" -->
-RWLock&nbsp;</td><td class="memItemRight" valign="bottom"><b>lock</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboCam.html#aeef7ebf6fe97788c0672481399586295">~AiboCam</a> ()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>The Aibo's camera. </p>
-<p>This class represents the Aibo's camera. Note that the initial <a class="el" href="classAiboCam.html#a72162af9d25b9b24d6449d41b234f8b2">updateMMap()</a> and <a class="el" href="classAiboCam.html#aa450f46c7d0bfc09ec6f6b16cb42fdc6">connect()</a> calls must exists exactly where there are called in MainSetup(). </p>
+<p>Aibo's Camera This class represents and implements methods to capture images from the Aibo. Image details are initialized here: depth = 3 - Does not change width = 0 - Automatically resized when initialized() called height = 0 - Automatically rezied when inttialized() called. </p>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="aeef7ebf6fe97788c0672481399586295"></a><!-- doxytag: member="AiboCam::~AiboCam" ref="aeef7ebf6fe97788c0672481399586295" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AiboCam::~AiboCam </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>RWLock used to prevent RWLock lock; /*! Deconstructor for <a class="el" href="classAiboCam.html" title="Aibo&#39;s Camera This class represents and implements methods to capture images...">AiboCam</a>. Deletes aibolink (socket)</p>
+<p>Deconstructor for <a class="el" href="classAiboCam.html" title="Aibo&#39;s Camera This class represents and implements methods to capture images...">AiboCam</a>. Deletes aibolink (socket) </p>
+
+</div>
+</div>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="aa450f46c7d0bfc09ec6f6b16cb42fdc6"></a><!-- doxytag: member="AiboCam::connect" ref="aa450f46c7d0bfc09ec6f6b16cb42fdc6" args="(const char *ip_addr)" -->
 <div class="memitem">
@@ -90,6 +113,12 @@ RWLock&nbsp;</td><td class="memItemRight" valign="bottom"><b>lock</b></td></tr>
 </div>
 <div class="memdoc">
 <p>Creates and connects a socket to capture images from the Aibo </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>*hostname</em>&nbsp;</td><td>- Pointer to the ip address of the Aibo </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -108,7 +137,13 @@ RWLock&nbsp;</td><td class="memItemRight" valign="bottom"><b>lock</b></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Captures images from socket. Argument is used to toggle decompression of image. 1 = decompress 0 = no-decompress </p>
+<p>Captures images from socket. Argument is used to toggle decompression of image. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>decompress</em>&nbsp;</td><td>- jpeg decompression option 1 = decompress 0 = no-decompress </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -131,7 +166,7 @@ RWLock&nbsp;</td><td class="memItemRight" valign="bottom"><b>lock</b></td></tr>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Apr 14 14:49:39 2010 for Aibo Player Driver by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Apr 16 11:04:02 2010 for Aibo Player Driver by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

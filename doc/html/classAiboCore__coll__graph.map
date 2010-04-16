@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" href="$classAiboCam.html" title="Aibo&#39;s Camera This class represents and implements methods to capture images..." alt="" coords="5,101,83,131"/>
+<area shape="rect" href="$classdev.html" title="This class just wraps the image used by AiboCam." alt="" coords="13,5,56,35"/>
+<area shape="rect" href="$classAiboNet.html" title="Class responsible for low level network communications." alt="" coords="123,5,189,35"/>
+<area shape="rect" href="$classAiboWalk.html" title="Control&#39;s the Aibo&#39;s movement (Walking). The walk() function is designed..." alt="" coords="107,101,184,131"/>
+<area shape="rect" href="$classAiboHead.html" title="Controls the Aibo&#39;s head. The move() function is designed to work with the parameters..." alt="" coords="208,101,288,131"/>
+</map>

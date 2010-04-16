@@ -46,29 +46,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;cmath&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &quot;AiboNet.h&quot;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">const</span> <span class="keywordtype">int</span> AIBO_WALK_PORT = 10050;
-<a name="l00008"></a>00008 
+<a name="l00008"></a>00008 <span class="keyword">const</span> <span class="keywordtype">int</span> AIBO_WALK_PORT = 10050;
 <a name="l00009"></a>00009 
-<a name="l00011"></a><a class="code" href="classAiboWalk.html">00011</a> <span class="keyword">class </span><a class="code" href="classAiboWalk.html" title="Control&amp;#39;s the Aibo&amp;#39;s movement (Walking).">AiboWalk</a>
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 <span class="keyword">public</span>:
-<a name="l00014"></a>00014     <a class="code" href="classAiboWalk.html" title="Control&amp;#39;s the Aibo&amp;#39;s movement (Walking).">AiboWalk</a>();
-<a name="l00015"></a>00015     <span class="keywordtype">void</span> connect(<span class="keyword">const</span> <span class="keywordtype">char</span> *ip_addr);
-<a name="l00016"></a>00016     <span class="keywordtype">int</span> forward(<span class="keywordtype">float</span> magnitude);
-<a name="l00017"></a>00017     <span class="keywordtype">int</span> backward(<span class="keywordtype">float</span> magnitude);
-<a name="l00018"></a>00018     <span class="keywordtype">int</span> strafe_right(<span class="keywordtype">float</span> magnitude);
-<a name="l00019"></a>00019     <span class="keywordtype">int</span> strafe_left(<span class="keywordtype">float</span> magnitude);
-<a name="l00020"></a>00020     <span class="keywordtype">int</span> rotate_clockwise(<span class="keywordtype">float</span> magnitude);
-<a name="l00021"></a>00021     <span class="keywordtype">int</span> rotate_counter_clockwise(<span class="keywordtype">float</span> magnitude);
-<a name="l00022"></a>00022     <span class="keywordtype">int</span> walk(<span class="keywordtype">float</span> px, <span class="keywordtype">float</span> py,<span class="keywordtype">float</span> pa);
-<a name="l00023"></a>00023     ~<a class="code" href="classAiboWalk.html" title="Control&amp;#39;s the Aibo&amp;#39;s movement (Walking).">AiboWalk</a>();
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="keyword">private</span>:
-<a name="l00026"></a>00026     <a class="code" href="classAiboNet.html" title="Class responsible for low level network communications.">AiboNet</a> *aibolink;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028 };
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="preprocessor">#endif</span>
+<a name="l00019"></a><a class="code" href="classAiboWalk.html">00019</a> <span class="keyword">class </span><a class="code" href="classAiboWalk.html" title="Control&amp;#39;s the Aibo&amp;#39;s movement (Walking). The walk() function is designed...">AiboWalk</a>
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021 <span class="keyword">public</span>:
+<a name="l00022"></a>00022     <a class="code" href="classAiboWalk.html" title="Control&amp;#39;s the Aibo&amp;#39;s movement (Walking). The walk() function is designed...">AiboWalk</a>();
+<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classAiboWalk.html#a579e96df4e476be1232080d736f1cbf2">connect</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *ip_addr);
+<a name="l00029"></a>00029     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#ad0af8173899889a2493657027100f7f8">forward</a>(<span class="keywordtype">float</span> magnitude);
+<a name="l00033"></a>00033     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#a38821bc26f7140c31dfe72713a335fef">backward</a>(<span class="keywordtype">float</span> magnitude);
+<a name="l00037"></a>00037     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#a092f290abad06d247dab8d4d602c5f73">strafe_right</a>(<span class="keywordtype">float</span> magnitude);
+<a name="l00041"></a>00041     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#a05599002238d8bf717655f2244a8d646">strafe_left</a>(<span class="keywordtype">float</span> magnitude);
+<a name="l00045"></a>00045     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#a5f4b9c1911e4486f13f45a7afb4d8d4a">rotate_clockwise</a>(<span class="keywordtype">float</span> magnitude);
+<a name="l00049"></a>00049     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#a93290f3abdbdbeb4482d91d0557f70ae">rotate_counter_clockwise</a>(<span class="keywordtype">float</span> magnitude);
+<a name="l00065"></a>00065     <span class="keywordtype">int</span> <a class="code" href="classAiboWalk.html#ace69bca076d0091769b1af5ca7636953">walk</a>(<span class="keywordtype">float</span> px, <span class="keywordtype">float</span> py,<span class="keywordtype">float</span> pa);
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     ~<a class="code" href="classAiboWalk.html" title="Control&amp;#39;s the Aibo&amp;#39;s movement (Walking). The walk() function is designed...">AiboWalk</a>();
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="keyword">private</span>:
+<a name="l00070"></a>00070     <a class="code" href="classAiboNet.html" title="Class responsible for low level network communications.">AiboNet</a> *aibolink;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 };
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -84,7 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Apr 14 14:49:39 2010 for Aibo Player Driver by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Apr 16 11:04:01 2010 for Aibo Player Driver by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>
