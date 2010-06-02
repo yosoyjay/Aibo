@@ -1,10 +1,10 @@
 #include "AiboCore.h"
 
 
-/* Counter to track number of Aibo's using driver */
+/*! Counter to track number of Aibo's using driver */
 int AiboCore::aibo_count = 0;
 
-/* Called during driver initialization to create socket connections */
+/*! Called during driver initialization to create socket connections */
 void AiboCore::connect(const char *ip_addr)
 {
 
@@ -14,7 +14,7 @@ void AiboCore::connect(const char *ip_addr)
 
 }
 
-/* Returns the number of Aibo's using the driver */
+/*! Returns the number of Aibo's using the driver */
 int AiboCore::count()
 {
     return AiboCore::aibo_count;
@@ -26,34 +26,34 @@ AiboCore::~AiboCore()
 
 }
 
-/*  Functions required for Player
+/* Functions required for Player
  *
  */
 
-// Create and return new instance of driver
+//! Create and return new instance of driver
 Driver* Aibo_Init(ConfigFile* cf, int section)
 {
     return((Driver*)(new AiboCore(cf, section)));
 }
 
-// Tell driver table that aibo exists
+//! Tell driver table that aibo exists
 void Aibo_Register(DriverTable* table)
 {
     table->AddDriver("aibo", Aibo_Init);
 }
 
-// Constructor.  Retrieve options from the configuration file and do any
-// pre-Setup() setup.
+/*! Constructor.  Retrieve options from the configuration file and do any
+    pre-Setup() setup. */
 AiboCore::AiboCore(ConfigFile* cf, int section)
     : ThreadedDriver(cf, section)
 {
 
-    // Needed to add interfaces
+    //! Needed to add interfaces
     memset(&position_addr, 0, sizeof(player_devaddr_t));
     memset(&ptz_addr, 0, sizeof(player_devaddr_t));
     memset(&camera_addr, 0, sizeof(player_devaddr_t));
 
-    //Position2d
+    //! Position2d
     if(cf->ReadDeviceAddr(&position_addr, section, "provides", PLAYER_POSITION2D_CODE, -1, NULL) == 0)
     {
         if(AddInterface(position_addr) != 0)
@@ -72,7 +72,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
         return;
     }
 
-    // PTZ
+    //! PTZ (Head)
     if(cf->ReadDeviceAddr(&ptz_addr,section, "provides", PLAYER_PTZ_CODE, -1, NULL) == 0)
     {
         if(AddInterface(ptz_addr) != 0)
@@ -91,7 +91,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
         return;
     }
 
-    // Camera
+    //! Camera
     if(cf->ReadDeviceAddr(&camera_addr, section, "provides", PLAYER_CAMERA_CODE, -1, NULL) == 0)
     {
         if (AddInterface(camera_addr) != 0)
@@ -104,12 +104,13 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
         puts("Added Camera Interface to Aibo");
 
     }
-
+	
+    //! Grab ip from aibo.cfg file
     ip = cf->ReadString(section, "ip", "192.168.2.155"); 					// 155 is default if non is provided
     printf("Using IP: %s \n", ip);
     protocol = cf->ReadInt(section, "protocol", 1);
 
-    // Create head, walk, cam objects
+    //! Create head, walk, cam objects
     walk.connect(ip);
     head.connect(ip);
     cam.connect(ip);
@@ -120,11 +121,12 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
 }
 
 
-// Set up the device.  Return 0 if things go well, and -1 otherwise.
+//! Set up the device.  Return 0 if things go well, and -1 otherwise.
 int AiboCore::MainSetup()
 {
     puts("Aibo driver initializing.");
 
+    //! Must initialize the cam in this function.  Trouble otherwise.
     //cam = new AiboCam.connect(ip);
     cam.updateMMap(0);
     cam.initialize(cam.getWidth(),cam.getHeight(),3,0,1,2);
@@ -145,7 +147,7 @@ int AiboCore::MainSetup()
 
 
 
-// Shutdown the device
+//! Shutdown the device
 void AiboCore::MainQuit()
 {
     puts("Shutting Aibo driver down");
@@ -158,10 +160,10 @@ void AiboCore::MainQuit()
 }
 
 
-// Process Messages
+//! Process Messages published from Player
 int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void *data)
 {
-    // Catch position2d
+    //! Catch position2d
     if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL, position_addr))
     {
 
@@ -172,7 +174,7 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void 
 
         return 0;
     }
-    // Catch PTZ
+    //! Catch PTZ
     else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_PTZ_CMD_STATE, ptz_addr))
     {
         assert(hdr->size == sizeof(player_ptz_cmd_t));
@@ -187,10 +189,10 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, void 
     return 0;
 }
 
-// Main function for device thread
+//! Main function for device thread
 void AiboCore::Main()
 {
-    // Preparation for Camera interface
+    //! Preparation for Camera interface.  player_camera_t struct filled.
     cam.updateMMap(1);
 
     player_camera_data_t camdata;

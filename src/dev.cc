@@ -17,7 +17,11 @@ dev::dev(int wi, int he, int de)
 
 dev::~dev()
 {
-    // delete [] image;
+    /* This was naively implemented and it cause problems
+	 * Need to go through properly implement this to prevent
+	 * memory leaks.
+	 * delete [] image;
+	 */
 }
 
 void dev::setRGB(int r, int g, int b)

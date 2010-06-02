@@ -14,7 +14,7 @@ $(PLAYER_DRIVER): $(OBJS)
 ifeq ($(VENDOR),apple)
 	$(CXX) -shared -nostartfiles -I $(PLAYER_DIR) -ljpeg -lplayercore -o $@ $^
 else
-	$(CXX) -shared -nostartfiles -o $@ $^
+	$(CXX) -shared -nostartfiles -L/opt/libjpeg-turbo/lib -o $@ $^
 endif
 
 %.o: %.cc %.h
