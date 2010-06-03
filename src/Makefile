@@ -2,7 +2,7 @@ GCC=gcc
 CXX=g++
 PLAYER_DIR = /usr/local/include/player-3.0/
 SRC = AiboWalk.cc AiboWalk.h AiboCoreStatic.cc AiboCoreStatic.h AiboCore.cc AiboCore.h AiboHead.cc AiboHead.h AiboNet.cc AiboNet.h unp.h RWLock.cc RWLock.h jpeg.c jpeg.h AiboCam.cc AiboCam.h dev.cc dev.h 
-OBJS = RWLock.o jpeg.o dev.o AiboWalk.o AiboCore.o AiboCoreStatic.o AiboHead.o AiboNet.o AiboCam.o
+OBJS = RWLock.o jpeg.o dev.o AiboWalk.o AiboCore.o AiboNet.o AiboCam.o
 
 PLAYER_DRIVER = libAibo_Driver.so
 
@@ -14,7 +14,7 @@ $(PLAYER_DRIVER): $(OBJS)
 ifeq ($(VENDOR),apple)
 	$(CXX) -shared -nostartfiles -I $(PLAYER_DIR) -ljpeg -lplayercore -o $@ $^
 else
-	$(CXX) -shared -nostartfiles -L/opt/libjpeg-turbo/lib -o $@ $^
+	$(CXX) -shared -nostartfiles -ljpeg -o $@ $^
 endif
 
 %.o: %.cc %.h
