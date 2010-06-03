@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$classdev.html#a760161504ea05e090293aff31c834634" title="dev::getHeight" alt="" coords="231,5,340,35"/>
-<area shape="rect" href="$classdev.html#adc3b057042e6069d8e2432c48418c173" title="dev::getWidth" alt="" coords="233,59,337,88"/>
-<area shape="rect" href="$classdev.html#aea51d02a9f5c04fdacc63b415d7fba6f" title="dev::initialize" alt="" coords="236,112,335,141"/>
-<area shape="rect" href="$classAiboCam.html#a72162af9d25b9b24d6449d41b234f8b2" title="AiboCam::updateMMap" alt="" coords="204,165,367,195"/>
-</map>

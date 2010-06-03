@@ -4,30 +4,41 @@
 }
 
 
-Controls the Aibo's head. The \hyperlink{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}{move()} function is designed to work with the parameters provided by the PTZ Player interface.  
+Controls the Aibo's head.  
 
 
-{\ttfamily \#include $<$AiboHead.h$>$}Collaboration diagram for AiboHead:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=108pt]{classAiboHead__coll__graph}
-\end{center}
-\end{figure}
-\subsection*{Public Member Functions}
+{\ttfamily \#include $<$AiboHead.h$>$}Collaboration diagram for AiboHead:\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{classAiboHead_a5fef344c99e421b7c704099628ca3542}{connect} (const char $\ast$ip\_\-addr)
+\hypertarget{classAiboHead_a5fef344c99e421b7c704099628ca3542}{
+void {\bfseries connect} (const char $\ast$ip\_\-addr)}
+\label{classAiboHead_a5fef344c99e421b7c704099628ca3542}
+
 \item 
-int \hyperlink{classAiboHead_a085f54c6374d5eb117c12b0e9cad2d0e}{up} (float magnitude)
+\hypertarget{classAiboHead_a085f54c6374d5eb117c12b0e9cad2d0e}{
+int {\bfseries up} (float magnitude)}
+\label{classAiboHead_a085f54c6374d5eb117c12b0e9cad2d0e}
+
 \item 
-int \hyperlink{classAiboHead_a60bd059ca7a58ee2b3ee95011150ea89}{down} (float magnitude)
+\hypertarget{classAiboHead_a60bd059ca7a58ee2b3ee95011150ea89}{
+int {\bfseries down} (float magnitude)}
+\label{classAiboHead_a60bd059ca7a58ee2b3ee95011150ea89}
+
 \item 
-int \hyperlink{classAiboHead_a4821a0ccff77b881636aec49703a3683}{left} (float magnitude)
+\hypertarget{classAiboHead_a4821a0ccff77b881636aec49703a3683}{
+int {\bfseries left} (float magnitude)}
+\label{classAiboHead_a4821a0ccff77b881636aec49703a3683}
+
 \item 
-int \hyperlink{classAiboHead_a6be7b6743be53896c2f41dc1db1ce2a5}{right} (float magnitude)
+\hypertarget{classAiboHead_a6be7b6743be53896c2f41dc1db1ce2a5}{
+int {\bfseries right} (float magnitude)}
+\label{classAiboHead_a6be7b6743be53896c2f41dc1db1ce2a5}
+
 \item 
-int \hyperlink{classAiboHead_a2e754379dcba417ebd438c40b437db76}{center} ()
+\hypertarget{classAiboHead_a2e754379dcba417ebd438c40b437db76}{
+int {\bfseries center} ()}
+\label{classAiboHead_a2e754379dcba417ebd438c40b437db76}
+
 \item 
 \hypertarget{classAiboHead_a8a1c455d24761b2946b796150ff2fd67}{
 int {\bfseries pitch} (float magnitude)}
@@ -39,76 +50,15 @@ int {\bfseries yaw} (float magnitude)}
 \label{classAiboHead_aa22c906d22cb79780d47b7ac3730dee4}
 
 \item 
-int \hyperlink{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}{move} (float pan, float tilt, float zoom)
-\item 
-\hyperlink{classAiboHead_ac1c26e972e0afced5e89affd987344e6}{$\sim$AiboHead} ()
+\hypertarget{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}{
+int {\bfseries move} (float pan, float tilt, float zoom)}
+\label{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}
+
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Controls the Aibo's head. The \hyperlink{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}{move()} function is designed to work with the parameters provided by the PTZ Player interface. Unlike walking commands, head commands have not been observed to have a maximum rate. 
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{classAiboHead_ac1c26e972e0afced5e89affd987344e6}{
-\index{AiboHead@{AiboHead}!$\sim$AiboHead@{$\sim$AiboHead}}
-\index{$\sim$AiboHead@{$\sim$AiboHead}!AiboHead@{AiboHead}}
-\subsubsection[{$\sim$AiboHead}]{\setlength{\rightskip}{0pt plus 5cm}AiboHead::$\sim$AiboHead ()}}
-\label{classAiboHead_ac1c26e972e0afced5e89affd987344e6}
-\hyperlink{classAiboHead}{AiboHead} desconstructor Deletes the socket 
-
-\subsection{Member Function Documentation}
-\hypertarget{classAiboHead_a2e754379dcba417ebd438c40b437db76}{
-\index{AiboHead@{AiboHead}!center@{center}}
-\index{center@{center}!AiboHead@{AiboHead}}
-\subsubsection[{center}]{\setlength{\rightskip}{0pt plus 5cm}int AiboHead::center ()}}
-\label{classAiboHead_a2e754379dcba417ebd438c40b437db76}
-Moves the head up to the center position
-
-Moves the head to a centered position \hypertarget{classAiboHead_a5fef344c99e421b7c704099628ca3542}{
-\index{AiboHead@{AiboHead}!connect@{connect}}
-\index{connect@{connect}!AiboHead@{AiboHead}}
-\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}void AiboHead::connect (const char $\ast$ {\em ip\_\-addr})}}
-\label{classAiboHead_a5fef344c99e421b7c704099628ca3542}
-Create socket for head (PTZ) and connect 
-\begin{DoxyParams}{Parameters}
-\item[{\em ip\_\-addr}]-\/ The ip of the Aibo \end{DoxyParams}
-\hypertarget{classAiboHead_a60bd059ca7a58ee2b3ee95011150ea89}{
-\index{AiboHead@{AiboHead}!down@{down}}
-\index{down@{down}!AiboHead@{AiboHead}}
-\subsubsection[{down}]{\setlength{\rightskip}{0pt plus 5cm}int AiboHead::down (float {\em magnitude})}}
-\label{classAiboHead_a60bd059ca7a58ee2b3ee95011150ea89}
-Moves the head down to a given position
-
-Moves the head down to a give position \hypertarget{classAiboHead_a4821a0ccff77b881636aec49703a3683}{
-\index{AiboHead@{AiboHead}!left@{left}}
-\index{left@{left}!AiboHead@{AiboHead}}
-\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}int AiboHead::left (float {\em magnitude})}}
-\label{classAiboHead_a4821a0ccff77b881636aec49703a3683}
-Moves the head left to a given position
-
-Moves the head left to a give position \hypertarget{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}{
-\index{AiboHead@{AiboHead}!move@{move}}
-\index{move@{move}!AiboHead@{AiboHead}}
-\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}int AiboHead::move (float {\em pan}, \/  float {\em tilt}, \/  float {\em zoom})}}
-\label{classAiboHead_adf0f91fafeaa5e32b5e387ac136e0f37}
-Designed to take arguments from Player message 
-\begin{DoxyParams}{Parameters}
-\item[{\em pan}]-\/ The position to pan the head to \item[{\em tilt}]-\/ The position to tilt the head to \item[{\em zoom}]-\/ ... \end{DoxyParams}
-\hypertarget{classAiboHead_a6be7b6743be53896c2f41dc1db1ce2a5}{
-\index{AiboHead@{AiboHead}!right@{right}}
-\index{right@{right}!AiboHead@{AiboHead}}
-\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}int AiboHead::right (float {\em magnitude})}}
-\label{classAiboHead_a6be7b6743be53896c2f41dc1db1ce2a5}
-Moves the head right to a given position
-
-Moves the head right to a give position \hypertarget{classAiboHead_a085f54c6374d5eb117c12b0e9cad2d0e}{
-\index{AiboHead@{AiboHead}!up@{up}}
-\index{up@{up}!AiboHead@{AiboHead}}
-\subsubsection[{up}]{\setlength{\rightskip}{0pt plus 5cm}int AiboHead::up (float {\em magnitude})}}
-\label{classAiboHead_a085f54c6374d5eb117c12b0e9cad2d0e}
-Moves the head up to a given position
-
-Moves the head up to a give position 
+Controls the Aibo's head. 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 

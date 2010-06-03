@@ -45,261 +45,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <h1>AiboWalk Class Reference</h1><!-- doxytag: class="AiboWalk" -->
-<p>Control's the Aibo's movement (Walking). The <a class="el" href="classAiboWalk.html#ace69bca076d0091769b1af5ca7636953">walk()</a> function is designed to be used with the parameters provided by the Position2d interface.  
+<p>Control's the Aibo's movement (Walking).  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="AiboWalk_8h_source.html">AiboWalk.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for AiboWalk:</div>
 <div class="dynsection">
-<div class="center"><img src="classAiboWalk__coll__graph.png" border="0" usemap="#AiboWalk_coll__map" alt="Collaboration graph"/></div>
-<map name="AiboWalk_coll__map" id="AiboWalk_coll__map">
-<area shape="rect" href="classAiboNet.html" title="Class responsible for low level network communications." alt="" coords="11,5,77,35"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classAiboWalk-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#a579e96df4e476be1232080d736f1cbf2">connect</a> (const char *ip_addr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#ad0af8173899889a2493657027100f7f8">forward</a> (float magnitude)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#a38821bc26f7140c31dfe72713a335fef">backward</a> (float magnitude)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#a092f290abad06d247dab8d4d602c5f73">strafe_right</a> (float magnitude)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#a05599002238d8bf717655f2244a8d646">strafe_left</a> (float magnitude)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#a5f4b9c1911e4486f13f45a7afb4d8d4a">rotate_clockwise</a> (float magnitude)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#a93290f3abdbdbeb4482d91d0557f70ae">rotate_counter_clockwise</a> (float magnitude)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAiboWalk.html#ace69bca076d0091769b1af5ca7636953">walk</a> (float px, float py, float pa)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a579e96df4e476be1232080d736f1cbf2"></a><!-- doxytag: member="AiboWalk::connect" ref="a579e96df4e476be1232080d736f1cbf2" args="(const char *ip_addr)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>connect</b> (const char *ip_addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0af8173899889a2493657027100f7f8"></a><!-- doxytag: member="AiboWalk::forward" ref="ad0af8173899889a2493657027100f7f8" args="(float magnitude)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>forward</b> (float magnitude)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38821bc26f7140c31dfe72713a335fef"></a><!-- doxytag: member="AiboWalk::backward" ref="a38821bc26f7140c31dfe72713a335fef" args="(float magnitude)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>backward</b> (float magnitude)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a092f290abad06d247dab8d4d602c5f73"></a><!-- doxytag: member="AiboWalk::strafe_right" ref="a092f290abad06d247dab8d4d602c5f73" args="(float magnitude)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>strafe_right</b> (float magnitude)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05599002238d8bf717655f2244a8d646"></a><!-- doxytag: member="AiboWalk::strafe_left" ref="a05599002238d8bf717655f2244a8d646" args="(float magnitude)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>strafe_left</b> (float magnitude)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f4b9c1911e4486f13f45a7afb4d8d4a"></a><!-- doxytag: member="AiboWalk::rotate_clockwise" ref="a5f4b9c1911e4486f13f45a7afb4d8d4a" args="(float magnitude)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>rotate_clockwise</b> (float magnitude)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93290f3abdbdbeb4482d91d0557f70ae"></a><!-- doxytag: member="AiboWalk::rotate_counter_clockwise" ref="a93290f3abdbdbeb4482d91d0557f70ae" args="(float magnitude)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>rotate_counter_clockwise</b> (float magnitude)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace69bca076d0091769b1af5ca7636953"></a><!-- doxytag: member="AiboWalk::walk" ref="ace69bca076d0091769b1af5ca7636953" args="(float px, float py, float pa)" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><b>walk</b> (float px, float py, float pa)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>Control's the Aibo's movement (Walking). The <a class="el" href="classAiboWalk.html#ace69bca076d0091769b1af5ca7636953">walk()</a> function is designed to be used with the parameters provided by the Position2d interface. </p>
-<p>The Aibo can receive walk commands at a maximum rate of once every 0.25 seconds. If this rate is exceeded the commands will not be excepeted an result in a "Mech Command Error" (or something like that) on the Aibo. </p>
-<hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a38821bc26f7140c31dfe72713a335fef"></a><!-- doxytag: member="AiboWalk::backward" ref="a38821bc26f7140c31dfe72713a335fef" args="(float magnitude)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::backward </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>magnitude</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends a command for the Aibo to walk backward </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of walk (0 - 0.9) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a579e96df4e476be1232080d736f1cbf2"></a><!-- doxytag: member="AiboWalk::connect" ref="a579e96df4e476be1232080d736f1cbf2" args="(const char *ip_addr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AiboWalk::connect </td>
-          <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>ip_addr</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Creates socket used for walking commands and connects to the Aibo </p>
-
-</div>
-</div>
-<a class="anchor" id="ad0af8173899889a2493657027100f7f8"></a><!-- doxytag: member="AiboWalk::forward" ref="ad0af8173899889a2493657027100f7f8" args="(float magnitude)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::forward </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>magnitude</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends a command for the Aibo to walk forward </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of walk (0 - 0.9) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a5f4b9c1911e4486f13f45a7afb4d8d4a"></a><!-- doxytag: member="AiboWalk::rotate_clockwise" ref="a5f4b9c1911e4486f13f45a7afb4d8d4a" args="(float magnitude)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::rotate_clockwise </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>magnitude</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends a command for the Aibo to rotate counter-clockwise </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of rotation (0 - 0.9) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a93290f3abdbdbeb4482d91d0557f70ae"></a><!-- doxytag: member="AiboWalk::rotate_counter_clockwise" ref="a93290f3abdbdbeb4482d91d0557f70ae" args="(float magnitude)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::rotate_counter_clockwise </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>magnitude</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends a command for the Aibo to rotate clockwise </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of rotation (0 - 0.9) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a05599002238d8bf717655f2244a8d646"></a><!-- doxytag: member="AiboWalk::strafe_left" ref="a05599002238d8bf717655f2244a8d646" args="(float magnitude)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::strafe_left </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>magnitude</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends a command for the Aibo to strafe right </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of strafe (0 - 0.9)</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Sends a command for the Aibo to strafe left </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of strafe (0 - 0.9) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a092f290abad06d247dab8d4d602c5f73"></a><!-- doxytag: member="AiboWalk::strafe_right" ref="a092f290abad06d247dab8d4d602c5f73" args="(float magnitude)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::strafe_right </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>magnitude</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends a command for the Aibo to strafe left </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of strafe (0 - 0.9)</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Sends a command for the Aibo to strafe right </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>magnitude</em>&nbsp;</td><td>- Velocity of strafe (0 - 0.9) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ace69bca076d0091769b1af5ca7636953"></a><!-- doxytag: member="AiboWalk::walk" ref="ace69bca076d0091769b1af5ca7636953" args="(float px, float py, float pa)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AiboWalk::walk </td>
-          <td>(</td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>px</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>py</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>pa</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Sends command for the Aibo to move/walk. Designed to take the three parameters from Position2D.</p>
-<p>All velocities are checked to be at most 0.9. Velocities greater than this cause the robot to move awakwardly and may result in damage to the robot.</p>
-<p>The rotation velocity is multiplied by (1/5) so that it doesn't rotate so quickly. This actually should be part of a log function. Consider it a to do item.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>px</em>&nbsp;</td><td>- Velocity of movement in x direction </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>py</em>&nbsp;</td><td>- Velocity of movement in y direction </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>pa</em>&nbsp;</td><td>- Velocity of rotation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
+<p>Control's the Aibo's movement (Walking). </p>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/jesse/Dropbox/Aibo/src/<a class="el" href="AiboWalk_8h_source.html">AiboWalk.h</a></li>
 <li>/home/jesse/Dropbox/Aibo/src/AiboWalk.cc</li>
@@ -319,7 +95,7 @@ Collaboration diagram for AiboWalk:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Apr 16 11:04:07 2010 for Aibo Player Driver by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Apr 14 14:49:39 2010 for Aibo Player Driver by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

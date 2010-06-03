@@ -4,115 +4,56 @@
 }
 
 
-Control's the Aibo's movement (Walking). The \hyperlink{classAiboWalk_ace69bca076d0091769b1af5ca7636953}{walk()} function is designed to be used with the parameters provided by the Position2d interface.  
+Control's the Aibo's movement (Walking).  
 
 
-{\ttfamily \#include $<$AiboWalk.h$>$}Collaboration diagram for AiboWalk:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=107pt]{classAiboWalk__coll__graph}
-\end{center}
-\end{figure}
-\subsection*{Public Member Functions}
+{\ttfamily \#include $<$AiboWalk.h$>$}Collaboration diagram for AiboWalk:\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{classAiboWalk_a579e96df4e476be1232080d736f1cbf2}{connect} (const char $\ast$ip\_\-addr)
+\hypertarget{classAiboWalk_a579e96df4e476be1232080d736f1cbf2}{
+void {\bfseries connect} (const char $\ast$ip\_\-addr)}
+\label{classAiboWalk_a579e96df4e476be1232080d736f1cbf2}
+
 \item 
-int \hyperlink{classAiboWalk_ad0af8173899889a2493657027100f7f8}{forward} (float magnitude)
+\hypertarget{classAiboWalk_ad0af8173899889a2493657027100f7f8}{
+int {\bfseries forward} (float magnitude)}
+\label{classAiboWalk_ad0af8173899889a2493657027100f7f8}
+
 \item 
-int \hyperlink{classAiboWalk_a38821bc26f7140c31dfe72713a335fef}{backward} (float magnitude)
+\hypertarget{classAiboWalk_a38821bc26f7140c31dfe72713a335fef}{
+int {\bfseries backward} (float magnitude)}
+\label{classAiboWalk_a38821bc26f7140c31dfe72713a335fef}
+
 \item 
-int \hyperlink{classAiboWalk_a092f290abad06d247dab8d4d602c5f73}{strafe\_\-right} (float magnitude)
+\hypertarget{classAiboWalk_a092f290abad06d247dab8d4d602c5f73}{
+int {\bfseries strafe\_\-right} (float magnitude)}
+\label{classAiboWalk_a092f290abad06d247dab8d4d602c5f73}
+
 \item 
-int \hyperlink{classAiboWalk_a05599002238d8bf717655f2244a8d646}{strafe\_\-left} (float magnitude)
+\hypertarget{classAiboWalk_a05599002238d8bf717655f2244a8d646}{
+int {\bfseries strafe\_\-left} (float magnitude)}
+\label{classAiboWalk_a05599002238d8bf717655f2244a8d646}
+
 \item 
-int \hyperlink{classAiboWalk_a5f4b9c1911e4486f13f45a7afb4d8d4a}{rotate\_\-clockwise} (float magnitude)
+\hypertarget{classAiboWalk_a5f4b9c1911e4486f13f45a7afb4d8d4a}{
+int {\bfseries rotate\_\-clockwise} (float magnitude)}
+\label{classAiboWalk_a5f4b9c1911e4486f13f45a7afb4d8d4a}
+
 \item 
-int \hyperlink{classAiboWalk_a93290f3abdbdbeb4482d91d0557f70ae}{rotate\_\-counter\_\-clockwise} (float magnitude)
+\hypertarget{classAiboWalk_a93290f3abdbdbeb4482d91d0557f70ae}{
+int {\bfseries rotate\_\-counter\_\-clockwise} (float magnitude)}
+\label{classAiboWalk_a93290f3abdbdbeb4482d91d0557f70ae}
+
 \item 
-int \hyperlink{classAiboWalk_ace69bca076d0091769b1af5ca7636953}{walk} (float px, float py, float pa)
+\hypertarget{classAiboWalk_ace69bca076d0091769b1af5ca7636953}{
+int {\bfseries walk} (float px, float py, float pa)}
+\label{classAiboWalk_ace69bca076d0091769b1af5ca7636953}
+
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Control's the Aibo's movement (Walking). The \hyperlink{classAiboWalk_ace69bca076d0091769b1af5ca7636953}{walk()} function is designed to be used with the parameters provided by the Position2d interface. The Aibo can receive walk commands at a maximum rate of once every 0.25 seconds. If this rate is exceeded the commands will not be excepeted an result in a \char`\"{}Mech Command Error\char`\"{} (or something like that) on the Aibo. 
-
-\subsection{Member Function Documentation}
-\hypertarget{classAiboWalk_a38821bc26f7140c31dfe72713a335fef}{
-\index{AiboWalk@{AiboWalk}!backward@{backward}}
-\index{backward@{backward}!AiboWalk@{AiboWalk}}
-\subsubsection[{backward}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::backward (float {\em magnitude})}}
-\label{classAiboWalk_a38821bc26f7140c31dfe72713a335fef}
-Sends a command for the Aibo to walk backward 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of walk (0 -\/ 0.9) \end{DoxyParams}
-\hypertarget{classAiboWalk_a579e96df4e476be1232080d736f1cbf2}{
-\index{AiboWalk@{AiboWalk}!connect@{connect}}
-\index{connect@{connect}!AiboWalk@{AiboWalk}}
-\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}void AiboWalk::connect (const char $\ast$ {\em ip\_\-addr})}}
-\label{classAiboWalk_a579e96df4e476be1232080d736f1cbf2}
-Creates socket used for walking commands and connects to the Aibo \hypertarget{classAiboWalk_ad0af8173899889a2493657027100f7f8}{
-\index{AiboWalk@{AiboWalk}!forward@{forward}}
-\index{forward@{forward}!AiboWalk@{AiboWalk}}
-\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::forward (float {\em magnitude})}}
-\label{classAiboWalk_ad0af8173899889a2493657027100f7f8}
-Sends a command for the Aibo to walk forward 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of walk (0 -\/ 0.9) \end{DoxyParams}
-\hypertarget{classAiboWalk_a5f4b9c1911e4486f13f45a7afb4d8d4a}{
-\index{AiboWalk@{AiboWalk}!rotate\_\-clockwise@{rotate\_\-clockwise}}
-\index{rotate\_\-clockwise@{rotate\_\-clockwise}!AiboWalk@{AiboWalk}}
-\subsubsection[{rotate\_\-clockwise}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::rotate\_\-clockwise (float {\em magnitude})}}
-\label{classAiboWalk_a5f4b9c1911e4486f13f45a7afb4d8d4a}
-Sends a command for the Aibo to rotate counter-\/clockwise 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of rotation (0 -\/ 0.9) \end{DoxyParams}
-\hypertarget{classAiboWalk_a93290f3abdbdbeb4482d91d0557f70ae}{
-\index{AiboWalk@{AiboWalk}!rotate\_\-counter\_\-clockwise@{rotate\_\-counter\_\-clockwise}}
-\index{rotate\_\-counter\_\-clockwise@{rotate\_\-counter\_\-clockwise}!AiboWalk@{AiboWalk}}
-\subsubsection[{rotate\_\-counter\_\-clockwise}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::rotate\_\-counter\_\-clockwise (float {\em magnitude})}}
-\label{classAiboWalk_a93290f3abdbdbeb4482d91d0557f70ae}
-Sends a command for the Aibo to rotate clockwise 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of rotation (0 -\/ 0.9) \end{DoxyParams}
-\hypertarget{classAiboWalk_a05599002238d8bf717655f2244a8d646}{
-\index{AiboWalk@{AiboWalk}!strafe\_\-left@{strafe\_\-left}}
-\index{strafe\_\-left@{strafe\_\-left}!AiboWalk@{AiboWalk}}
-\subsubsection[{strafe\_\-left}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::strafe\_\-left (float {\em magnitude})}}
-\label{classAiboWalk_a05599002238d8bf717655f2244a8d646}
-Sends a command for the Aibo to strafe right 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of strafe (0 -\/ 0.9)\end{DoxyParams}
-Sends a command for the Aibo to strafe left 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of strafe (0 -\/ 0.9) \end{DoxyParams}
-\hypertarget{classAiboWalk_a092f290abad06d247dab8d4d602c5f73}{
-\index{AiboWalk@{AiboWalk}!strafe\_\-right@{strafe\_\-right}}
-\index{strafe\_\-right@{strafe\_\-right}!AiboWalk@{AiboWalk}}
-\subsubsection[{strafe\_\-right}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::strafe\_\-right (float {\em magnitude})}}
-\label{classAiboWalk_a092f290abad06d247dab8d4d602c5f73}
-Sends a command for the Aibo to strafe left 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of strafe (0 -\/ 0.9)\end{DoxyParams}
-Sends a command for the Aibo to strafe right 
-\begin{DoxyParams}{Parameters}
-\item[{\em magnitude}]-\/ Velocity of strafe (0 -\/ 0.9) \end{DoxyParams}
-\hypertarget{classAiboWalk_ace69bca076d0091769b1af5ca7636953}{
-\index{AiboWalk@{AiboWalk}!walk@{walk}}
-\index{walk@{walk}!AiboWalk@{AiboWalk}}
-\subsubsection[{walk}]{\setlength{\rightskip}{0pt plus 5cm}int AiboWalk::walk (float {\em px}, \/  float {\em py}, \/  float {\em pa})}}
-\label{classAiboWalk_ace69bca076d0091769b1af5ca7636953}
-Sends command for the Aibo to move/walk. Designed to take the three parameters from Position2D.
-
-All velocities are checked to be at most 0.9. Velocities greater than this cause the robot to move awakwardly and may result in damage to the robot.
-
-The rotation velocity is multiplied by (1/5) so that it doesn't rotate so quickly. This actually should be part of a log function. Consider it a to do item.
-
-
-\begin{DoxyParams}{Parameters}
-\item[{\em px}]-\/ Velocity of movement in x direction \item[{\em py}]-\/ Velocity of movement in y direction \item[{\em pa}]-\/ Velocity of rotation \end{DoxyParams}
-
+Control's the Aibo's movement (Walking). 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
