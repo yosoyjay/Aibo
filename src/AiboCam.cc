@@ -2,7 +2,7 @@
 #include "jpeg.h"
 
 #define MAXBUFSIZE 10000
- 
+
 long convert(char *buff)
 {
     long retval = 0;
@@ -15,12 +15,7 @@ long convert(char *buff)
 
 
 /*! \brief  Aibo's Camera
- * This class represents and implements methods to capture images from the Aibo. 
- * Image details are initialized here:
- * depth = 3 - Does not change
- * width = 0 - Automatically resized when initialized() called
- * height = 0 - Automatically rezied when inttialized() called
- */
+ *This clas represents and implements methods to capture images from the Aibo. */
 AiboCam::AiboCam()
 {
     // get image details
@@ -32,20 +27,13 @@ AiboCam::AiboCam()
     //printf("intialized!\n");
 }
 
-/*! Creates and connects a socket to capture images from the Aibo 
- * @param *hostname - Pointer to the ip address of the Aibo
- */
+/** Creates and connects a socket to capture images from the Aibo */
 void AiboCam::connect(const char *hostname)
 {
     aibolink = new AiboNet(hostname, AIBO_CAM_PORT);
 }
 
-/*! Captures images from socket.  Argument is used to toggle 
- *  decompression of image.  
- *  @param decompress - jpeg decompression option
- *  1 = decompress
- *  0 = no-decompress 
- */
+// JP: Added this
 void AiboCam::connect_udp(const char *hostname)
 {
     aibolink = new AiboNet(hostname, AIBO_CAM_PORT, UDP_PROTO);
@@ -148,9 +136,6 @@ int AiboCam::updateMMap(int decompress=1)
     return 0;
 }
 
-/*! Deconstructor for AiboCam.
- *  Deletes aibolink (socket)
- */
 AiboCam::~AiboCam()
 {
     // Need to do any freeing?

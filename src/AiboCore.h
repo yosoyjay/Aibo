@@ -9,8 +9,7 @@
 #include "AiboHead.h"
 #include "AiboCam.h"
 
-/*! \brief The entire Aibo and required Player classes. Core of driver.
- */
+//! \brief The entire Aibo and required Player classes. Core of driver.
 class AiboCore : public ThreadedDriver
 {
 public:
@@ -67,7 +66,7 @@ private:
     // temporary place to hold AiboCam aibo
     //AiboCam* cam;
 
-    // Player interface proxy variables
+    // Position2d proxy variables
     player_position2d_cmd_vel_t position_cmd;
     player_ptz_cmd_t head_cmd;
 };
