@@ -1,0 +1,10 @@
+#WyP
+
+#Does a one meter square pattern, turns as targets each new waypoint
+
+#add_{point|arc} {ego|off|abs} x_val y_val {hold|follow} angle_val speed_val arc_val
+max_turn_speed 0.5
+track_path 1
+add_point EGO 1 0 FOLLOW 0 0.1 0
+add_point EGO 0 0 FOLLOW -1.571 0.1 0
+#END

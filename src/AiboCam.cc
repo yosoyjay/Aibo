@@ -1,4 +1,3 @@
-
 #include "AiboCam.h"
 #include "jpeg.h"
 
@@ -47,6 +46,15 @@ void AiboCam::connect(const char *hostname)
  *  1 = decompress
  *  0 = no-decompress 
  */
+void AiboCam::connect_udp(const char *hostname)
+{
+    aibolink = new AiboNet(hostname, AIBO_CAM_PORT, UDP_PROTO);
+}
+
+/** Captures images from socket.  Argument is used to toggle 
+    decompression of image.  
+    1 = decompress
+    0 = no-decompress */
 int AiboCam::updateMMap(int decompress=1)
 {
     char *header, *type, *creator, *fmt, *image_buffer;

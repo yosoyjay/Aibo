@@ -31,6 +31,7 @@ public:
 	 */
     void connect(const char *ip_addr);
 	/*! RWLock used to prevent multiple reads of image buffer*/
+    void connect_udp(const char *ip_addr);
     RWLock lock;
 	/*! Deconstructor for AiboCam.
 	 *  Deletes aibolink (socket)

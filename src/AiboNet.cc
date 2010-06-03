@@ -3,8 +3,10 @@
 const int DATA_SIZE = 5;
 const int MAX_BUFF_SIZE = 10000;
 
-AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
+AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port,
+	const int proto)
 {
+  if(proto == TCP_PROTO){
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("Error creating socket");
@@ -32,6 +34,28 @@ AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port)
     {
         perror("Error enabling TCP_NODELAY");
     }
+  }else if(proto == UDP_PROTO){
+
+    if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0); // JP: Changed this SOCK_STREAM, 0)) < 0); // It should be a datagram socket.
+    {
+        perror("Error creating socket");
+    }
+
+    bzero(&servaddr, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port   = htons(aibo_port);
+
+    if (inet_pton(AF_INET, aibo_ip, &servaddr.sin_addr) <= 0)
+    {
+        perror("Error with inet_pton");
+    }
+
+    if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
+    {
+        perror("Error connecting to Aibo");
+    }
+
+  }
 
     sleep(1);
 

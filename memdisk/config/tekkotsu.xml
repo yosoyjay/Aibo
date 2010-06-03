@@ -1,0 +1,535 @@
+<?xml version="1.0"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><!--
+##################################################################
+######################   Tekkotsu config   #######################
+##################################################################
+#########################   $Name: tekkotsu-4_0-branch $   ##########################
+#####################   $Revision: 1.11.2.1 $   ######################
+################   $Date: 2009/02/06 11:19:34 $   ################
+##################################################################
+
+This is an XML-based format using the Property List (plist) layout.
+
+As a slight extension to standard plists, you can specify
+model-specific settings by prepending a key with:
+   Model:MODEL_PATTERN:KEY_NAME
+For example, to use different 'thresh' settings on the ERS-2xx
+series vs. the ERS-7 model, you would use the keys:
+   Model:ERS-2*:thresh
+   Model:ERS-7:thresh
+You can filter several items in a group by leaving off the second
+':' and name, and providing a dictionary as the value.  If the
+model matches, all entries from the dictionary are imported into
+the parent dictionary.
+
+You can change these settings at run time from the Controller
+by entering the command:
+   !set section_name.variable=value
+or by using the configuration editor found in the "File Access"
+menu.  Paths are assumed to be relative to the 'project/ms/'
+directory.  For example, this file would be referenced as
+'config/tekkotsu.xml'
+
+See also the 'simulator.xml' file, which provides you the ability
+to override settings when running in the simulator
+-->
+
+<!--======== behaviors ========-->
+<key>behaviors</key> <dict>
+	<!--flash_bytes: how many bytes of the address to flash
+	You probably already know the first 3 bytes for your network,
+	so you might only want the last byte for brevity.
+	(valid values are 1 through 4) -->
+	<key>flash_bytes</key> <integer>4</integer>
+	
+	<!--flash_on_start: whether or not to automatically trigger on boot
+	Will use a priority of kEmergencyPriority+1 in order to override
+	the emergency stop's status animation -->
+	<key>flash_on_start</key> <false/>
+</dict>
+
+<!--======== controller ========-->
+<key>controller</key> <dict>
+	<!--gui_port: port to listen for the GUI to connect to aibo on-->
+	<key>gui_port</key> <integer>10020</integer>
+	
+	<!--cancel_snd: sound file to use for "cancel" action-->
+	<key>cancel_snd</key> <string>whoop.wav</string>
+	
+	<!--error_snd: sound file to use to signal errors-->
+	<key>error_snd</key> <string>fart.wav</string>
+	
+	<!--next_snd: sound file to use for "next" action-->
+	<key>next_snd</key> <string>toc.wav</string>
+	
+	<!--prev_snd: sound file to use for "prev" action-->
+	<key>prev_snd</key> <string>tick.wav</string>
+	
+	<!--read_snd: sound file to use for "read from std-in" action-->
+	<key>read_snd</key> <string>ping.wav</string>
+	
+	<!--select_snd: sound file to use for "select" action-->
+	<key>select_snd</key> <string>whiip.wav</string>
+</dict>
+
+<!--======== main ========-->
+<key>main</key> <dict>
+	<!--aibo3d_port: port for send/receive of joint positions from Aibo 3D GUI-->
+	<key>aibo3d_port</key> <integer>10051</integer>
+	
+	<!--consoleMode: determines how input on console_port is interpreted
+	Value is one of: { controller | textmsg | auto } 
+	  'controller' will pass it as input to the Controller (assumes same syntax as ControllerGUI)
+	  'textmsg' will broadcast it as a TextMsgEvent (textmsgEGID)
+	  'auto' is the original mode, which uses 'textmsg' if the ControllerGUI is connected, and 'controller' otherwise -->
+	<key>consoleMode</key> <string>controller</string>
+	
+	<!--console_port: port to send/receive "console" information on (separate from system console)-->
+	<key>console_port</key> <integer>10001</integer>
+	
+	<!--estopControl_port: port for receiving walk commands-->
+	<key>estopControl_port</key> <integer>10053</integer>
+	
+	<!--headControl_port: port for receiving head commands-->
+	<key>headControl_port</key> <integer>10052</integer>
+	
+	<!--seed_rng: if true, will call srand with timestamp data, mangled by current sensor data-->
+	<key>seed_rng</key> <true/>
+	
+	<!--stderr_port: port to send error information to-->
+	<key>stderr_port</key> <integer>10002</integer>
+	
+	<!--stewart_port: port for running a stewart platform style of control-->
+	<key>stewart_port</key> <integer>10055</integer>
+	
+	<!--use_VT100: if true, enables VT100 console codes (currently only in Controller menus - 1.3)-->
+	<key>use_VT100</key> <false/>
+	
+	<!--walkControl_port: port for receiving walk commands-->
+	<key>walkControl_port</key> <integer>10050</integer>
+	
+	<!--wmmonitor_port: port for monitoring Watchable Memory-->
+	<key>wmmonitor_port</key> <integer>10061</integer>
+	
+	<!--worldState_interval: time (in milliseconds) to wait between sending WorldState updates over wireless-->
+	<key>worldState_interval</key> <integer>0</integer>
+	
+	<!--wsjoints_port: port to send joint positions on-->
+	<key>wsjoints_port</key> <integer>10031</integer>
+	
+	<!--wspids_port: port to send pid info on-->
+	<key>wspids_port</key> <integer>10032</integer>
+</dict>
+
+<!--======== motion ========-->
+<key>motion</key> <dict>
+	<!--======== calibration_offset ========-->
+	<!--These values indicate the offset from user specified zero point to the
+	physical system's zero point.  Applied before calibration_scale when
+	converting from user's desired position to command to send to hardware. -->
+	<key>Model:ERS-7:calibration_offset</key> <dict>
+		<key>LFr:rotor</key> <real>0</real>
+		<key>LFr:elvtr</key> <real>0</real>
+		<key>LFr:knee</key> <real>0</real>
+		<!-- ... -->
+	</dict>
+	<!--======== calibration_scale ========-->
+	<!--Multiplier from desired position to command for each PID joint, applied after calibration_offset. -->
+	<key>Model:ERS-7:calibration_scale</key> <dict>
+		<key>LFr:rotor</key> <real>1</real>
+		<key>LFr:elvtr</key> <real>1</real>
+		<key>LFr:knee</key> <real>1</real>
+		<!-- ... -->
+	</dict>
+	
+	<!--console_port: port to send/receive "console" information on (separate from system console)-->
+	<key>console_port</key> <integer>10003</integer>
+	
+	<!--estop_off_snd: sound file to use when e-stop turned off-->
+	<key>estop_off_snd</key> <string>yap.wav</string>
+	
+	<!--estop_on_snd: sound file to use when e-stop turned on-->
+	<key>estop_on_snd</key> <string>skid.wav</string>
+	
+	<!--inf_walk_accel: if true, walks should attempt to switch directions immediately; otherwise they should do some kind of software acceleration to more smoothly switch direction-->
+	<key>inf_walk_accel</key> <false/>
+	
+    <key>Model:ERS-7</key> <dict>
+        <!--kinematics: the ROBOOP format kinematics description file to load-->
+        <key>kinematics</key> <string>/config/ers7.kin</string>
+        
+        <!--list of chain names to load from the file specified by 'kinematics'-->
+        <key>kinematic_chains</key> <array>
+            <string>Body</string>
+            <string>Mouth</string>
+            <string>NearIR</string>
+            <string>FarIR</string>
+            <string>ChestIR</string>
+            <string>LFr</string>
+            <string>RFr</string>
+            <string>LBk</string>
+            <string>RBk</string>
+            <string>Camera</string>
+        </array>
+    </dict>
+    <key>Model:ERS-210</key> <dict>
+        <!--kinematics: the ROBOOP format kinematics description file to load-->
+        <key>kinematics</key> <string>/config/ers210.kin</string>
+        
+        <!--list of chain names to load from the file specified by 'kinematics'-->
+        <key>kinematic_chains</key> <array>
+            <string>Body</string>
+            <string>Mouth</string>
+            <string>IR</string>
+            <string>LFr</string>
+            <string>RFr</string>
+            <string>LBk</string>
+            <string>RBk</string>
+            <string>Camera</string>
+        </array>
+    </dict>
+    <key>Model:ERS-220</key> <dict>
+        <!--kinematics: the ROBOOP format kinematics description file to load-->
+        <key>kinematics</key> <string>/config/ers220.kin</string>
+        
+        <!--list of chain names to load from the file specified by 'kinematics'-->
+        <key>kinematic_chains</key> <array>
+            <string>Body</string>
+            <string>IR</string>
+            <string>LFr</string>
+            <string>RFr</string>
+            <string>LBk</string>
+            <string>RBk</string>
+            <string>Camera</string>
+        </array>
+    </dict>
+	<key>Model:QBotPlus</key> <dict>
+        <!--kinematics: the ROBOOP format kinematics description file to load-->
+        <key>kinematics</key> <string>/config/QBotPlus.kin</string>
+
+        <!--list of chain names to load from the file specified by 'kinematics'-->
+        <key>kinematic_chains</key> <array>
+            <string>Body</string>
+            <string>Camera</string>
+        </array>
+    </dict>
+    <key>Model:Regis1</key> <dict>
+        <!--kinematics: the ROBOOP format kinematics description file to load-->
+        <key>kinematics</key> <string>/config/Regis1.kin</string>
+        
+        <!--list of chain names to load from the file specified by 'kinematics'-->
+        <key>kinematic_chains</key> <array>
+            <string>Body</string>
+            <string>Arm</string>
+            <string>Camera</string>
+        </array>
+    </dict>
+	
+	<!--max_head_pan_speed: max speed for the head joints, used by HeadPointerMC; rad/s-->
+	<key>max_head_pan_speed</key> <real>5.7814</real>
+	
+	<!--max_head_roll_speed: max speed for the head joints, used by HeadPointerMC; rad/s-->
+	<key>max_head_roll_speed</key> <real>5.7814</real>
+	
+	<!--max_head_tilt_speed: max speed for the head joints, used by HeadPointerMC; rad/s-->
+	<key>max_head_tilt_speed</key> <real>3.18523</real>
+	
+	<!--root: path on memory stick to "motion" files - for instance, position (.pos) and motion sequence (.mot)
+	Any motion related paths which are not absolute (i.e. do not start with '/')
+	will be assumed to be relative to this directory -->
+	<key>root</key> <string>data/motion</string>
+	
+	<!--stderr_port: port to send error information to-->
+	<key>stderr_port</key> <integer>10004</integer>
+	
+	<!--the walk parameter file to load by default for new WalkMC's-->
+	<key>walk</key> <string>walk.prm</string>
+</dict>
+
+<!--======== sound ========-->
+<key>sound</key> <dict>
+	<!--pitchConfidenceThreshold: confidence threshold required to generate a pitch event [0-1]-->
+	<key>pitchConfidenceThreshold</key> <real>0.6</real>
+	
+	<!--======== preload ========-->
+	<!--list of sounds to preload at boot-->
+	<key>preload</key> <array>
+		<string>skid.wav</string>
+		<string>yap.wav</string>
+	</array>
+	
+	<!--root: path to sound clips-->
+	<key>root</key> <string>data/sound</string>
+	
+	<!--sample_bits: sample bit depth, either 8 or 16-->
+	<key>sample_bits</key> <integer>16</integer>
+	
+	<!--sample_rate: sample rate to send to system, currently only 8000 or 16000 supported-->
+	<key>sample_rate</key> <integer>16000</integer>
+	
+	<!--======== streaming ========-->
+	<key>streaming</key> <dict>
+		<!--mic_port: port for streaming microphone samples-->
+		<key>mic_port</key> <integer>10070</integer>
+		
+		<!--mic_sample_bits: sample bit depth from the microphone (either 8 or 16)-->
+		<key>mic_sample_bits</key> <integer>16</integer>
+		
+		<!--mic_sample_rate: sample rate from the microphone-->
+		<key>mic_sample_rate</key> <integer>16000</integer>
+		
+		<!--mic_stereo: whether to stream stereo or mono from the microphone-->
+		<key>mic_stereo</key> <true/>
+		
+		<!--speaker_frame_length: length of frame sent to the speaker (ms)-->
+		<key>speaker_frame_length</key> <integer>64</integer>
+		
+		<!--speaker_max_delay: maximum delay (ms) during playback-->
+		<key>speaker_max_delay</key> <integer>1000</integer>
+		
+		<!--speaker_port: port for streaming speaker samples-->
+		<key>speaker_port</key> <integer>10071</integer>
+	</dict>
+	
+	<!--volume in decibels - the value is interpreted as a signed short, where
+	0x8000 is mute, 0xFFFF is full volume (low=0xE700, mid=0xEE00, high=0xF600)
+	If you directly set the decibel level, be warned sony recommends against going above 0xF600
+	However, I believe the commercial software on the ERS-7 runs at 0xFF00.
+	Going above 0xF800 on a ERS-210 causes distortion (clipping) - full volume on a ERS-7 sounds fine though.
+	Value is one of: { mute | low | mid | high | <integer_value> } -->
+	<key>volume</key> <string>high</string>
+</dict>
+
+<!--======== vision ========-->
+<key>vision</key> <dict>
+	<key>Model:ERS-7</key> <dict>
+		<!--gain: Increasing gain will brighten the image, at the expense of more graininess/noise
+		Value is one of: { low | mid | high } -->
+		<key>gain</key> <string>mid</string>
+		
+		<!--shutter_speed: slower shutter will brighten image, but increases motion blur
+		Value is one of: { slow | mid | fast } -->
+		<key>shutter_speed</key> <string>slow</string>
+		
+		<!--white_balance: white balance shifts color spectrum in the image
+		Value is one of: { indoor | outdoor | fluorescent } -->
+		<key>white_balance</key> <string>fluorescent</string>
+		
+		<!--======== thresh ========-->
+		<!--Threshold (.tm) files define the mapping from full color to indexed color.
+		You can uncomment more than one of these - they will be loaded into separate
+		channels of the segmenter.  The only cost of loading multiple threshold files is
+		memory - the CPU cost of performing segmentation is only incurred if/when
+		the channel is actually accessed for the first time for a given frame. -->
+		<key>thresh</key> <array>
+			<string>config/7general.tm</string> <!-- a general classification of a variety of colors for the ERS-7 -->
+		<!--<string>7red.tm</string>  just a very broad pink/red/purple => "pink" color detection -->
+		<!--<string>ball.tm</string>  standard Sony pink ball definition -->
+		</array>
+	</dict>
+	<key>Model:ERS-2*</key> <dict>
+		<!--gain: Increasing gain will brighten the image, at the expense of more graininess/noise
+		Value is one of: { low | mid | high } -->
+		<key>gain</key> <string>mid</string>
+		
+		<!--shutter_speed: slower shutter will brighten image, but increases motion blur
+		Value is one of: { slow | mid | fast } -->
+		<key>shutter_speed</key> <string>mid</string>
+		
+		<!--white_balance: white balance shifts color spectrum in the image
+		Value is one of: { indoor | outdoor | fluorescent } -->
+		<key>white_balance</key> <string>fluorescent</string>
+		
+		<!--======== thresh ========-->
+		<!--Threshold (.tm) files define the mapping from full color to indexed color.
+		You can uncomment more than one of these - they will be loaded into separate
+		channels of the segmenter.  The only cost of loading multiple threshold files is
+		memory - the CPU cost of performing segmentation is only incurred if/when
+		the channel is actually accessed for the first time for a given frame. -->
+		<key>thresh</key> <array>
+		<!--<string>210pb.tm</string>  just pink and blue -->
+			<string>config/210phb.tm</string> <!-- pink, skin (hand), and blue -->
+			<!--   note: "skin" is just of people who work in our lab - not a general sampling... :( -->
+			<string>config/210genrl.tm</string> <!-- general colors for the ERS-210 -->
+			<string>config/ball.tm</string> <!-- standard Sony pink ball definition -->
+		</array>
+	</dict>
+	<key>Model:Regis1</key> <dict>
+		<!--======== thresh ========-->
+		<!--Threshold (.tm) files define the mapping from full color to indexed color.
+		You can uncomment more than one of these - they will be loaded into separate
+		channels of the segmenter.  The only cost of loading multiple threshold files is
+		memory - the CPU cost of performing segmentation is only incurred if/when
+		the channel is actually accessed for the first time for a given frame. -->
+		<key>thresh</key> <array>
+			<string>config/7general.tm</string> <!-- a general classification of a variety of colors for the ERS-7 -->
+		<!--<string>7red.tm</string>  just a very broad pink/red/purple => "pink" color detection -->
+		<!--<string>ball.tm</string>  standard Sony pink ball definition -->
+		</array>
+	</dict>
+	
+	<key>Model:QBotPlus</key> <dict>
+		<!--======== thresh ========-->
+		<!--Threshold (.tm) files define the mapping from full color to indexed color.
+		You can uncomment more than one of these - they will be loaded into separate
+		channels of the segmenter.  The only cost of loading multiple threshold files is
+		memory - the CPU cost of performing segmentation is only incurred if/when
+		the channel is actually accessed for the first time for a given frame. -->
+		<key>thresh</key> <array>
+			<string>config/7general.tm</string> <!-- a general classification of a variety of colors for the ERS-7 -->
+		<!--<string>7red.tm</string>  just a very broad pink/red/purple => "pink" color detection -->
+		<!--<string>ball.tm</string>  standard Sony pink ball definition -->
+		</array>
+	</dict>
+	
+	<!--The colors definition (.col) file gives names and a "typical" color for display.
+	The indexes numbers it contains correspond to indexes in the .tm file
+	This file is common to all .tm files; when doing new color segmentations,
+	make sure you define colors in the same order as listed here! -->
+	<key>colors</key> <string>config/default.col</string>
+	
+	<!--jpeg_dct_method: pick between dct methods for jpeg compression
+	Value is one of: { islow | ifast | float } -->
+	<key>jpeg_dct_method</key> <string>ifast</string>
+	
+	<!--region_calc_total: When true, this will fill in the CMVision::color_class_state::total_area
+	field for each color following region labeling.  If false, the total_area
+	will stay 0 (or whatever the last value was), but you save a little CPU. -->
+	<key>region_calc_total</key> <true/>
+	
+	<!--the resolution that object recognition system will run at.
+	This counts down from the maximum resolution layer, so higher numbers mean lower resolution. -->
+	<key>resolution</key> <integer>1</integer>
+	
+	<!--restore_image: Apparently someone at Sony thought it would be a good idea to replace some
+	pixels in each camera image with information like the frame number and CDT count.
+	If non-zero, will replace those pixels with the actual image pixel value in RawCamGenerator -->
+	<key>restore_image</key> <true/>
+	
+	<!--======== rawcam ========-->
+	<key>rawcam</key> <dict>
+		<!--channel: if encoding is single channel, this indicates the channel to send-->
+		<key>channel</key> <integer>0</integer>
+		
+		<!--compress_quality: 0-100, compression quality (currently only used by jpeg)-->
+		<key>compress_quality</key> <integer>85</integer>
+		
+		<!--compression: the type of compression to apply the image
+		Value is one of: { none | jpeg } -->
+		<key>compression</key> <string>jpeg</string>
+		
+		<!--encoding: holds whether to send color or single channel
+		Value is one of: { color | grayscale } -->
+		<key>encoding</key> <string>color</string>
+		
+		<!--interval: minimum amount of time (in milliseconds) which must pass between frames
+		E.g. 200 yields just under 5 frames per second, 0 is as fast as possible-->
+		<key>interval</key> <integer>100</integer>
+		
+		<!--the port number to open for sending data over-->
+		<key>port</key> <integer>10011</integer>
+		
+		<!--transport: the IP protocol to use when sending data-->
+		<key>transport</key> <string>TCP</string>
+		
+		<!--uv_skip: resolution level to transmit uv channel at when using 'color' encoding mode
+		"skip" is the log_2 of number of pixels to increment, 0 sends reconstructed double
+		resolution (mainly useful for Y channel, others are just resampled).
+		Our eyes are more sensitive to intensity (y channel) so you might
+		want to send the UV channels at a lower resolution (higher skip) as
+		a form of compression.
+		Valid values on the Aibo are 0-5-->
+		<key>uv_skip</key> <integer>2</integer>
+		
+		<!--y_skip: resolution level to transmit y channel
+		Also used as the resolution level when in single-channel encoding mode -->
+		<key>y_skip</key> <integer>1</integer>
+	</dict>
+	
+	<!--======== regioncam ========-->
+	<key>regioncam</key> <dict>
+		<!--interval: minimum amount of time (in milliseconds) which must pass between frames
+		E.g. 200 yields just under 5 frames per second, 0 is as fast as possible-->
+		<key>interval</key> <integer>0</integer>
+		
+		<!--the port number to open for sending data over-->
+		<key>port</key> <integer>10013</integer>
+		
+		<!--skip: resolution level to extract regions from-->
+		<key>skip</key> <integer>1</integer>
+		
+		<!--transport: the IP protocol to use when sending data-->
+		<key>transport</key> <string>TCP</string>
+	</dict>
+	
+	<!--======== segcam ========-->
+	<key>segcam</key> <dict>
+		<!--channel of RLEGenerator to send (i.e. which threshold map to use-->
+		<key>channel</key> <integer>0</integer>
+		
+		<!--what compression to use on the segmented imageValue is one of: { none | rle } -->
+		<key>compression</key> <string>rle</string>
+		
+		<!--interval: minimum amount of time (in milliseconds) which must pass between frames
+		E.g. 200 yields just under 5 frames per second, 0 is as fast as possible-->
+		<key>interval</key> <integer>0</integer>
+		
+		<!--the port number to open for sending data over-->
+		<key>port</key> <integer>10012</integer>
+		
+		<!--skip: resolution level to transmit segmented images at-->
+		<key>skip</key> <integer>1</integer>
+		
+		<!--transport: the IP protocol to use when sending data-->
+		<key>transport</key> <string>UDP</string>
+	</dict>
+	
+	<!--======== calibration ========-->
+	<!--Lens distortion correction parameters
+	Computated by 'Camera Calibration Toolbox for Matlab', by Jean-Yves Bouguet-->
+	<key>Model:ERS-7:calibration</key> <dict>
+		<!--calibration_res_x: x resolution of images used during calibration-->
+		<key>calibration_res_x</key> <integer>208</integer>
+		
+		<!--calibration_res_y: y resolution of images used during calibration-->
+		<key>calibration_res_y</key> <integer>160</integer>
+		
+		<!--focal_len_x: focal length of camera, in pixels, K11-->
+		<key>focal_len_x</key> <real>198.807</real>
+		
+		<!--focal_len_y: focal length of camera, in pixels, K22-->
+		<key>focal_len_y</key> <real>200.333</real>
+		
+		<!--kc1_r2: r-squared radial distortion-->
+		<key>kc1_r2</key> <real>-0.147005</real>
+		
+		<!--kc2_r4: r to the 4 radial distortion-->
+		<key>kc2_r4</key> <real>0.38485</real>
+		
+		<!--kc3_tan1: first tangential correction term-->
+		<key>kc3_tan1</key> <real>-0.00347777</real>
+		
+		<!--kc4_tan2: second tangential correctiont term-->
+		<key>kc4_tan2</key> <real>0.00012873</real>
+		
+		<!--kc5_r6: r to the 6 radial distortion-->
+		<key>kc5_r6</key> <real>0</real>
+		
+		<!--principle_point_x: center of optical projection, K13-->
+		<key>principle_point_x</key> <real>102.689</real>
+		
+		<!--principle_point_y: center of optical projection, K23-->
+		<key>principle_point_y</key> <real>85.0399</real>
+		
+		<!--CCD skew, K12 = skew*focal_len_x-->
+		<key>skew</key> <real>0</real>
+	</dict>
+</dict>
+
+<!--======== wireless ========-->
+<key>wireless</key> <dict>
+	<!--id number (in case you have more than one AIBO)-->
+	<key>id</key> <integer>1</integer>
+</dict>
+</dict></plist>

@@ -1,0 +1,1972 @@
+# ----------------------------------------------------------------
+# Robot configuration File
+# ----------------------------------------------------------------
+
+[Default]
+
+[Body]
+Name:       Body
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        0
+Motor:      0
+Stl:        0
+
+
+[LFr]
+Name:       LFr
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        5
+Motor:      0
+Stl:        0
+
+[LFr_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:         65.0
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[LFr_LINK2]
+joint_type: 0
+theta:     -1.570796326794895
+d:        -62.5
+a:          0.0
+alpha:     -1.570796326794895
+theta_min: -2.2689
+theta_max:  2.0071
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 0
+
+[LFr_LINK3]
+joint_type: 0
+theta:      0.0
+d:          9.0
+a:         69.5
+alpha:      1.570796326794895
+theta_min: -0.1745
+theta_max:  1.5359
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 1
+
+[LFr_LINK4]
+joint_type: 0
+theta:     -0.07122
+d:         -4.7
+a:         70.1646
+alpha:      0.0
+theta_min: -0.4363
+theta_max:  2.1293
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 2
+
+[LFr_LINK5]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 1
+
+
+[RFr]
+Name:       RFr
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        5
+Motor:      0
+Stl:        0
+
+[RFr_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:         65.0
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[RFr_LINK2]
+joint_type: 0
+theta:     -1.570796326794895
+d:         62.5
+a:          0.0
+alpha:      1.570796326794895
+theta_min: -2.2689
+theta_max:  2.0071
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 3
+
+[RFr_LINK3]
+joint_type: 0
+theta:      0.0
+d:         -9.0
+a:         69.5
+alpha:     -1.570796326794895
+theta_min: -0.1745
+theta_max:  1.5359
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 4
+
+[RFr_LINK4]
+joint_type: 0
+theta:     -0.07122
+d:          4.7
+a:         70.1646
+alpha:      0.0
+theta_min: -0.4363
+theta_max:  2.1293
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 5
+
+[RFr_LINK5]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 2
+
+
+[LBk]
+Name:       LBk
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        5
+Motor:      0
+Stl:        0
+
+[LBk_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:        -65.0
+alpha:     -1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[LBk_LINK2]
+joint_type: 0
+theta:      1.570796326794895
+d:         62.5
+a:          0.0
+alpha:      1.570796326794895
+theta_min: -2.2689
+theta_max:  2.0071
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 6
+
+[LBk_LINK3]
+joint_type: 0
+theta:      0.0
+d:         -9.0
+a:         69.5
+alpha:     -1.570796326794895
+theta_min: -0.1745
+theta_max:  1.5359
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 7
+
+[LBk_LINK4]
+joint_type: 0
+theta:     -0.26686
+d:          4.7
+a:         70.1646
+alpha:      3.1415926535897932385
+theta_min: -0.4363
+theta_max:  2.1293
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 8
+
+[LBk_LINK5]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 3
+
+
+[RBk]
+Name:       RBk
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        5
+Motor:      0
+Stl:        0
+
+[RBk_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:        -65.0
+alpha:     -1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[RBk_LINK2]
+joint_type: 0
+theta:      1.570796326794895
+d:        -62.5
+a:          0.0
+alpha:     -1.570796326794895
+theta_min: -2.2689
+theta_max:  2.0071
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 9
+
+[RBk_LINK3]
+joint_type: 0
+theta:      0.0
+d:          9.0
+a:         69.5
+alpha:      1.570796326794895
+theta_min: -0.1745
+theta_max:  1.5359
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 10
+
+[RBk_LINK4]
+joint_type: 0
+theta:     -0.26686
+d:         -4.7
+a:         70.1646
+alpha:      3.1415926535897932385
+theta_min: -0.4363
+theta_max:  2.1293
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 11
+
+[RBk_LINK5]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 4
+
+
+[Mouth]
+Name:       Mouth
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        5
+Motor:      0
+Stl:        0
+
+[Mouth_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:         19.5
+a:         67.5
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[Mouth_LINK2]
+joint_type: 0
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:     -1.570796326794895
+theta_min: -1.308996939
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 12
+
+[Mouth_LINK3]
+joint_type: 0
+theta:      0.0
+d:         80.0
+a:          0.0
+alpha:      1.570796326794895
+theta_min: -1.53588974176
+theta_max:  1.53588974176
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 13
+
+[Mouth_LINK4]
+joint_type: 0
+theta:     -0.41241
+d:          0.0
+a:         43.6606
+alpha:      0.0
+theta_min: -0.261799387799
+theta_max:  0.785398163397
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 14
+
+[Mouth_LINK5]
+joint_type: 0
+theta:      0.127935
+d:          0.0
+a:         42.0076
+alpha:     -1.570796326794895
+theta_min: -0.959931088597
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 17
+
+
+[Camera]
+Name:       Camera
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        6
+Motor:      0
+Stl:        0
+
+[Camera_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:         19.5
+a:         67.5
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[Camera_LINK2]
+joint_type: 0
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:     -1.570796326794895
+theta_min: -1.308996939
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 12
+
+[Camera_LINK3]
+joint_type: 0
+theta:      0.0
+d:         80.0
+a:          0.0
+alpha:      1.570796326794895
+theta_min: -1.53588974176
+theta_max:  1.53588974176
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 13
+
+[Camera_LINK4]
+joint_type: 0
+theta:     -1.570796326794895
+d:          0.0
+a:         14.6
+alpha:     -1.570796326794895
+theta_min: -0.261799387799
+theta_max:  0.785398163397
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 14
+
+[Camera_LINK5]
+joint_type: 1
+immobile:   1
+theta:     -1.570796326794895
+d:         81.06
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[Camera_LINK6]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 5
+
+
+[NearIR]
+Name:       NearIR
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        6
+Motor:      0
+Stl:        0
+
+[NearIR_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:         19.5
+a:         67.5
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[NearIR_LINK2]
+joint_type: 0
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      -1.570796326794895
+theta_min: -1.308996939
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 12
+
+[NearIR_LINK3]
+joint_type: 0
+theta:      0.0
+d:         80.0
+a:          0.0
+alpha:      1.570796326794895
+theta_min: -1.53588974176
+theta_max:  1.53588974176
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 13
+
+[NearIR_LINK4]
+joint_type: 0
+theta:      0.0249189
+d:          2.79525
+a:         76.9239
+alpha:      0.0
+theta_min: -0.261799387799
+theta_max:  0.785398163397
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 14
+
+[NearIR_LINK5]
+joint_type: 0
+immobile:   1
+theta:      1.50041
+d:          0.0
+a:          0.0
+alpha:      1.55997
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[NearIR_LINK6]
+joint_type: 1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 6
+
+
+[FarIR]
+Name:       FarIR
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        6
+Motor:      0
+Stl:        0
+
+[FarIR_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:         19.5
+a:         67.5
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[FarIR_LINK2]
+joint_type: 0
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      -1.570796326794895
+theta_min: -1.308996939
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 12
+
+[FarIR_LINK3]
+joint_type: 0
+theta:      0.0
+d:         80.0
+a:          0.0
+alpha:      1.570796326794895
+theta_min: -1.53588974176
+theta_max:  1.53588974176
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 13
+
+[FarIR_LINK4]
+joint_type: 0
+theta:      0.0136814
+d:         -8.04682
+a:         76.9072
+alpha:      0.0
+theta_min: -0.261799387799
+theta_max:  0.785398163397
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_output: 14
+
+[FarIR_LINK5]
+joint_type: 0
+immobile:   1
+theta:      1.52305
+d:          0.0
+a:          0.0
+alpha:      1.56055
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[FarIR_LINK6]
+joint_type: 1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 7
+
+
+[ChestIR]
+Name:       ChestIR
+DH:         1
+Fix:        0
+MinPara:    0
+dof:        3
+Motor:      0
+Stl:        0
+
+[ChestIR_LINK1]
+joint_type: 0
+immobile:   1
+theta:      0.0
+d:         -3.38397459622
+a:        109.13620668
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[ChestIR_LINK2]
+joint_type: 0
+immobile:   1
+theta:      1.0471975512
+d:          0.0
+a:          0.0
+alpha:      1.570796326794895
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+
+[ChestIR_LINK3]
+joint_type: 1
+theta:      0.0
+d:          0.0
+a:          0.0
+alpha:      0.0
+theta_min:  0.0
+theta_max:  0.0
+m:          0.0
+cx:         0.0
+cy:         0.0
+cz:         0.0
+Ixx:        0.0
+Ixy:        0.0
+Ixz:        0.0
+Iyy:        0.0
+Iyz:        0.0
+Izz:        0.0
+tekkotsu_frame: 8
+
+
+[InterestPoints]
+Length:     134
+
+[InterestPoint1]
+   name: LFr:elvtr
+  chain: LFr
+   link: 2
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint2]
+   name: LFr:rotor
+  chain: LFr
+   link: 3
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint3]
+   name: LFr:knee~
+  chain: LFr
+   link: 4
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint4]
+   name: RFr:elvtr
+  chain: RFr
+   link: 2
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint5]
+   name: RFr:rotor
+  chain: RFr
+   link: 3
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint6]
+   name: RFr:knee~
+  chain: RFr
+   link: 4
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint7]
+   name: LBk:elvtr
+  chain: LBk
+   link: 2
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint8]
+   name: LBk:rotor
+  chain: LBk
+   link: 3
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint9]
+   name: LBk:knee~
+  chain: LBk
+   link: 4
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint10]
+   name: RBk:elvtr
+  chain: RBk
+   link: 2
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint11]
+   name: RBk:rotor
+  chain: RBk
+   link: 3
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint12]
+   name: RBk:knee~
+  chain: RBk
+   link: 4
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint13]
+   name: NECK:tilt
+  chain: Camera
+   link: 2
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint14]
+   name: NECK:pan~
+  chain: Camera
+   link: 3
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint15]
+   name: NECK:nod~
+  chain: Camera
+   link: 4
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint16]
+   name: MOUTH~~~~
+  chain: Mouth
+   link: 5
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint17]
+   name: Base
+  chain: Camera
+   link: 0
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint18]
+   name: LFrPaw
+  chain: LFr
+   link: 5
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint19]
+   name: RFrPaw
+  chain: RFr
+   link: 5
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint20]
+   name: LBkPaw
+  chain: LBk
+   link: 5
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint21]
+   name: RBkPaw
+  chain: RBk
+   link: 5
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint22]
+   name: Camera
+  chain: Camera
+   link: 6
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint23]
+   name: NearIR
+  chain: NearIR
+   link: 6
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint24]
+   name: FarIR
+  chain: FarIR
+   link: 6
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint25]
+   name: ChestIR
+  chain: ChestIR
+   link: 3
+      x: 0
+      y: 0
+      z: 0
+[InterestPoint26]
+   name: UpperLChest
+  chain: Body
+   link: 0
+      x: 107.560
+      y: 23.448
+      z: 0
+[InterestPoint27]
+   name: UpperRChest
+  chain: Body
+   link: 0
+      x: 107.560
+      y: -23.448
+      z: 0
+[InterestPoint28]
+   name: LowerLChest
+  chain: Body
+   link: 0
+      x: 95.250
+      y: 29.631
+      z: -30.070
+[InterestPoint29]
+   name: LowerRChest
+  chain: Body
+   link: 0
+      x: 95.250
+      y: -29.631
+      z: -30.070
+[InterestPoint30]
+   name: LFrBelly
+  chain: Body
+   link: 0
+      x: 55.290
+      y: 20.238
+      z: -52.270
+[InterestPoint31]
+   name: RFrBelly
+  chain: Body
+   link: 0
+      x: 55.290
+      y: -20.238
+      z: -52.270
+[InterestPoint32]
+   name: LBkBelly
+  chain: Body
+   link: 0
+      x: -60.540
+      y: 25.238
+      z: -49.850
+[InterestPoint33]
+   name: RBkBelly
+  chain: Body
+   link: 0
+      x: -60.540
+      y: -25.238
+      z: -49.850
+[InterestPoint34]
+   name: LowerLRump
+  chain: Body
+   link: 0
+      x: -97.070
+      y: 29.631
+      z: -31.880
+[InterestPoint35]
+   name: LowerRRump
+  chain: Body
+   link: 0
+      x: -97.070
+      y: -29.631
+      z: -31.880
+[InterestPoint36]
+   name: UpperLRump
+  chain: Body
+   link: 0
+      x: -108.970
+      y: 29.631
+      z: 0
+[InterestPoint37]
+   name: UpperRRump
+  chain: Body
+   link: 0
+      x: -108.970
+      y: -29.631
+      z: 0
+[InterestPoint38]
+   name: LowerLeftLowerLip
+  chain: Mouth
+   link: 5
+      x: 40.851
+      y: 12.275
+      z: -16.128
+[InterestPoint39]
+   name: LowerRightLowerLip
+  chain: Mouth
+   link: 5
+      x: 40.851
+      y: 12.275
+      z: 16.128
+[InterestPoint40]
+   name: UpperLeftLowerLip
+  chain: Mouth
+   link: 5
+      x: 38.378
+      y: 11.203
+      z: -11.397
+[InterestPoint41]
+   name: UpperRightLowerLip
+  chain: Mouth
+   link: 5
+      x: 38.378
+      y: 11.203
+      z: 11.397
+[InterestPoint42]
+   name: LowerLeftUpperLip
+  chain: Mouth
+   link: 4
+      x: 79.518
+      y: -22.291
+      z: -11.397
+[InterestPoint43]
+   name: LowerRightUpperLip
+  chain: Mouth
+   link: 4
+      x: 79.518
+      y: -22.291
+      z: 11.397
+[InterestPoint44]
+   name: LowerLeftSnout
+  chain: Camera
+   link: 4
+      x: 54.223
+      y: -21.146
+      z: -37.291
+[InterestPoint45]
+   name: LowerRightSnout
+  chain: Camera
+   link: 4
+      x: 54.223
+      y: -21.146
+      z: 37.291
+[InterestPoint46]
+   name: UpperLeftSnout
+  chain: Camera
+   link: 4
+      x: 54.223
+      y: 7.605
+      z: -26.284
+[InterestPoint47]
+   name: UpperRightSnout
+  chain: Camera
+   link: 4
+      x: 54.223
+      y: 7.605
+      z: 26.284
+[InterestPoint48]
+   name: LeftMicrophone
+  chain: Camera
+   link: 4
+      x: -11.156
+      y: 14.897
+      z: -46.941
+[InterestPoint49]
+   name: RightMicrophone
+  chain: Camera
+   link: 4
+      x: -11.156
+      y: 14.897
+      z: 46.941
+[InterestPoint50]
+   name: HeadButton
+  chain: Camera
+   link: 4
+      x: -7.704
+      y: 41.192
+      z: 0
+[InterestPoint51]
+   name: ToeLFrPaw
+  chain: LFr
+   link: 5
+      x: 7.180
+      y: 29.548
+      z: 0
+[InterestPoint52]
+   name: ToeRFrPaw
+  chain: RFr
+   link: 5
+      x: 7.180
+      y: 29.548
+      z: 0
+[InterestPoint53]
+   name: ToeLBkPaw
+  chain: LBk
+   link: 5
+      x: -6.414
+      y: 27.759
+      z: 0
+[InterestPoint54]
+   name: ToeRBkPaw
+  chain: RBk
+   link: 5
+      x: -6.414
+      y: 27.759
+      z: 0
+[InterestPoint55]
+   name: LowerOuterFrontLFrShin
+  chain: LFr
+   link: 4
+      x: 59.298
+      y: 21.239
+      z: -24.557
+[InterestPoint56]
+   name: LowerInnerFrontRFrShin
+  chain: RFr
+   link: 4
+      x: 59.298
+      y: 21.239
+      z: -15.158
+[InterestPoint57]
+   name: LowerOuterFrontLBkShin
+  chain: LBk
+   link: 4
+      x: 41.172
+      y: -33.863
+      z: 24.557
+[InterestPoint58]
+   name: LowerInnerFrontRBkShin
+  chain: RBk
+   link: 4
+      x: 41.172
+      y: -33.863
+      z: 15.158
+[InterestPoint59]
+   name: LowerInnerFrontLFrShin
+  chain: LFr
+   link: 4
+      x: 59.298
+      y: 21.239
+      z: 15.158
+[InterestPoint60]
+   name: LowerOuterFrontRFrShin
+  chain: RFr
+   link: 4
+      x: 59.298
+      y: 21.239
+      z: 24.557
+[InterestPoint61]
+   name: LowerInnerFrontLBkShin
+  chain: LBk
+   link: 4
+      x: 41.172
+      y: -33.863
+      z: -15.158
+[InterestPoint62]
+   name: LowerOuterFrontRBkShin
+  chain: RBk
+   link: 4
+      x: 41.172
+      y: -33.863
+      z: -24.557
+[InterestPoint63]
+   name: LowerOuterMiddleLFrShin
+  chain: LFr
+   link: 4
+      x: 63.011
+      y: -15.573
+      z: -24.557
+[InterestPoint64]
+   name: LowerInnerMiddleRFrShin
+  chain: RFr
+   link: 4
+      x: 63.011
+      y: -15.573
+      z: -15.158
+[InterestPoint65]
+   name: LowerOuterMiddleLBkShin
+  chain: LBk
+   link: 4
+      x: 75.203
+      y: -8.342
+      z: 24.557
+[InterestPoint66]
+   name: LowerInnerMiddleRBkShin
+  chain: RBk
+   link: 4
+      x: 75.203
+      y: -8.342
+      z: 15.158
+[InterestPoint67]
+   name: LowerInnerMiddleLFrShin
+  chain: LFr
+   link: 4
+      x: 63.011
+      y: -15.573
+      z: 15.158
+[InterestPoint68]
+   name: LowerOuterMiddleRFrShin
+  chain: RFr
+   link: 4
+      x: 63.011
+      y: -15.573
+      z: 24.557
+[InterestPoint69]
+   name: LowerInnerMiddleLBkShin
+  chain: LBk
+   link: 4
+      x: 75.203
+      y: -8.342
+      z: -15.158
+[InterestPoint70]
+   name: LowerOuterMiddleRBkShin
+  chain: RBk
+   link: 4
+      x: 75.203
+      y: -8.342
+      z: -24.557
+[InterestPoint71]
+   name: LowerOuterBackLFrShin
+  chain: LFr
+   link: 4
+      x: 40.581
+      y: -26.402
+      z: -24.557
+[InterestPoint72]
+   name: LowerInnerBackRFrShin
+  chain: RFr
+   link: 4
+      x: 40.581
+      y: -26.402
+      z: -15.158
+[InterestPoint73]
+   name: LowerOuterBackLBkShin
+  chain: LBk
+   link: 4
+      x: 71.133
+      y: 8.187
+      z: 24.557
+[InterestPoint74]
+   name: LowerInnerBackRBkShin
+  chain: RBk
+   link: 4
+      x: 71.133
+      y: 8.187
+      z: 15.158
+[InterestPoint75]
+   name: LowerInnerBackLFrShin
+  chain: LFr
+   link: 4
+      x: 40.581
+      y: -26.402
+      z: 15.158
+[InterestPoint76]
+   name: LowerOuterBackRFrShin
+  chain: RFr
+   link: 4
+      x: 40.581
+      y: -26.402
+      z: 24.557
+[InterestPoint77]
+   name: LowerInnerBackLBkShin
+  chain: LBk
+   link: 4
+      x: 71.133
+      y: 8.187
+      z: -15.158
+[InterestPoint78]
+   name: LowerOuterBackRBkShin
+  chain: RBk
+   link: 4
+      x: 71.133
+      y: 8.187
+      z: -24.557
+[InterestPoint79]
+   name: MiddleOuterMiddleLFrShin
+  chain: LFr
+   link: 4
+      x: 42.057
+      y: -10.714
+      z: -27.747
+[InterestPoint80]
+   name: MiddleInnerMiddleRFrShin
+  chain: RFr
+   link: 4
+      x: 42.057
+      y: -10.714
+      z: -18.353
+[InterestPoint81]
+   name: MiddleOuterMiddleLBkShin
+  chain: LBk
+   link: 4
+      x: 41.625
+      y: -11.335
+      z: 27.747
+[InterestPoint82]
+   name: MiddleInnerMiddleRBkShin
+  chain: RBk
+   link: 4
+      x: 41.625
+      y: -11.335
+      z: 18.353
+[InterestPoint83]
+   name: MiddleInnerMiddleLFrShin
+  chain: LFr
+   link: 4
+      x: 42.057
+      y: -10.714
+      z: 18.353
+[InterestPoint84]
+   name: MiddleOuterMiddleRFrShin
+  chain: RFr
+   link: 4
+      x: 42.057
+      y: -10.714
+      z: 27.747
+[InterestPoint85]
+   name: MiddleInnerMiddleLBkShin
+  chain: LBk
+   link: 4
+      x: 41.625
+      y: -11.335
+      z: -18.353
+[InterestPoint86]
+   name: MiddleOuterMiddleRBkShin
+  chain: RBk
+   link: 4
+      x: 41.625
+      y: -11.335
+      z: -27.747
+[InterestPoint87]
+   name: UpperOuterFrontLFrShin
+  chain: LFr
+   link: 4
+      x: 29.289
+      y: 14.743
+      z: -23.426
+[InterestPoint88]
+   name: UpperInnerFrontRFrShin
+  chain: RFr
+   link: 4
+      x: 29.289
+      y: 14.743
+      z: -14.026
+[InterestPoint89]
+   name: UpperOuterFrontLBkShin
+  chain: LBk
+   link: 4
+      x: 2.812
+      y: -22.417
+      z: 23.426
+[InterestPoint90]
+   name: UpperInnerFrontRBkShin
+  chain: RBk
+   link: 4
+      x: 2.812
+      y: -22.417
+      z: 14.026
+[InterestPoint91]
+   name: UpperInnerFrontLFrShin
+  chain: LFr
+   link: 4
+      x: 29.289
+      y: 14.743
+      z: 14.026
+[InterestPoint92]
+   name: UpperOuterFrontRFrShin
+  chain: RFr
+   link: 4
+      x: 29.289
+      y: 14.743
+      z: 23.426
+[InterestPoint93]
+   name: UpperInnerFrontLBkShin
+  chain: LBk
+   link: 4
+      x: 2.812
+      y: -22.417
+      z: -14.026
+[InterestPoint94]
+   name: UpperOuterFrontRBkShin
+  chain: RBk
+   link: 4
+      x: 2.812
+      y: -22.417
+      z: -23.426
+[InterestPoint95]
+   name: UpperOuterBackLFrShin
+  chain: LFr
+   link: 4
+      x: 6.397
+      y: -20.060
+      z: -23.426
+[InterestPoint96]
+   name: UpperInnerBackRFrShin
+  chain: RFr
+   link: 4
+      x: 6.397
+      y: -20.060
+      z: -14.026
+[InterestPoint97]
+   name: UpperOuterBackLBkShin
+  chain: LBk
+   link: 4
+      x: 32.869
+      y: 9.622
+      z: 23.426
+[InterestPoint98]
+   name: UpperInnerBackRBkShin
+  chain: RBk
+   link: 4
+      x: 32.869
+      y: 9.622
+      z: 14.026
+[InterestPoint99]
+   name: UpperInnerBackLFrShin
+  chain: LFr
+   link: 4
+      x: 6.397
+      y: -20.060
+      z: 14.026
+[InterestPoint100]
+   name: UpperOuterBackRFrShin
+  chain: RFr
+   link: 4
+      x: 6.397
+      y: -20.060
+      z: 23.426
+[InterestPoint101]
+   name: UpperInnerBackLBkShin
+  chain: LBk
+   link: 4
+      x: 32.869
+      y: 9.622
+      z: -14.026
+[InterestPoint102]
+   name: UpperOuterBackRBkShin
+  chain: RBk
+   link: 4
+      x: 32.869
+      y: 9.622
+      z: -23.426
+[InterestPoint103]
+   name: LowerOuterFrontLFrThigh
+  chain: LFr
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: 17.189
+[InterestPoint104]
+   name: LowerInnerFrontRFrThigh
+  chain: RFr
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: -17.189
+[InterestPoint105]
+   name: LowerOuterFrontLBkThigh
+  chain: LBk
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: 17.189
+[InterestPoint106]
+   name: LowerInnerFrontRBkThigh
+  chain: RBk
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: -17.189
+[InterestPoint107]
+   name: LowerInnerFrontLFrThigh
+  chain: LFr
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: 17.189
+[InterestPoint108]
+   name: LowerOuterFrontRFrThigh
+  chain: RFr
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: -17.189
+[InterestPoint109]
+   name: LowerInnerFrontLBkThigh
+  chain: LBk
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: 17.189
+[InterestPoint110]
+   name: LowerOuterFrontRBkThigh
+  chain: RBk
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: -17.189
+[InterestPoint111]
+   name: LowerOuterBackLFrThigh
+  chain: LFr
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: -17.189
+[InterestPoint112]
+   name: LowerInnerBackRFrThigh
+  chain: RFr
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: 17.189
+[InterestPoint113]
+   name: LowerOuterBackLBkThigh
+  chain: LBk
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: -17.189
+[InterestPoint114]
+   name: LowerInnerBackRBkThigh
+  chain: RBk
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: 17.189
+[InterestPoint115]
+   name: LowerInnerBackLFrThigh
+  chain: LFr
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: -17.189
+[InterestPoint116]
+   name: LowerOuterBackRFrThigh
+  chain: RFr
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: 17.189
+[InterestPoint117]
+   name: LowerInnerBackLBkThigh
+  chain: LBk
+   link: 3
+      x: 47.947
+      y: -5.043
+      z: -17.189
+[InterestPoint118]
+   name: LowerOuterBackRBkThigh
+  chain: RBk
+   link: 3
+      x: 47.947
+      y: 14.539
+      z: 17.189
+[InterestPoint119]
+   name: UpperOuterFrontLFrThigh
+  chain: LFr
+   link: 3
+      x: 0
+      y: 10.310
+      z: 17.189
+[InterestPoint120]
+   name: UpperInnerFrontRFrThigh
+  chain: RFr
+   link: 3
+      x: 0
+      y: -5.043
+      z: -17.189
+[InterestPoint121]
+   name: UpperOuterFrontLBkThigh
+  chain: LBk
+   link: 3
+      x: 0
+      y: 10.310
+      z: 17.189
+[InterestPoint122]
+   name: UpperInnerFrontRBkThigh
+  chain: RBk
+   link: 3
+      x: 0
+      y: -5.043
+      z: -17.189
+[InterestPoint123]
+   name: UpperInnerFrontLFrThigh
+  chain: LFr
+   link: 3
+      x: 0
+      y: -5.043
+      z: 17.189
+[InterestPoint124]
+   name: UpperOuterFrontRFrThigh
+  chain: RFr
+   link: 3
+      x: 0
+      y: 10.310
+      z: -17.189
+[InterestPoint125]
+   name: UpperInnerFrontLBkThigh
+  chain: LBk
+   link: 3
+      x: 0
+      y: -5.043
+      z: 17.189
+[InterestPoint126]
+   name: UpperOuterFrontRBkThigh
+  chain: RBk
+   link: 3
+      x: 0
+      y: 10.310
+      z: -17.189
+[InterestPoint127]
+   name: UpperOuterBackLFrThigh
+  chain: LFr
+   link: 3
+      x: 0
+      y: 10.310
+      z: -17.189
+[InterestPoint128]
+   name: UpperInnerBackRFrThigh
+  chain: RFr
+   link: 3
+      x: 0
+      y: -5.043
+      z: 17.189
+[InterestPoint129]
+   name: UpperOuterBackLBkThigh
+  chain: LBk
+   link: 3
+      x: 0
+      y: 10.310
+      z: -17.189
+[InterestPoint130]
+   name: UpperInnerBackRBkThigh
+  chain: RBk
+   link: 3
+      x: 0
+      y: -5.043
+      z: 17.189
+[InterestPoint131]
+   name: UpperInnerBackLFrThigh
+  chain: LFr
+   link: 3
+      x: 0
+      y: -5.043
+      z: -17.189
+[InterestPoint132]
+   name: UpperOuterBackRFrThigh
+  chain: RFr
+   link: 3
+      x: 0
+      y: 10.310
+      z: 17.189
+[InterestPoint133]
+   name: UpperInnerBackLBkThigh
+  chain: LBk
+   link: 3
+      x: 0
+      y: -5.043
+      z: -17.189
+[InterestPoint134]
+   name: UpperOuterBackRBkThigh
+  chain: RBk
+   link: 3
+      x: 0
+      y: 10.310
+      z: 17.189

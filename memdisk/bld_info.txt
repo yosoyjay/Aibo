@@ -1,0 +1,5 @@
+Built with Tekkotsu 4.0 CVS, at 2010/03/15 15:28:49 by root
+Target Model: ERS7
+Target Platform: APERIOS
+Project: /usr/local/Tekkotsu/project
+Framework: /usr/local/Tekkotsu

@@ -1,4 +1,5 @@
 #include "AiboCore.h"
+#include <cstring>
 
 
 /*! Counter to track number of Aibo's using driver */
@@ -106,14 +107,22 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
     }
 	
     //! Grab ip from aibo.cfg file
-    ip = cf->ReadString(section, "ip", "192.168.2.155"); 					// 155 is default if non is provided
+    ip = cf->ReadString(section, "ip", "192.168.2.155");  //155 is default if non is provided
+    proto =cf->ReadString(section, "protocol", "TCP");
+
     printf("Using IP: %s \n", ip);
-    protocol = cf->ReadInt(section, "protocol", 1);
+    printf("Protocol %s\n", proto);
 
     //! Create head, walk, cam objects
     walk.connect(ip);
     head.connect(ip);
-    cam.connect(ip);
+
+    if(strncmp(proto, "TCP", 4) == 0){
+	cam.connect(ip);
+    }else{
+      cam.connect_udp(ip);
+    }
+
     ++AiboCore::aibo_count;
 
     rawCam_com_port = cf->ReadInt(section, "rawCamPort", 10011);   			// Seg Cam Port 10012, raw 10011
@@ -128,8 +137,10 @@ int AiboCore::MainSetup()
 
     //! Must initialize the cam in this function.  Trouble otherwise.
     //cam = new AiboCam.connect(ip);
+
     cam.updateMMap(0);
     cam.initialize(cam.getWidth(),cam.getHeight(),3,0,1,2);
+
     sleep(1); // JP added this on 01/13/2010
 
     // Message for checking status:

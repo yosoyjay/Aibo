@@ -1,0 +1,35 @@
+#MSq
+radians
+advanceTime	553
+LFr:rotor	0.6
+LFr:elvtr	-0.1
+LFr:knee~	1.57
+RFr:rotor	0.6
+RFr:elvtr	-0.1
+RFr:knee~	1.57
+LBk:rotor	-0.72
+LBk:elvtr	0.2
+LBk:knee~	1.48
+RBk:rotor	-0.72
+RBk:elvtr	0.2
+RBk:knee~	1.48
+NECK:tilt	0.349066
+NECK:pan~	1.5708
+NECK:roll	0
+advanceTime	1042
+LFr:rotor	0.6
+LFr:elvtr	-0.1
+LFr:knee~	1.57
+RFr:rotor	0.6
+RFr:elvtr	-0.1
+RFr:knee~	1.57
+LBk:rotor	-0.72
+LBk:elvtr	0.2
+LBk:knee~	1.48
+RBk:rotor	-0.72
+RBk:elvtr	0.2
+RBk:knee~	1.48
+NECK:tilt	0.349066
+NECK:pan~	-1.5708
+NECK:roll	0
+#END

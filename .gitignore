@@ -1,0 +1,6 @@
+*.gch
+*.o
+*.so
+*.swp
+*dSYM/
+tags
