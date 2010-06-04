@@ -215,7 +215,17 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 				PLAYER_POSITION2D_REQ_MOTOR_POWER);
 	  	return 0;	
 	}
- 
+	else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
+								  PLAYER_POSITION2D_REQ_SET_ODOM, position_addr))
+	{
+		odom_data = *(player_position2d_set_odom_req_t *) data;
+		pos_data.pos.px = odom_data.pose.px;
+		pos_data.pos.py = odom_data.pose.py;
+		pos_data.pos.pa = odom_data.pose.pa;		
+
+		Publish(position_addr, resp_queue, PLAYER_MSGTYPE_RESP_ACK, 
+						PLAYER_POSITION2D_REQ_SET_ODOM);
+	}	
     // Catch PTZ
     else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_PTZ_CMD_STATE, 
 								  ptz_addr))

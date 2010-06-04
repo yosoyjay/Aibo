@@ -70,6 +70,7 @@ private:
     player_position2d_cmd_vel_t position_cmd;
     player_ptz_cmd_t head_cmd;
     player_position2d_data_t pos_data;
+	player_position2d_set_odom_req_t odom_data;
 };
 
 // j - where the heck should these go?
