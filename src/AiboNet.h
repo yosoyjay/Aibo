@@ -15,6 +15,7 @@ public:
 	    const int proto = TCP_PROTO);
     int send_data(char command, float magnitude);
     int send_data(char command[], float magnitude[], int size);
+    int send_data(const char *command);
     char *read(int count);
     char *readUntil(char stop);
     ~AiboNet();

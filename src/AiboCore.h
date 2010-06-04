@@ -63,12 +63,13 @@ private:
     // Mutex to stop walking from slowing down system
     pthread_mutex_t walk_mutex;
 
-    // temporary place to hold AiboCam aibo
-    //AiboCam* cam;
+	// AiboNet link for estop
+	AiboNet* estop;	
 
     // Position2d proxy variables
     player_position2d_cmd_vel_t position_cmd;
     player_ptz_cmd_t head_cmd;
+    player_position2d_data_t pos_data;
 };
 
 // j - where the heck should these go?

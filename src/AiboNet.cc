@@ -104,6 +104,14 @@ int AiboNet::send_data(char command[], float magnitude[], int size)
     }
 }
 
+int AiboNet::send_data(const char *command)
+{
+	if(send(sockfd, (const void *) command, strlen(command), 0) < 0){
+		return -1;
+	} else
+		return 0;
+}
+
 char *AiboNet::read(int count)
 {
     static char buf[MAX_BUFF_SIZE];
