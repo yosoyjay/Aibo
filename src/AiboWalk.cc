@@ -64,6 +64,9 @@ int AiboWalk::rotate_counter_clockwise(float magnitude)
 int AiboWalk::walk(float px, float py,float pa)
 {
 
+	// Convert m/s to commands for Aibo (0.0, 0.9)	
+	px /= 0.42; py /= 0.42; pa /= 0.42;
+	
     // Cut rotation velocity to 1/5 so it doesn't rotate so fast
     // If I perform this operation in the function it dies.
     pa *= 0.2;
