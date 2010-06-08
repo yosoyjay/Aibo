@@ -171,7 +171,6 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
     if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL,
 						     position_addr))
     {
-
         assert(hdr->size == sizeof(player_position2d_cmd_vel_t));
         position_cmd = *(player_position2d_cmd_vel_t *) data;
 
