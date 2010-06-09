@@ -17,12 +17,16 @@ public:
     AiboCore(const char *ip_addr);
     AiboCore(ConfigFile* cf, int section);
     void connect(const char *ip_addr);
-    int count();
+    int  count();
+    void walkThread();
+	void headThread();
+    static void* startWalkThread(void *ptr);
+	static void* startHeadThread(void *ptr);
     ~AiboCore();
 
     AiboWalk walk;
     AiboHead head;
-    AiboCam cam;
+    AiboCam  cam;
 
     /* Functions required for Player
      *
@@ -60,16 +64,35 @@ private:
     int segCam_fd;
     int rawCam_fd;
 
-    // Mutex to stop walking from slowing down system
+    // Mutex for head/walk threads
     pthread_mutex_t walk_mutex;
+	pthread_mutex_t head_mutex;
+
+	// pthread type for head and walk
+	pthread_t head_thread;
+	pthread_t walk_thread;
+
+	// pthread attributes
+	pthread_attr_t walk_attr;
+	pthread_attr_t head_attr;	
+
+	// state variables
+	bool head_update;
+	bool walking;
+	bool walk_alive;
+	bool head_alive;
+	bool walk_thread_started;
+	bool head_thread_started;
 
 	// AiboNet link for estop
 	AiboNet* estop;	
 
     // Position2d proxy variables
-    player_position2d_cmd_vel_t position_cmd;
-    player_ptz_cmd_t head_cmd;
-    player_position2d_data_t pos_data;
+    player_position2d_cmd_vel_t      position_cmd;
+	player_position2d_cmd_vel_t      new_pos_cmd;
+    player_ptz_cmd_t                 head_cmd;
+	player_ptz_cmd_t                 new_head_cmd;
+    player_position2d_data_t         pos_data;
 	player_position2d_set_odom_req_t odom_data;
 };
 

@@ -44,13 +44,11 @@ void Aibo_Register(DriverTable* table)
 AiboCore::AiboCore(ConfigFile* cf, int section)
     : ThreadedDriver(cf, section)
 {
-
     // Needed to add interfaces
-    memset(&position_addr, 0, sizeof(player_devaddr_t));
+	memset(&position_addr, 0, sizeof(player_devaddr_t));
 	memset(&pos_data, 0, sizeof(player_position2d_data_t));
-
-    memset(&ptz_addr, 0, sizeof(player_devaddr_t));
-    memset(&camera_addr, 0, sizeof(player_devaddr_t));
+	memset(&ptz_addr, 0, sizeof(player_devaddr_t));
+	memset(&camera_addr, 0, sizeof(player_devaddr_t));
 
     //Position2d
     if(cf->ReadDeviceAddr(&position_addr, section, "provides", PLAYER_POSITION2D_CODE, -1, NULL) == 0)
@@ -63,8 +61,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
         }
 
         puts("Added Position2d interface to Aibo");
-    }
-    else
+	} else
     {
         //PLAYER_ERROR("Error.  Constructor failed to read Position2d data from config file\n");
         SetError(-1);
@@ -72,7 +69,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
     }
 
     // PTZ
-    if(cf->ReadDeviceAddr(&ptz_addr,section, "provides", PLAYER_PTZ_CODE, -1, NULL) == 0)
+    if(cf->ReadDeviceAddr(&ptz_addr,section,"provides",PLAYER_PTZ_CODE,-1,NULL) ==0)
     {
         if(AddInterface(ptz_addr) != 0)
         {
@@ -82,8 +79,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
         }
 
         puts("Added PTZ interface to Aibo");
-    }
-    else
+	} else
     {
         //PLAYER_ERROR("Error.  Constructor failed to read PTZ data from config file\n");
         SetError(-1);
@@ -102,7 +98,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
         puts("Added Camera Interface to Aibo");
     }
     
-    ip = cf->ReadString(section, "ip", "192.168.2.155"); 	// 155 is default if non is provided
+    ip = cf->ReadString(section, "ip", "192.168.2.155"); 	// 155 is default
     proto =cf->ReadString(section, "protocol", "TCP");
 
     printf("Using IP: %s \n", ip);
@@ -113,16 +109,14 @@ AiboCore::AiboCore(ConfigFile* cf, int section)
 
     if(strncmp(proto, "TCP", 4) == 0){
 		cam.connect(ip);
-    }else{
+    } else{
 		cam.connect_udp(ip);
     }
 
 	estop = new AiboNet(ip, 10053);
-
     ++AiboCore::aibo_count;
     rawCam_com_port = cf->ReadInt(section, "rawCamPort", 10011);  	// Seg Cam Port 10012, raw 10011
 }
-
 
 // Set up the device.  Return 0 if things go well, and -1 otherwise.
 int AiboCore::MainSetup()
@@ -134,18 +128,30 @@ int AiboCore::MainSetup()
 
     // Don't ask questions.
     cam.initialize(cam.getWidth(),cam.getHeight(),3,0,1,2);
-
     sleep(1); // JP added this on 01/13/2010
 
-    // Message for checking status:
-    puts("Aibo driver ready");
-
+    
     // Initialize mutex for walking
     pthread_mutex_init(&walk_mutex, NULL);
+	pthread_mutex_init(&head_mutex, NULL);
+
+	pthread_attr_init(&walk_attr);
+	pthread_attr_init(&head_attr);
+
+	pthread_attr_setdetachstate(&walk_attr, PTHREAD_CREATE_DETACHED);
+	pthread_attr_setdetachstate(&head_attr, PTHREAD_CREATE_DETACHED);
+
+	walk_thread_started = false;
+	walk_alive = true;
+	head_thread_started = false;
+	head_alive = true;
 
     // Starts the main device thread.  Creates a new thread and executes
     // Aibo::Main() which contains the main loop for the driver.
     StartThread();
+
+	// Message for checking status:
+    puts("Aibo driver ready");
 
     return 0;
 }
@@ -154,14 +160,26 @@ int AiboCore::MainSetup()
 void AiboCore::MainQuit()
 {
     puts("Shutting Aibo driver down");
-    StopThread();
-    //  Need to put destructors here?
 
-    pthread_mutex_destroy(&walk_mutex);
+	pthread_mutex_lock(&walk_mutex);
+	walk_alive = false;
+	pthread_mutex_unlock(&walk_mutex);
+
+	pthread_mutex_lock(&head_mutex);
+	head_alive = false;
+	pthread_mutex_unlock(&head_mutex);
+
+	pthread_attr_destroy(&walk_attr);
+	pthread_attr_destroy(&head_attr);
+	pthread_mutex_destroy(&walk_mutex);
+	pthread_mutex_destroy(&head_mutex);
+
+    StopThread();
+    //Need to put destructors here?
+
     puts("Aibo driver has been shutdown");
     return;
 }
-
 
 // Process Messages
 int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, 
@@ -172,13 +190,31 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 						     position_addr))
     {
         assert(hdr->size == sizeof(player_position2d_cmd_vel_t));
-        position_cmd = *(player_position2d_cmd_vel_t *) data;
+        new_pos_cmd = *(player_position2d_cmd_vel_t *) data;
 
-        walk.walk(position_cmd.vel.px, position_cmd.vel.py, position_cmd.vel.pa);
+		// Create new thread once there is a message to walk
+		if(!walk_thread_started){
+			if(pthread_create(&walk_thread, NULL, &startWalkThread, this) != 0){
+				printf("Error creating walk thread");
+				exit(-1);
+			}
+			walk_thread_started = true;
+		}		
+
+		pthread_mutex_lock(&walk_mutex);
+		position_cmd = new_pos_cmd;
+		if(position_cmd.vel.px == 0 && 
+		   position_cmd.vel.py == 0 && 
+		   position_cmd.vel.pa == 0){
+			walking = false;
+		} else{
+			walking = true;
+		}
+		printf("walking in message matching:%d\n", walking);
+		pthread_mutex_unlock(&walk_mutex);
 
         return 0;
-    }
-    else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ, 
+	} else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ, 
 								  PLAYER_POSITION2D_REQ_RESET_ODOM, position_addr))
 	{
 		printf("Received request to reset odometry");
@@ -190,8 +226,7 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 		Publish(position_addr, resp_queue, PLAYER_MSGTYPE_RESP_ACK, 
 				PLAYER_POSITION2D_REQ_RESET_ODOM);
 		return 0;	
-	}
-	else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
+	} else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
 								  PLAYER_POSITION2D_REQ_MOTOR_POWER, position_addr))
 	{
 		bool powered = ((player_position2d_power_config_t*)data)->state;
@@ -213,9 +248,8 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 		Publish(position_addr, resp_queue, PLAYER_MSGTYPE_RESP_ACK, 
 				PLAYER_POSITION2D_REQ_MOTOR_POWER);
 	  	return 0;	
-	}
-	else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
-								  PLAYER_POSITION2D_REQ_SET_ODOM, position_addr))
+	} else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
+								  PLAYER_POSITION2D_REQ_SET_ODOM,position_addr))
 	{
 		odom_data = *(player_position2d_set_odom_req_t *) data;
 		pos_data.pos.px = odom_data.pose.px;
@@ -224,19 +258,27 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 
 		Publish(position_addr, resp_queue, PLAYER_MSGTYPE_RESP_ACK, 
 						PLAYER_POSITION2D_REQ_SET_ODOM);
-	}	
-    // Catch PTZ
-    else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, PLAYER_PTZ_CMD_STATE, 
+	}else if(Message::MatchMessage(hdr,PLAYER_MSGTYPE_CMD, PLAYER_PTZ_CMD_STATE,
 								  ptz_addr))
     {
         assert(hdr->size == sizeof(player_ptz_cmd_t));
         head_cmd = *(player_ptz_cmd_t *) data;
 
+		// Create new thread once there is a message to walk
+		if(!walk_thread_started){
+			if(pthread_create(&head_thread, NULL, &startHeadThread, this) != 0){
+				printf("Error creating walk thread");
+				exit(-1);
+			}
+			head_thread_started = true;
+		}
+		
+		pthread_mutex_lock(&head_mutex);
         head.move(head_cmd.pan, head_cmd.tilt, head_cmd.zoom);
+		pthread_mutex_unlock(&head_mutex);
         return 0;
     }
 
-    // Just return 0 for now
     return 0;
 }
 
@@ -257,7 +299,11 @@ void AiboCore::Main()
     camdata.compression = PLAYER_CAMERA_COMPRESS_RAW;
     camdata.image_count = camdata.width*camdata.height*3;
 
-    int picSize;
+	int picSize;
+
+	// Just initializes walk and head
+	walk.walk(0,0,0);
+	head.move(0,0,0);
 
     while(true)
     {
@@ -265,16 +311,15 @@ void AiboCore::Main()
         pthread_testcancel();
 
         //  This is used to publish position2d data
+		pthread_mutex_lock(&walk_mutex);
 		pos_data.vel.px = position_cmd.vel.px;
 		pos_data.vel.py = position_cmd.vel.py;
 		pos_data.vel.pa = position_cmd.vel.pa;
+		pthread_mutex_unlock(&walk_mutex);
 
 		pos_data.pos.px += position_cmd.vel.px*0.025;
 		pos_data.pos.py += position_cmd.vel.py*0.025;
 		pos_data.pos.pa += position_cmd.vel.pa*0.025;
-
-		printf("velData: %f, %f, %f\n", pos_data.vel.px, pos_data.vel.py, pos_data.vel.pa);
-		printf("posData: %f, %f, %f\n", pos_data.pos.px, pos_data.pos.py, pos_data.pos.pa);
 
         Publish(position_addr, PLAYER_MSGTYPE_DATA, PLAYER_POSITION2D_DATA_STATE,
                 (void*) &pos_data, sizeof(pos_data), NULL);
@@ -310,6 +355,56 @@ void AiboCore::Main()
     }
 
     free(camdata.image);
+}
+
+void* AiboCore::startWalkThread(void *ptr){
+	AiboCore* bot = (AiboCore *) ptr;
+	bot->walkThread();
+	return 0;
+}
+
+void* AiboCore::startHeadThread(void *ptr){
+	AiboCore* bot = (AiboCore *) ptr;
+	bot->headThread();
+	return 0;
+}
+
+void AiboCore::walkThread(){
+	bool alive = true;
+	while(alive){	
+		printf("in walk thread\n");
+		
+		pthread_mutex_lock(&walk_mutex);
+		printf("walking in thread %d\n", walking);
+		if(walking){
+			printf("walking command sent\n");
+			walk.walk(position_cmd.vel.px,
+					  position_cmd.vel.py, 
+					  position_cmd.vel.pa);
+		} else{
+			printf("not walking command\n");
+			walk.walk(0,0,0);
+		}
+		alive = walk_alive;
+		printf("walk alive %d\n", alive);
+		pthread_mutex_unlock(&walk_mutex);
+		usleep(25000);
+	}
+	pthread_exit(NULL);
+}
+
+void AiboCore::headThread(){
+	bool alive = true;
+	while(alive){
+		pthread_mutex_lock(&head_mutex);
+		if(head_update){
+			head.move(head_cmd.pan, head_cmd.tilt, head_cmd.zoom);
+		}
+		alive = head_alive;
+		pthread_mutex_unlock(&head_mutex);
+		usleep(25000);
+	}
+	pthread_exit(NULL);
 }
 
 /* need the extern to avoid C++ name-mangling  */

@@ -1,5 +1,6 @@
 #include "AiboWalk.h"
 #include "unistd.h"
+#include <cmath>
 
 AiboWalk::AiboWalk()
 {
@@ -39,7 +40,6 @@ int AiboWalk::strafe_left(float magnitude)
 
 int AiboWalk::strafe_right(float magnitude)
 {
-
     aibolink->send_data('s', -magnitude);
     usleep(500000);
     return 0;
@@ -47,7 +47,6 @@ int AiboWalk::strafe_right(float magnitude)
 
 int AiboWalk::rotate_clockwise(float magnitude)
 {
-
     aibolink->send_data('r', magnitude);
     usleep(500000);
     return 0;
@@ -55,7 +54,6 @@ int AiboWalk::rotate_clockwise(float magnitude)
 
 int AiboWalk::rotate_counter_clockwise(float magnitude)
 {
-
     aibolink->send_data('r', -magnitude);
     usleep(500000);
     return 0;
@@ -63,8 +61,7 @@ int AiboWalk::rotate_counter_clockwise(float magnitude)
 
 int AiboWalk::walk(float px, float py,float pa)
 {
-
-	// Convert m/s to commands for Aibo (0.0, 0.9)	
+	// Convert m/s to commands for Aibo (0.0, 0.8)
 	px /= 0.42; py /= 0.42;
 	
     px > 0.8 ? px = 0.8 : px;
@@ -83,7 +80,5 @@ int AiboWalk::walk(float px, float py,float pa)
 
 AiboWalk::~AiboWalk()
 {
-
     delete aibolink;
-
 }
