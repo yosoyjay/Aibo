@@ -20,8 +20,10 @@ public:
     int  count();
     void walkThread();
 	void headThread();
+	void camThread();
     static void* startWalkThread(void *ptr);
 	static void* startHeadThread(void *ptr);
+	static void* startCamThread(void *prt);
     ~AiboCore();
 
     AiboWalk walk;
@@ -67,20 +69,24 @@ private:
     // Mutex for head/walk threads
     pthread_mutex_t walk_mutex;
 	pthread_mutex_t head_mutex;
+	pthread_mutex_t cam_mutex;
 
 	// pthread type for head and walk
 	pthread_t head_thread;
 	pthread_t walk_thread;
+	pthread_t cam_thread;
 
 	// pthread attributes
 	pthread_attr_t walk_attr;
-	pthread_attr_t head_attr;	
+	pthread_attr_t head_attr;
+	pthread_attr_t cam_attr;	
 
 	// state variables
 	bool head_update;
 	bool walking;
 	bool walk_alive;
 	bool head_alive;
+	bool cam_alive;
 	bool walk_thread_started;
 	bool head_thread_started;
 
@@ -94,6 +100,9 @@ private:
 	player_ptz_cmd_t                 new_head_cmd;
     player_position2d_data_t         pos_data;
 	player_position2d_set_odom_req_t odom_data;
+
+	// Camera proxy variable
+    player_camera_data_t camdata;
 };
 
 // j - where the heck should these go?
