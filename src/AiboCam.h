@@ -1,8 +1,6 @@
 #ifndef __AIBOCAM_H__
 #define __AIBOCAM_H__
 
-#define AIBO_CAM_PORT 10011
-
 #include "dev.h"
 #include "AiboNet.h"
 #include "RWLock.h"
@@ -18,12 +16,15 @@ class AiboCam : public dev
 public:
     AiboCam();
     int updateMMap(int decompress);
-    void connect(const char *ip_addr);
-    void connect_udp(const char *ip_addr);
+    void connect(const char *ip_addr, int port);
+    void connect_udp(const char *ip_addr, int port);
     RWLock lock;
+	bool get_provided() { return cam_provided; }
+	void set_provided(bool b) { cam_provided = b; };
     ~AiboCam();
 private:
     AiboNet *aibolink;
+	bool cam_provided;
 };
 
 #endif

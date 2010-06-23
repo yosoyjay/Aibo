@@ -28,15 +28,15 @@ AiboCam::AiboCam()
 }
 
 /** Creates and connects a socket to capture images from the Aibo */
-void AiboCam::connect(const char *hostname)
+void AiboCam::connect(const char *hostname, int port)
 {
-    aibolink = new AiboNet(hostname, AIBO_CAM_PORT);
+    aibolink = new AiboNet(hostname, port);
 }
 
 // JP: Added this
-void AiboCam::connect_udp(const char *hostname)
+void AiboCam::connect_udp(const char *hostname, int port)
 {
-    aibolink = new AiboNet(hostname, AIBO_CAM_PORT, UDP_PROTO);
+    aibolink = new AiboNet(hostname, port, UDP_PROTO);
 }
 
 /** Captures images from socket.  Argument is used to toggle 
@@ -61,23 +61,23 @@ int AiboCam::updateMMap(int decompress=1)
     // Got frameNum=3185
     //printf("receiving...\n");
     header = aibolink->read(4);  // \r\0\0\0
-    //printf("In updateMMap 3: '%s'\n", header);
+    printf("In updateMMap 3: '%s'\n", header);
     type = aibolink->readUntil((char)0); // "TekkotsuImage"
-    //printf("type: '%s'\n", type);
+    printf("type: '%s'\n", type);
     format = convert(aibolink->read(4));
-    //printf("format: %ld\n", format);
+    printf("format: %ld\n", format);
     compression = convert(aibolink->read(4));
-    //printf("compression: %ld\n", compression);
+    printf("compression: %ld\n", compression);
     newWidth = convert(aibolink->read(4));
-    //printf("newWidth: %ld\n", newWidth);
+    printf("newWidth: %ld\n", newWidth);
     newHeight = convert(aibolink->read(4));
-    //printf("newHeight: %ld\n", newHeight);
+    printf("newHeight: %ld\n", newHeight);
     timeStamp = convert(aibolink->read(4));
-    //printf("timeStamp: %ld\n", timeStamp);
+    printf("timeStamp: %ld\n", timeStamp);
     frameNum = convert(aibolink->read(4));
-    //printf("frameNum: %ld\n", frameNum);
+    printf("frameNum: %ld\n", frameNum);
     unknown1 = convert(aibolink->read(4));
-    //printf("unknown1: %ld\n", unknown1);
+    printf("unknown1: %ld\n", unknown1);
     //// Got creator=FbkImage
     ////// Got chanwidth=104
     //// Got chanheight=80
@@ -88,9 +88,9 @@ int AiboCam::updateMMap(int decompress=1)
     creator = aibolink->readUntil((char)0); // creator
     //printf("creator: %s\n", creator);
     chanWidth = convert(aibolink->read(4));
-    //printf("chanWidth: %ld\n", chanWidth);
+    printf("chanWidth: %ld\n", chanWidth);
     chanHeight = convert(aibolink->read(4));
-    //printf("chanHeight: %ld\n", chanHeight);
+    printf("chanHeight: %ld\n", chanHeight);
     layer = convert(aibolink->read(4));
     //printf("layer: %ld\n", layer);
     chanID = convert(aibolink->read(4));
@@ -98,9 +98,9 @@ int AiboCam::updateMMap(int decompress=1)
     unknown2 = convert(aibolink->read(4));
     //printf("unknown2: %ld\n", unknown2);
     fmt = aibolink->readUntil((char)0); // fmt
-    //printf("fmt: %s\n", fmt);
+    printf("fmt: %s\n", fmt);
     size = convert(aibolink->read(4));
-    //printf("size: %ld\n", size);
+    printf("size: %ld\n", size);
     image_buffer = aibolink->read(size);
 
     //// convert image from JPEG to RGB in mmap

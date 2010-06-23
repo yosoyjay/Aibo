@@ -5,10 +5,10 @@ AiboHead::AiboHead()
 
 }
 
-void AiboHead::connect(const char *ip_addr)
+void AiboHead::connect(const char *ip_addr, int port)
 {
 
-    aibolink = new AiboNet(ip_addr, AIBO_HEAD_PORT);
+    aibolink = new AiboNet(ip_addr, port);
 
 }
 

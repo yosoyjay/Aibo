@@ -3,14 +3,12 @@
 
 #include "AiboNet.h"
 
-const int AIBO_HEAD_PORT = 10052;
-
 //! \brief Controls the Aibo's head.
 class AiboHead
 {
 public:
     AiboHead();
-    void connect(const char *ip_addr);
+    void connect(const char *ip_addr, int port);
     int up(float magnitude);
     int down(float magnitude);
     int left(float magnitude);

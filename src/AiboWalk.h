@@ -4,15 +4,12 @@
 #include <cmath>
 #include "AiboNet.h"
 
-const int AIBO_WALK_PORT = 10050;
-
-
 //! \brief Control's the Aibo's movement (Walking).
 class AiboWalk
 {
 public:
     AiboWalk();
-    void connect(const char *ip_addr);
+    void connect(const char *ip_addr, int port);
     int forward(float magnitude);
     int backward(float magnitude);
     int strafe_right(float magnitude);

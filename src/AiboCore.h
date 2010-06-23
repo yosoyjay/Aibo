@@ -8,6 +8,7 @@
 #include "AiboWalk.h"
 #include "AiboHead.h"
 #include "AiboCam.h"
+#include "AiboState.h"
 
 //! \brief The entire Aibo and required Player classes. Core of driver.
 class AiboCore : public ThreadedDriver
@@ -17,54 +18,53 @@ public:
     AiboCore(const char *ip_addr);
     AiboCore(ConfigFile* cf, int section);
     void connect(const char *ip_addr);
-    int  count();
+
+	// Thread related functions
     void walkThread();
 	void headThread();
 	void camThread();
+	void irThread();
     static void* startWalkThread(void *ptr);
 	static void* startHeadThread(void *ptr);
 	static void* startCamThread(void *prt);
+	static void* startIRThread(void *prt);
     ~AiboCore();
 
-    AiboWalk walk;
-    AiboHead head;
-    AiboCam  cam;
+	// Objects representing varies parts of the Aibo 
+    AiboWalk  walk;
+    AiboHead  head;
+    AiboCam   cam;
+	AiboState state;
 
-    /* Functions required for Player
-     *
-     */
+    // Functions required for Player
     virtual int  MainSetup();
     virtual void MainQuit();
 
     int ProcessMessage( QueuePointer &resp_queue, player_msghdr* hdr, void* data );
 
 private:
-    static int aibo_count;
-    //id_array_struct
-
-    /* Functions required for Player
-     *
-     */
+    // Function required for Player
     virtual void Main();
 
     // Device addresses for proxies used in constructor
     player_devaddr_t position_addr;
     player_devaddr_t ptz_addr;
     player_devaddr_t camera_addr;
+	player_devaddr_t ir_addr;
 
     // IP/Ports - Probably should be moved?
     const char* ip;
     const char* proto;
-    int segCam_com_port;
-    int rawCam_com_port;
     int protocol;
+	
+	int AiboEstopPort;
+	int AiboCamPort;
+	int AiboHeadPort;
+	int AiboWalkPort;
+	int AiboStatePort;
 
     // Just a pointer to images from AiboCam
     uint8_t* picture;
-
-    // File Descriptors for socket.
-    int segCam_fd;
-    int rawCam_fd;
 
     // Mutex for head/walk threads
     pthread_mutex_t walk_mutex;
@@ -75,11 +75,13 @@ private:
 	pthread_t head_thread;
 	pthread_t walk_thread;
 	pthread_t cam_thread;
+	pthread_t ir_thread;
 
 	// pthread attributes
 	pthread_attr_t walk_attr;
 	pthread_attr_t head_attr;
-	pthread_attr_t cam_attr;	
+	pthread_attr_t cam_attr;
+	pthread_attr_t ir_attr;	
 
 	// state variables
 	bool head_update;
@@ -103,6 +105,11 @@ private:
 
 	// Camera proxy variable
     player_camera_data_t camdata;
+
+	// IR proxy variables
+	player_ranger_data_range_t ir_data;
+	double range_array[3];
+	player_ranger_config_t     ir_config;
 };
 
 // j - where the heck should these go?

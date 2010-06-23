@@ -7,10 +7,10 @@ AiboWalk::AiboWalk()
 
 }
 
-void AiboWalk::connect(const char *ip_addr)
+void AiboWalk::connect(const char *ip_addr, int port)
 {
 
-    aibolink = new AiboNet(ip_addr, AIBO_WALK_PORT);
+    aibolink = new AiboNet(ip_addr, port);
 
 }
 
@@ -72,7 +72,7 @@ int AiboWalk::walk(float px, float py,float pa)
     py < -0.8 ? py = -0.8 : py;
     pa < -0.8 ? pa = -0.8 : pa;
 
-	printf("walk %f, %f, %f\n", px, py, pa);
+	//printf("walk %f, %f, %f\n", px, py, pa);
 
     aibolink->send_data('f', px);
     aibolink->send_data('s', py);
