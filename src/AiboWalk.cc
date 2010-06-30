@@ -1,6 +1,4 @@
 #include "AiboWalk.h"
-#include "unistd.h"
-#include <cmath>
 
 AiboWalk::AiboWalk()
 {
@@ -62,7 +60,7 @@ int AiboWalk::rotate_counter_clockwise(float magnitude)
 int AiboWalk::walk(float px, float py,float pa)
 {
 	// Convert m/s to commands for Aibo (0.0, 0.8)
-	px /= 0.42; py /= 0.42;
+	px *= 6; py *= 6; pa *= 0.35; 
 	
     px > 0.8 ? px = 0.8 : px;
     py > 0.8 ? py = 0.8 : py;

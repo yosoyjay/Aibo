@@ -2,7 +2,10 @@
 #define AIBO_WALK_H
 
 #include <cmath>
+
 #include "AiboNet.h"
+#include "unistd.h"
+
 
 //! \brief Control's the Aibo's movement (Walking).
 class AiboWalk

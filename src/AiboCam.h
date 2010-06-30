@@ -19,12 +19,15 @@ public:
     void connect(const char *ip_addr, int port);
     void connect_udp(const char *ip_addr, int port);
     RWLock lock;
-	bool get_provided() { return cam_provided; }
-	void set_provided(bool b) { cam_provided = b; };
+	bool getProvided() { return camProvided; };
+	void setProvided(bool b) { camProvided = b; };
     ~AiboCam();
 private:
     AiboNet *aibolink;
-	bool cam_provided;
+	bool camProvided;
+	bool debug;
 };
+
+
 
 #endif

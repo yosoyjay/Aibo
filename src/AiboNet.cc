@@ -36,7 +36,7 @@ AiboNet::AiboNet(const char *aibo_ip, unsigned int aibo_port,
     }
   }else if(proto == UDP_PROTO){
 
-    if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0); 
+    if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0); // JP: Changed this SOCK_STREAM, 0)) < 0); // It should be a datagram socket.
     {
         perror("Error creating socket");
     }
@@ -115,7 +115,7 @@ int AiboNet::send_data(const char *command)
 char *AiboNet::read(int count)
 {
     static char buf[MAX_BUFF_SIZE];
-    char ch[5];
+    char ch[4];
     bzero(buf, MAX_BUFF_SIZE);
     int numbytes;
 
@@ -135,25 +135,6 @@ char *AiboNet::read(int count)
     }
 
     return buf;
-}
-
-char *AiboNet::read(int count, float dummy){
-
-	static char buf[MAX_BUFF_SIZE];
-    bzero(buf, MAX_BUFF_SIZE);
-
-	int check;
- 	check = recv(sockfd, &buf, count, 0);
-	if( check != count){
-		printf("problems reading state data\n\n\n\n");
-	}
-	//printf("numbytes (before): %d\n", numbytes);
-	//printf("numbytes (cast): %f\n", (float)numbytes);
-	//numbytes = ntohl(numbytes);
-	//printf("numbytes (after): %d\n", numbytes);
-	//printf("numbytes (cast): %f\n", (float)numbytes);
-
-	return buf;
 }
 
 char *AiboNet::readUntil(char stop)

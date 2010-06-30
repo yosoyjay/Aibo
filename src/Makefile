@@ -1,8 +1,8 @@
-GCC=gcc
+GC=gcc
 CXX=g++
 PLAYER_DIR = /usr/local/include/player-3.0/
-SRC = AiboWalk.cc AiboWalk.h AiboCore.cc AiboCore.h AiboHead.cc AiboHead.h AiboNet.cc AiboNet.h unp.h RWLock.cc RWLock.h jpeg.c jpeg.h AiboCam.cc AiboCam.h dev.cc dev.h AiboState.cc AiboState.h
-OBJS = RWLock.o jpeg.o dev.o AiboWalk.o AiboCore.o AiboHead.o AiboNet.o AiboCam.o AiboState.o
+SRC = AiboWalk.cc AiboWalk.h AiboCore.cc AiboCore.h AiboHead.cc AiboHead.h AiboNet.cc AiboNet.h unp.h RWLock.cc RWLock.h jpeg.c jpeg.h AiboCam.cc AiboCam.h dev.cc dev.h PosixTimer.cpp PosixTimer.h
+OBJS = RWLock.o jpeg.o dev.o AiboWalk.o AiboCore.o AiboHead.o AiboNet.o AiboCam.o AiboState.o PosixTimer.o
 
 PLAYER_DRIVER = libAibo_Driver.so
 
@@ -21,14 +21,14 @@ endif
 ifeq ($(VENDOR),apple)
 	@$(CXX) -Wall -fpic -g3 -g -I $(PLAYER_DIR) -o $@ -c $<
 else
-	@$(CXX) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
+	@$(CXX) -Wall -fpic -g3 `pkg-config --cflags playercore` -c $(SRC)
 endif
 
 %.o: %.c %.h
 ifeq ($(VENDOR),apple)
 	@$(GCC) -Wall -fpic -g3 -g -o $@ -c $<
 else
-	@$(GCC) -Wall -fpic -g3 `pkg-config --cflags playercore` -c -g $(SRC)
+	@$(GCC) -Wall -fpic -g3 `pkg-config --cflags playercore` -c  $(SRC)
 endif
 
 clean:

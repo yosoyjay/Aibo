@@ -3,6 +3,7 @@
 
 #define MAXBUFSIZE 10000
 
+
 long convert(char *buff)
 {
     long retval = 0;
@@ -12,8 +13,6 @@ long convert(char *buff)
     retval += (buff[3] & 0xFF) << 24;
     return retval;
 }
-
-
 /*! \brief  Aibo's Camera
  *This clas represents and implements methods to capture images from the Aibo. */
 AiboCam::AiboCam()
@@ -23,8 +22,8 @@ AiboCam::AiboCam()
     // set width, height 0 to trigger automatically:
     width = 0;
     height = 0;
-    //printf("updated!\n");
-    //printf("intialized!\n");
+    if(debug)printf("updated!\n");
+    if(debug)printf("intialized!\n");
 }
 
 /** Creates and connects a socket to capture images from the Aibo */
@@ -48,9 +47,9 @@ int AiboCam::updateMMap(int decompress=1)
     char *header, *type, *creator, *fmt, *image_buffer;
     long format, compression, newWidth, newHeight, timeStamp, frameNum, unknown1;
     long chanWidth, chanHeight, layer, chanID, unknown2, size;
-    //printf("In updateMMap 1\n");
+    if(debug)printf("In updateMMap 1\n");
     lock.ReadLock();
-    //printf("In updateMMap 2\n");
+    if(debug)printf("In updateMMap 2\n");
     // get an image from socket
     // Got type=TekkotsuImage
     // Got format=0
@@ -59,25 +58,25 @@ int AiboCam::updateMMap(int decompress=1)
     // Got newHeight=80
     // Got timest=121465
     // Got frameNum=3185
-    //printf("receiving...\n");
+    if(debug)printf("receiving...\n");
     header = aibolink->read(4);  // \r\0\0\0
-    printf("In updateMMap 3: '%s'\n", header);
+    if(debug)printf("In updateMMap 3: '%s'\n", header);
     type = aibolink->readUntil((char)0); // "TekkotsuImage"
-    printf("type: '%s'\n", type);
+    if(debug)printf("type: '%s'\n", type);
     format = convert(aibolink->read(4));
-    printf("format: %ld\n", format);
+    if(debug)printf("format: %ld\n", format);
     compression = convert(aibolink->read(4));
-    printf("compression: %ld\n", compression);
+    if(debug)printf("compression: %ld\n", compression);
     newWidth = convert(aibolink->read(4));
-    printf("newWidth: %ld\n", newWidth);
+    if(debug)printf("newWidth: %ld\n", newWidth);
     newHeight = convert(aibolink->read(4));
-    printf("newHeight: %ld\n", newHeight);
+    if(debug)printf("newHeight: %ld\n", newHeight);
     timeStamp = convert(aibolink->read(4));
-    printf("timeStamp: %ld\n", timeStamp);
+    if(debug)printf("timeStamp: %ld\n", timeStamp);
     frameNum = convert(aibolink->read(4));
-    printf("frameNum: %ld\n", frameNum);
+    if(debug)printf("frameNum: %ld\n", frameNum);
     unknown1 = convert(aibolink->read(4));
-    printf("unknown1: %ld\n", unknown1);
+    if(debug)printf("unknown1: %ld\n", unknown1);
     //// Got creator=FbkImage
     ////// Got chanwidth=104
     //// Got chanheight=80
@@ -86,21 +85,21 @@ int AiboCam::updateMMap(int decompress=1)
     ////// Got fmt=JPEGColor
     //// read JPEG: len=2547
     creator = aibolink->readUntil((char)0); // creator
-    //printf("creator: %s\n", creator);
+    if(debug)printf("creator: %s\n", creator);
     chanWidth = convert(aibolink->read(4));
-    printf("chanWidth: %ld\n", chanWidth);
+    if(debug)printf("chanWidth: %ld\n", chanWidth);
     chanHeight = convert(aibolink->read(4));
-    printf("chanHeight: %ld\n", chanHeight);
+    if(debug)printf("chanHeight: %ld\n", chanHeight);
     layer = convert(aibolink->read(4));
-    //printf("layer: %ld\n", layer);
+    if(debug)printf("layer: %ld\n", layer);
     chanID = convert(aibolink->read(4));
-    //printf("chanID: %ld\n", chanID);
+    if(debug)printf("chanID: %ld\n", chanID);
     unknown2 = convert(aibolink->read(4));
-    //printf("unknown2: %ld\n", unknown2);
+    if(debug)printf("unknown2: %ld\n", unknown2);
     fmt = aibolink->readUntil((char)0); // fmt
-    printf("fmt: %s\n", fmt);
+    if(debug)printf("fmt: %s\n", fmt);
     size = convert(aibolink->read(4));
-    printf("size: %ld\n", size);
+    if(debug)printf("size: %ld\n", size);
     image_buffer = aibolink->read(size);
 
     //// convert image from JPEG to RGB in mmap
