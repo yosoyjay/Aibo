@@ -17,6 +17,7 @@ long convert(char *buff)
  *This clas represents and implements methods to capture images from the Aibo. */
 AiboCam::AiboCam()
 {
+	debug = false;
     // get image details
     depth = 3;
     // set width, height 0 to trigger automatically:
