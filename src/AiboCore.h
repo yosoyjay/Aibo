@@ -49,7 +49,6 @@ public:
 
 private:
     static int aibo_count;
-    //id_array_struct
 
     /* Functions required for Player
      *

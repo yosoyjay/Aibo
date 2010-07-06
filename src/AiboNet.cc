@@ -137,6 +137,29 @@ char *AiboNet::read(int count)
     return buf;
 }
 
+char *AiboNet::readState(int count, char* state_buf)
+{
+    char ch[4];
+    bzero(state_buf, MAX_BUFF_SIZE);
+    int numbytes;
+
+	if ( count > MAX_BUFF_SIZE ){
+		return state_buf;
+	}
+
+    for (int i = 0; i < count; ++i)
+    {
+        numbytes = recv(sockfd, ch, 1, 0);
+
+        if (numbytes == 1) {
+            state_buf[i] = ch[0];
+		} else {
+            i--;
+        }
+    }
+    return state_buf;
+}
+
 char *AiboNet::readUntil(char stop)
 {
     static char retval[MAX_BUFF_SIZE];

@@ -17,6 +17,7 @@ public:
     int send_data(char command[], float magnitude[], int size);
     int send_data(const char *command);
     char *read(int count);
+	char *readState(int count, char* buf);
     char *readUntil(char stop);
     ~AiboNet();
 

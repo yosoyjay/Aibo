@@ -522,7 +522,6 @@ void AiboCore::gotoThread(){
 		rotateToYaw = true;		
 	}
 
-	// This should be mutexed...
 	pthread_mutex_lock(&walk_mutex);
 	player_pose2d_t local_data = pos_data.pos;	
 	//printf("* local_data %f, %f, %f\n", local_data.px, local_data.py, local_data.pa); 
@@ -676,9 +675,10 @@ void AiboCore::headThread(){
 	pthread_exit(NULL);
 }
 
-void AiboCore::camThread(){
+void AiboCore::camThread() {
 	bool alive = true;
-	while(alive){
+
+	while ( alive ) {
 
 		pthread_mutex_lock(&cam_mutex);
 
@@ -687,7 +687,7 @@ void AiboCore::camThread(){
         cam.updateMMap(1);
 
         // Allocate space for image or resize allocated space
-        if( camdata.image == NULL){
+        if ( camdata.image == NULL ) {
             camdata.image = (uint8_t *) malloc(camdata.image_count);
 		} else {
             camdata.image = (uint8_t *) realloc(camdata.image, camdata.image_count);

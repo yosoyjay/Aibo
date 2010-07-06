@@ -45,11 +45,12 @@ void AiboCam::connect_udp(const char *hostname, int port)
     0 = no-decompress */
 int AiboCam::updateMMap(int decompress=1)
 {
-    char *header, *type, *creator, *fmt, *image_buffer;
+    char *header, *type, *creator, *fmt, *image_buffer, *readBuffer;
     long format, compression, newWidth, newHeight, timeStamp, frameNum, unknown1;
     long chanWidth, chanHeight, layer, chanID, unknown2, size;
     if(debug)printf("In updateMMap 1\n");
     lock.ReadLock();
+	readBuffer = new char[10000];
     if(debug)printf("In updateMMap 2\n");
     // get an image from socket
     // Got type=TekkotsuImage
@@ -60,23 +61,23 @@ int AiboCam::updateMMap(int decompress=1)
     // Got timest=121465
     // Got frameNum=3185
     if(debug)printf("receiving...\n");
-    header = aibolink->read(4);  // \r\0\0\0
+    header = aibolink->readState(4, readBuffer);  // \r\0\0\0
     if(debug)printf("In updateMMap 3: '%s'\n", header);
     type = aibolink->readUntil((char)0); // "TekkotsuImage"
     if(debug)printf("type: '%s'\n", type);
-    format = convert(aibolink->read(4));
+    format = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("format: %ld\n", format);
-    compression = convert(aibolink->read(4));
+    compression = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("compression: %ld\n", compression);
-    newWidth = convert(aibolink->read(4));
+    newWidth = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("newWidth: %ld\n", newWidth);
-    newHeight = convert(aibolink->read(4));
+    newHeight = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("newHeight: %ld\n", newHeight);
-    timeStamp = convert(aibolink->read(4));
+    timeStamp = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("timeStamp: %ld\n", timeStamp);
-    frameNum = convert(aibolink->read(4));
+    frameNum = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("frameNum: %ld\n", frameNum);
-    unknown1 = convert(aibolink->read(4));
+    unknown1 = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("unknown1: %ld\n", unknown1);
     //// Got creator=FbkImage
     ////// Got chanwidth=104
@@ -87,19 +88,19 @@ int AiboCam::updateMMap(int decompress=1)
     //// read JPEG: len=2547
     creator = aibolink->readUntil((char)0); // creator
     if(debug)printf("creator: %s\n", creator);
-    chanWidth = convert(aibolink->read(4));
+    chanWidth = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("chanWidth: %ld\n", chanWidth);
-    chanHeight = convert(aibolink->read(4));
+    chanHeight = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("chanHeight: %ld\n", chanHeight);
-    layer = convert(aibolink->read(4));
+    layer = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("layer: %ld\n", layer);
-    chanID = convert(aibolink->read(4));
+    chanID = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("chanID: %ld\n", chanID);
-    unknown2 = convert(aibolink->read(4));
+    unknown2 = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("unknown2: %ld\n", unknown2);
     fmt = aibolink->readUntil((char)0); // fmt
     if(debug)printf("fmt: %s\n", fmt);
-    size = convert(aibolink->read(4));
+    size = convert(aibolink->readState(4, readBuffer));
     if(debug)printf("size: %ld\n", size);
     image_buffer = aibolink->read(size);
 
