@@ -4,7 +4,7 @@
 #include "dev.h"
 #include "AiboNet.h"
 #include "RWLock.h"
-
+#include "jpeg.h"
 /**
  *  This class represents the Aibo's camera.  Note that the 
  *  initial updateMMap() and connect() calls must exists

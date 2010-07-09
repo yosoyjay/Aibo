@@ -9,7 +9,7 @@ void AiboCore::connect(const char *ip_addr)
     walk.connect(ip_addr, AiboWalkPort);
     head.connect(ip_addr, AiboHeadPort);
     cam.connect(ip_addr, AiboCamPort);
-	//state.connect(ip_addr, AiboStatePort);
+	state.connect(ip_addr, AiboStatePort);
 }
 
 /* Returns the number of Aibo's using the driver */
@@ -120,7 +120,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section) : ThreadedDriver(cf, section)
     AiboCamPort = cf->ReadInt(section, "cam", 10011);
 	AiboHeadPort = cf->ReadInt(section, "head", 10052);
 	AiboWalkPort = cf->ReadInt(section, "walk", 10050);
-	//AiboStatePort = cf->ReadInt(section, "state", 10031);	
+	AiboStatePort = cf->ReadInt(section, "state", 10031);	
 
     printf("Using IP: %s \n", ip);
     printf("Protocol %s\n", proto);
@@ -128,14 +128,14 @@ AiboCore::AiboCore(ConfigFile* cf, int section) : ThreadedDriver(cf, section)
     // Connect head, walk, cam, and estop ports 
     walk.connect(ip, AiboWalkPort);
     head.connect(ip, AiboHeadPort);
-	//state.connect(ip, AiboStatePort);
+	state.connect(ip, AiboStatePort);
 	estop = new AiboNet(ip, 10053);
 
 	// Only connect cam if camera interface is made available
-	if(cam.getProvided()){
-    	if(strncmp(proto, "TCP", 4) == 0){
+	if ( cam.getProvided() ) {
+    	if (strncmp(proto, "TCP", 4) == 0) {
 			cam.connect(ip, AiboCamPort);
-	    } else{
+	    } else {
 			cam.connect_udp(ip, AiboCamPort);
    	 	}
 	}
@@ -147,7 +147,7 @@ int AiboCore::MainSetup()
 {
     puts("Aibo driver initializing.");
 
-	if(cam.getProvided()){
+	if ( cam.getProvided() ) {
     	//cam = new AiboCam.connect(ip);
 	    cam.updateMMap(0);
 
@@ -159,6 +159,8 @@ int AiboCore::MainSetup()
     pthread_mutex_init(&walk_mutex, NULL);
 	pthread_mutex_init(&head_mutex, NULL);
 	pthread_mutex_init(&cam_mutex, NULL);
+	pthread_mutex_init(&state_mutex, NULL);
+	pthread_mutex_init(&printf_mutex, NULL);
 
 	pthread_attr_init(&walk_attr);
 	pthread_attr_init(&head_attr);
@@ -178,7 +180,7 @@ int AiboCore::MainSetup()
 	// Just initializes walk and head
 	estop->send_data("start\n");
 	walk.walk(0.1,0,0);
-	head.move(0,0,0);
+	head.move(0,1,1);
 	sleep(1);
 	walk.walk(0,0,0);
 	estop->send_data("stop\n");
@@ -292,7 +294,11 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 			  PLAYER_POSITION2D_REQ_MOTOR_POWER, position_addr))
 	{
 		bool powered = ((player_position2d_power_config_t*)data)->state;
-		printf("Setting estop to %d\n", powered);
+		if(powered){
+			printf("Setting Estop off\n");
+		} else {
+			printf("Setting Estop on\n");
+		}
 
 		if(powered){
 			if(estop->send_data("start\n") < 0){
@@ -343,13 +349,7 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 		pthread_mutex_unlock(&head_mutex);
         return 0;
 	// Ranger
-    } /*else if(Message::MatchMessage(hdr,PLAYER_MSGTYPE_CMD,
-			  PLAYER_RANGER_DATA_RANGE, ranger_addr)){
-		printf("Request received for ranger data\n");
-		Publish(ranger_addr, resp_queue, PLAYER_MSGTYPE_RESP_ACK,
-				PLAYER_RANGER_DATA_RANGE);
-    	return 0; 
-	}*/ else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
+    } else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ,
 			  PLAYER_RANGER_REQ_GET_CONFIG, ranger_addr)){
 		printf("Request received for configuration.\n");
 		ranger_config.min_range = 0.05;
@@ -373,7 +373,8 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 
 // Main function for device thread
 void AiboCore::Main()
-{ 
+{
+		
 	pthread_mutex_lock(&cam_mutex);
 	if(cam.getProvided()){
 		// Preparation for Camera interface.  If initialed earlier problems.
@@ -386,34 +387,44 @@ void AiboCore::Main()
 	    camdata.format = PLAYER_CAMERA_FORMAT_RGB888;
     	camdata.compression = PLAYER_CAMERA_COMPRESS_RAW;
     	camdata.image_count = camdata.width*camdata.height*3;
+		camTimer = new metrobotics::PosixTimer();
+		camTimer->start();
+		camTime = 0.05;	
 		pthread_mutex_unlock(&cam_mutex);
-
+		
 		if(pthread_create(&cam_thread, NULL, &startCamThread, this) != 0){
 			printf("Error creating cam thread");
 			exit(-1);
-		}
+		}		
 	} else {
 		pthread_mutex_unlock(&cam_mutex);
 	}
 
-		
+			
 	// State Thread
-	/*
 	if(pthread_create(&state_thread, NULL, &startStateThread, this) != 0){
-			printf("Error creating cam thread");
+			printf("Error creating state thread");
 			exit(-1);
 	}
-	*/
 
+
+	
+	loopTimer = new metrobotics::PosixTimer();
     while(true)
     {
+		loopTimer->start();
         // Test if we are supposed to cancel.  Need for proper shutdown of the thread
         pthread_testcancel();
 
-        ProcessMessages();
+   		// Yup     
+		ProcessMessages();
+		
         // Driver manual and experience suggest that it's advantageous to sleep
         // so that Player doesn't get bogged down with Messages while looping.
-        usleep(5000);
+		if( loopTimer->elapsed() < 0.01 ){
+			double remain = 0.01 - loopTimer->elapsed();
+			usleep(remain * 1000000);
+		}
     }
 
     free(camdata.image);
@@ -522,6 +533,7 @@ void AiboCore::gotoThread(){
 		rotateToYaw = true;		
 	}
 
+	// This should be mutexed...
 	pthread_mutex_lock(&walk_mutex);
 	player_pose2d_t local_data = pos_data.pos;	
 	//printf("* local_data %f, %f, %f\n", local_data.px, local_data.py, local_data.pa); 
@@ -675,10 +687,9 @@ void AiboCore::headThread(){
 	pthread_exit(NULL);
 }
 
-void AiboCore::camThread() {
+void AiboCore::camThread(){
 	bool alive = true;
-
-	while ( alive ) {
+	while(alive){
 
 		pthread_mutex_lock(&cam_mutex);
 
@@ -687,7 +698,7 @@ void AiboCore::camThread() {
         cam.updateMMap(1);
 
         // Allocate space for image or resize allocated space
-        if ( camdata.image == NULL ) {
+        if( camdata.image == NULL){
             camdata.image = (uint8_t *) malloc(camdata.image_count);
 		} else {
             camdata.image = (uint8_t *) realloc(camdata.image, camdata.image_count);
@@ -706,7 +717,7 @@ void AiboCore::camThread() {
 		alive = cam_alive;
 		pthread_mutex_unlock(&cam_mutex);
 
-		usleep(25000);
+		usleep(33333);
 	}
 	pthread_exit(NULL);
 }
@@ -714,19 +725,23 @@ void AiboCore::camThread() {
 
 // Thread responsible for collecting state data
 void AiboCore::stateThread(){
-	range_array = new double[3];
+
 	bool alive = true;
 	while(alive){
-		
 		pthread_mutex_lock(&state_mutex);
+		range_array = new double[3];
+
+		
 		state.readData();
 
 		// Update info for Publishing
 		for(int i = 0; i < 3; i++){
 			range_array[i] = state.stateData.sensors[i];
 		}
+		
 		ranger_data.ranges = range_array;
 		ranger_data.ranges_count = 3;
+		
 
 		// Time to die?
 		alive = state_alive;
@@ -734,12 +749,10 @@ void AiboCore::stateThread(){
 	   // 			ranger_data.ranges[1], ranger_data.ranges[2]);
 		Publish(ranger_addr, PLAYER_MSGTYPE_DATA,
 				PLAYER_RANGER_DATA_RANGE, (void*) &ranger_data);
+		delete range_array;
 		pthread_mutex_unlock(&state_mutex);
-		usleep(10000);
 	}
 	pthread_exit(NULL);
-	delete range_array;
-	
 }
 
 /* need the extern to avoid C++ name-mangling  */

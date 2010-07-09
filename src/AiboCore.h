@@ -49,6 +49,7 @@ public:
 
 private:
     static int aibo_count;
+    //id_array_struct
 
     /* Functions required for Player
      *
@@ -75,16 +76,13 @@ private:
     // Just a pointer to images from AiboCam
     uint8_t* picture;
 
-    // File Descriptors for socket.
-    int segCam_fd;
-    int rawCam_fd;
-
     // Mutex for head/walk threads
     pthread_mutex_t walk_mutex;
 	pthread_mutex_t goto_mutex;
 	pthread_mutex_t head_mutex;
 	pthread_mutex_t cam_mutex;
 	pthread_mutex_t state_mutex;
+	pthread_mutex_t printf_mutex;
 
 	// pthread type for head and walk
 	pthread_t head_thread;
@@ -134,6 +132,9 @@ private:
 
 	// Timer for Positon2d
 	metrobotics::PosixTimer* gotoTimer;
+	metrobotics::PosixTimer* camTimer;
+	metrobotics::PosixTimer* loopTimer;
+	float camTime;	
 };
 
 // Where the heck should these go?

@@ -18,6 +18,7 @@ class AiboState{
 public:
 	AiboState();
 	void connect(const char *ip_addr, int port);
+	void disconnect();
 	~AiboState();
 
 	long convertLong(char *buff);
@@ -26,6 +27,8 @@ public:
 	AiboState_t	stateData;
 private:
 	AiboNet *aibolink;
+	bool debug;
+	char* readBuffer;
 };
 
 #endif
