@@ -22,10 +22,10 @@ APMODE=1
 # from DHCP server.  Note that you will need either a DNS server or a
 # static IP from the DHCP server or you won't know what IP address the
 # Aibo is running under
-#USE_DHCP=2
+USE_DHCP=0
 
 # If you don't have DHCP, you'll need to set these manually
-ETHER_IP=192.168.2.157
+ETHER_IP=192.168.2.181
 ETHER_NETMASK=255.255.255.0
 IP_GATEWAY=192.168.2.1
 

@@ -1,4 +1,4 @@
-Built with Tekkotsu 4.0 CVS, at 2010/03/15 15:28:49 by root
+Built with const char* TEKKOTSU_VERSION = 5.02-CVS; const char* LIBTEKKOTSU_DATE = __DATE__; const char* LIBTEKKOTSU_TIME = __TIME__;, at 2010/06/22 15:37:04 by jesse
 Target Model: ERS7
 Target Platform: APERIOS
 Project: /usr/local/Tekkotsu/project

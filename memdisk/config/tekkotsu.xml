@@ -4,9 +4,9 @@
 ##################################################################
 ######################   Tekkotsu config   #######################
 ##################################################################
-#########################   $Name: tekkotsu-4_0-branch $   ##########################
-#####################   $Revision: 1.11.2.1 $   ######################
-################   $Date: 2009/02/06 11:19:34 $   ################
+#########################   $Name: STABLE $   ##########################
+#####################   $Revision: 1.30 $   ######################
+################   $Date: 2010/02/17 20:34:28 $   ################
 ##################################################################
 
 This is an XML-based format using the Property List (plist) layout.
@@ -31,8 +31,9 @@ menu.  Paths are assumed to be relative to the 'project/ms/'
 directory.  For example, this file would be referenced as
 'config/tekkotsu.xml'
 
-See also the 'simulator.xml' file, which provides you the ability
-to override settings when running in the simulator
+See also the 'sim_ovrd.xml' file, which provides you the ability
+to override settings when running on PLATFORM_LOCAL
+(i.e. originally "simulation" for Aibo, but now also linux-based robots)
 -->
 
 <!--======== behaviors ========-->
@@ -142,6 +143,17 @@ to override settings when running in the simulator
 		<key>LFr:knee</key> <real>1</real>
 		<!-- ... -->
 	</dict>
+
+	<!-- Servo horns have a pretty rough alignment, can be put on crooked... -->
+	<key>Model:QBotPlus:calibration_offset</key> <dict>
+		<key>NECK:nod</key> <real>-0.1</real>
+		<key>NECK:pan</key> <real>-0.352641</real>
+	</dict>
+	<!-- Standard RC-servos are not quite ±90° as often claimed.  YMMV! -->
+	<key>Model:QBotPlus:calibration_scale</key> <dict>
+		<key>NECK:nod</key> <real>0.93</real>
+		<key>NECK:pan</key> <real>0.93</real>
+	</dict>
 	
 	<!--console_port: port to send/receive "console" information on (separate from system console)-->
 	<key>console_port</key> <integer>10003</integer>
@@ -155,77 +167,6 @@ to override settings when running in the simulator
 	<!--inf_walk_accel: if true, walks should attempt to switch directions immediately; otherwise they should do some kind of software acceleration to more smoothly switch direction-->
 	<key>inf_walk_accel</key> <false/>
 	
-    <key>Model:ERS-7</key> <dict>
-        <!--kinematics: the ROBOOP format kinematics description file to load-->
-        <key>kinematics</key> <string>/config/ers7.kin</string>
-        
-        <!--list of chain names to load from the file specified by 'kinematics'-->
-        <key>kinematic_chains</key> <array>
-            <string>Body</string>
-            <string>Mouth</string>
-            <string>NearIR</string>
-            <string>FarIR</string>
-            <string>ChestIR</string>
-            <string>LFr</string>
-            <string>RFr</string>
-            <string>LBk</string>
-            <string>RBk</string>
-            <string>Camera</string>
-        </array>
-    </dict>
-    <key>Model:ERS-210</key> <dict>
-        <!--kinematics: the ROBOOP format kinematics description file to load-->
-        <key>kinematics</key> <string>/config/ers210.kin</string>
-        
-        <!--list of chain names to load from the file specified by 'kinematics'-->
-        <key>kinematic_chains</key> <array>
-            <string>Body</string>
-            <string>Mouth</string>
-            <string>IR</string>
-            <string>LFr</string>
-            <string>RFr</string>
-            <string>LBk</string>
-            <string>RBk</string>
-            <string>Camera</string>
-        </array>
-    </dict>
-    <key>Model:ERS-220</key> <dict>
-        <!--kinematics: the ROBOOP format kinematics description file to load-->
-        <key>kinematics</key> <string>/config/ers220.kin</string>
-        
-        <!--list of chain names to load from the file specified by 'kinematics'-->
-        <key>kinematic_chains</key> <array>
-            <string>Body</string>
-            <string>IR</string>
-            <string>LFr</string>
-            <string>RFr</string>
-            <string>LBk</string>
-            <string>RBk</string>
-            <string>Camera</string>
-        </array>
-    </dict>
-	<key>Model:QBotPlus</key> <dict>
-        <!--kinematics: the ROBOOP format kinematics description file to load-->
-        <key>kinematics</key> <string>/config/QBotPlus.kin</string>
-
-        <!--list of chain names to load from the file specified by 'kinematics'-->
-        <key>kinematic_chains</key> <array>
-            <string>Body</string>
-            <string>Camera</string>
-        </array>
-    </dict>
-    <key>Model:Regis1</key> <dict>
-        <!--kinematics: the ROBOOP format kinematics description file to load-->
-        <key>kinematics</key> <string>/config/Regis1.kin</string>
-        
-        <!--list of chain names to load from the file specified by 'kinematics'-->
-        <key>kinematic_chains</key> <array>
-            <string>Body</string>
-            <string>Arm</string>
-            <string>Camera</string>
-        </array>
-    </dict>
-	
 	<!--max_head_pan_speed: max speed for the head joints, used by HeadPointerMC; rad/s-->
 	<key>max_head_pan_speed</key> <real>5.7814</real>
 	
@@ -238,7 +179,13 @@ to override settings when running in the simulator
 	<!--root: path on memory stick to "motion" files - for instance, position (.pos) and motion sequence (.mot)
 	Any motion related paths which are not absolute (i.e. do not start with '/')
 	will be assumed to be relative to this directory -->
-	<key>root</key> <string>data/motion</string>
+	<key>Model:ERS-*</key> <dict>
+		<key>root</key> <string>data/motion/aibo</string>
+	</dict>
+	
+	<!-- All others are commented out because the default value appends the
+	TargetName... if you assign a value here, that will control the explicit path -->
+	<!-- <key>root</key> <string>data/motion</string> -->
 	
 	<!--stderr_port: port to send error information to-->
 	<key>stderr_port</key> <integer>10004</integer>
@@ -303,6 +250,19 @@ to override settings when running in the simulator
 
 <!--======== vision ========-->
 <key>vision</key> <dict>
+	<!--======== thresh ========-->
+	<!--Threshold (.tm) files define the mapping from full color to indexed color.
+	You can uncomment more than one of these - they will be loaded into separate
+	channels of the segmenter.  The only cost of loading multiple threshold files is
+	memory - the CPU cost of performing segmentation is only incurred if/when
+	the channel is actually accessed for the first time for a given frame. -->
+	<key>thresh</key> <array>
+		<string>config/default.tm</string> <!-- a general classification of a variety of colors -->
+		<!--<string>7red.tm</string>  just a very broad pink/red/purple => "pink" color detection -->
+		<!--<string>ball.tm</string>  standard Sony pink ball definition -->
+	</array>
+	
+	<!-- We'll override those default settings for some specific models... -->
 	<key>Model:ERS-7</key> <dict>
 		<!--gain: Increasing gain will brighten the image, at the expense of more graininess/noise
 		Value is one of: { low | mid | high } -->
@@ -353,33 +313,6 @@ to override settings when running in the simulator
 			<!--   note: "skin" is just of people who work in our lab - not a general sampling... :( -->
 			<string>config/210genrl.tm</string> <!-- general colors for the ERS-210 -->
 			<string>config/ball.tm</string> <!-- standard Sony pink ball definition -->
-		</array>
-	</dict>
-	<key>Model:Regis1</key> <dict>
-		<!--======== thresh ========-->
-		<!--Threshold (.tm) files define the mapping from full color to indexed color.
-		You can uncomment more than one of these - they will be loaded into separate
-		channels of the segmenter.  The only cost of loading multiple threshold files is
-		memory - the CPU cost of performing segmentation is only incurred if/when
-		the channel is actually accessed for the first time for a given frame. -->
-		<key>thresh</key> <array>
-			<string>config/7general.tm</string> <!-- a general classification of a variety of colors for the ERS-7 -->
-		<!--<string>7red.tm</string>  just a very broad pink/red/purple => "pink" color detection -->
-		<!--<string>ball.tm</string>  standard Sony pink ball definition -->
-		</array>
-	</dict>
-	
-	<key>Model:QBotPlus</key> <dict>
-		<!--======== thresh ========-->
-		<!--Threshold (.tm) files define the mapping from full color to indexed color.
-		You can uncomment more than one of these - they will be loaded into separate
-		channels of the segmenter.  The only cost of loading multiple threshold files is
-		memory - the CPU cost of performing segmentation is only incurred if/when
-		the channel is actually accessed for the first time for a given frame. -->
-		<key>thresh</key> <array>
-			<string>config/7general.tm</string> <!-- a general classification of a variety of colors for the ERS-7 -->
-		<!--<string>7red.tm</string>  just a very broad pink/red/purple => "pink" color detection -->
-		<!--<string>ball.tm</string>  standard Sony pink ball definition -->
 		</array>
 	</dict>
 	
@@ -482,7 +415,7 @@ to override settings when running in the simulator
 		<key>skip</key> <integer>1</integer>
 		
 		<!--transport: the IP protocol to use when sending data-->
-		<key>transport</key> <string>UDP</string>
+		<key>transport</key> <string>TCP</string>
 	</dict>
 	
 	<!--======== calibration ========-->
