@@ -1,9 +1,14 @@
 #include "AiboCore.h"
 
-/* Counter to track number of Aibo's using driver */
+/** 
+ * Counter to track number of Aibo's using driver 
+ */
 int AiboCore::aibo_count = 0;
 
-/* Called during driver initialization to create socket connections */
+
+/** !!!!! Test compilation without this. !!!!! 
+ * Called during driver initialization to create socket connections 
+ *
 void AiboCore::connect(const char *ip_addr)
 {
     walk.connect(ip_addr, AiboWalkPort);
@@ -11,8 +16,11 @@ void AiboCore::connect(const char *ip_addr)
     cam.connect(ip_addr, AiboCamPort);
 	state.connect(ip_addr, AiboStatePort);
 }
+*/
 
-/* Returns the number of Aibo's using the driver */
+/** 
+ * Returns the number of Aibo's using the driver 
+ */
 int AiboCore::count()
 {
     return AiboCore::aibo_count;
@@ -23,25 +31,27 @@ AiboCore::~AiboCore()
 	
 }
 
-/*  Functions required for Player
- *
+/**
+ * Creates a new AiboCore object.  This is the heart
+ * of the driver.  
  */
-// Create and return new instance of driver
 Driver* Aibo_Init(ConfigFile* cf, int section)
 {
     return((Driver*)(new AiboCore(cf, section)));
 }
 
-// Tell driver table that aibo exists
+/** 
+ * Tell driver table that aibo exists
+ */
 void Aibo_Register(DriverTable* table)
 {
     table->AddDriver("aibo", Aibo_Init);
 }
 
-// Constructor.  Retrieve options from the configuration file and do any
-// pre-Setup() setup.
 AiboCore::AiboCore(ConfigFile* cf, int section) : ThreadedDriver(cf, section)
 {
+	gotoWalking = false;
+
     // Clear memory structures 
 	memset(&position_addr, 0, sizeof(player_devaddr_t));
 	memset(&pos_data, 0, sizeof(player_position2d_data_t));
@@ -122,6 +132,7 @@ AiboCore::AiboCore(ConfigFile* cf, int section) : ThreadedDriver(cf, section)
 	AiboWalkPort = cf->ReadInt(section, "walk", 10050);
 	AiboStatePort = cf->ReadInt(section, "state", 10031);	
 
+	// Useful information when using > 1 Aibos
     printf("Using IP: %s \n", ip);
     printf("Protocol %s\n", proto);
 
@@ -142,7 +153,9 @@ AiboCore::AiboCore(ConfigFile* cf, int section) : ThreadedDriver(cf, section)
     ++AiboCore::aibo_count;
 }
 
-// Set up the device.  Return 0 if things go well, and -1 otherwise.
+/** 
+ * Set up the driver for each use. 
+ */
 int AiboCore::MainSetup()
 {
     puts("Aibo driver initializing.");
@@ -170,6 +183,7 @@ int AiboCore::MainSetup()
 	pthread_attr_setdetachstate(&head_attr, PTHREAD_CREATE_DETACHED);
 	pthread_attr_setdetachstate(&cam_attr, PTHREAD_CREATE_DETACHED);
 
+	// Default state values
 	walk_thread_started = false;
 	walk_alive = true;
 	head_thread_started = false;
@@ -178,12 +192,9 @@ int AiboCore::MainSetup()
 	state_alive = true;
 
 	// Just initializes walk and head
+	// Estop is set to 'On,' alas it will not move.
 	estop->send_data("start\n");
-	walk.walk(0.1,0,0);
-	head.move(0,1,1);
-	sleep(1);
-	walk.walk(0,0,0);
-	estop->send_data("stop\n");
+	head.move(0,1,0.5);
 
 	// Message for checking status:
     puts("Aibo driver ready");
@@ -191,7 +202,10 @@ int AiboCore::MainSetup()
     return 0;
 }
 
-// Shutdown the device
+/** 
+ * Shutdown the driver.  Basically set states and
+ * destroy mutex related stuff.
+ */
 void AiboCore::MainQuit()
 {
     puts("Shutting Aibo driver down");
@@ -221,13 +235,16 @@ void AiboCore::MainQuit()
 	pthread_mutex_destroy(&cam_mutex);
 	pthread_mutex_destroy(&state_mutex);
 
-    //Need to put destructors here?
+    //  !!!!!!Need to put destructors here?
 
     puts("Aibo driver has been shutdown");
     return;
 }
 
-// Process Messages
+/** 
+ * Process Messages.  This method catches messages published to the driver
+ * and routes them to the appropriate Player interface.
+ */
 int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr, 
 			     void *data)
 {
@@ -265,18 +282,17 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
         assert(hdr->size == sizeof(player_position2d_cmd_pos_t));
 
 		pthread_mutex_lock(&walk_mutex);
-		// Copy data to member struct
-        position_goto = *(player_position2d_cmd_pos_t *) data;
-		// Make sure that the SetSpeed thread is not sending commands
-		walking = false;
-		pthread_mutex_unlock(&walk_mutex);
 
-		if(pthread_create(&goto_thread, NULL, &startGotoThread, this) != 0){
-			printf("Error creating walk thread");
-			return -1;
+		// Copy data to member struct
+		if(gotoWalking == false){
+			gotoWalking = true;	
+        	position_goto = *(player_position2d_cmd_pos_t *) data;
+			pthread_create(&goto_thread, NULL, &startGotoThread, this); 
 		}
 
+		pthread_mutex_unlock(&walk_mutex);
         return 0;
+
 	} else if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_REQ, 
 		      PLAYER_POSITION2D_REQ_RESET_ODOM, position_addr))
 	{
@@ -371,7 +387,13 @@ int AiboCore::ProcessMessage(QueuePointer &resp_queue, player_msghdr *hdr,
 }
 
 
-// Main function for device thread
+/** 
+ * The main loop exists here.  Timer implemented to ensure that it loops
+ * no faster than the Aibo can update.
+ * 
+ * Camera: Certain camera set-up must take place here, and no earlier.
+ * State:  State thread spawned here.
+ */
 void AiboCore::Main()
 {
 		
@@ -413,10 +435,7 @@ void AiboCore::Main()
     while(true)
     {
 		loopTimer->start();
-        // Test if we are supposed to cancel.  Need for proper shutdown of the thread
         pthread_testcancel();
-
-   		// Yup     
 		ProcessMessages();
 		
         // Driver manual and experience suggest that it's advantageous to sleep
@@ -604,7 +623,8 @@ void AiboCore::gotoThread(){
 			if(gotoTimer->elapsed() >= time) alive = false;
 			usleep(25000);
 			pthread_mutex_lock(&walk_mutex);			
-			pos_data.pos.px += position_goto.vel.px*0.025;
+			pos_data.pos.px += cos(position_goto.vel.px*0.025);
+			pos_data.pos.py += sin(position_goto.vel.py*0.025);
 			local_data.px += position_goto.vel.px*0.025;
 			pthread_mutex_unlock(&walk_mutex);
 

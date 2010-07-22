@@ -7,7 +7,20 @@
 The entire Aibo and required Player classes. Core of driver.  
 
 
-{\ttfamily \#include $<$AiboCore.h$>$}Collaboration diagram for AiboCore:\subsection*{Public Member Functions}
+
+
+{\ttfamily \#include $<$AiboCore.h$>$}
+
+
+
+Collaboration diagram for AiboCore:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{classAiboCore__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{classAiboCore_a673c057ac82df3fc6c0d828a98408bea}{
@@ -25,24 +38,65 @@ void {\bfseries connect} (const char $\ast$ip\_\-addr)}
 \label{classAiboCore_a078c3b2541d57e7455094ef7c9e46c80}
 
 \item 
-\hypertarget{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{
-int {\bfseries count} ()}
-\label{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}
+int \hyperlink{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{count} ()
+\item 
+\hypertarget{classAiboCore_af0eb13c6a72c46e730436aa44381fd48}{
+void {\bfseries walkThread} ()}
+\label{classAiboCore_af0eb13c6a72c46e730436aa44381fd48}
 
 \item 
-\hypertarget{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{
-virtual int {\bfseries MainSetup} ()}
-\label{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}
+\hypertarget{classAiboCore_ae70c2e145b6975fe54cef1f268de2ccb}{
+void {\bfseries headThread} ()}
+\label{classAiboCore_ae70c2e145b6975fe54cef1f268de2ccb}
 
 \item 
-\hypertarget{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}{
-virtual void {\bfseries MainQuit} ()}
-\label{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}
+\hypertarget{classAiboCore_acd2caf3edd957f9f43b6a63d66a165dc}{
+void {\bfseries camThread} ()}
+\label{classAiboCore_acd2caf3edd957f9f43b6a63d66a165dc}
 
 \item 
-\hypertarget{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{
-int {\bfseries ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $\ast$hdr, void $\ast$data)}
-\label{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}
+\hypertarget{classAiboCore_ad19823ff4435b79e6bd84cf8f96f149a}{
+void {\bfseries stateThread} ()}
+\label{classAiboCore_ad19823ff4435b79e6bd84cf8f96f149a}
+
+\item 
+\hypertarget{classAiboCore_a51fa7abf9b68aa55583b937cabb7ae6e}{
+void {\bfseries gotoThread} ()}
+\label{classAiboCore_a51fa7abf9b68aa55583b937cabb7ae6e}
+
+\item 
+virtual int \hyperlink{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{MainSetup} ()
+\item 
+virtual void \hyperlink{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}{MainQuit} ()
+\item 
+int \hyperlink{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $\ast$hdr, void $\ast$data)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classAiboCore_a13a87fc18c956d451abee2c700bb8237}{
+static void $\ast$ {\bfseries startWalkThread} (void $\ast$ptr)}
+\label{classAiboCore_a13a87fc18c956d451abee2c700bb8237}
+
+\item 
+\hypertarget{classAiboCore_ab2e658d2435eb963380441bfa13f8e7e}{
+static void $\ast$ {\bfseries startGotoThread} (void $\ast$ptr)}
+\label{classAiboCore_ab2e658d2435eb963380441bfa13f8e7e}
+
+\item 
+\hypertarget{classAiboCore_a1de5d2c7560b3a92f50c00d1a0f9796a}{
+static void $\ast$ {\bfseries startHeadThread} (void $\ast$ptr)}
+\label{classAiboCore_a1de5d2c7560b3a92f50c00d1a0f9796a}
+
+\item 
+\hypertarget{classAiboCore_a2480ecb5c9af5c5e11c6062fbc7b013f}{
+static void $\ast$ {\bfseries startCamThread} (void $\ast$ptr)}
+\label{classAiboCore_a2480ecb5c9af5c5e11c6062fbc7b013f}
+
+\item 
+\hypertarget{classAiboCore_a7a115b2d17494c45a0db4827def0dc76}{
+static void $\ast$ {\bfseries startStateThread} (void $\ast$ptr)}
+\label{classAiboCore_a7a115b2d17494c45a0db4827def0dc76}
 
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
@@ -62,13 +116,54 @@ int {\bfseries ProcessMessage} (QueuePointer \&resp\_\-queue, player\_\-msghdr $
 \hyperlink{classAiboCam}{AiboCam} {\bfseries cam}}
 \label{classAiboCore_ac299b12604a05d4be74eafac7162ba10}
 
+\item 
+\hypertarget{classAiboCore_a0fa33a5c79f9f53eebedde7e361a0753}{
+\hyperlink{classAiboState}{AiboState} {\bfseries state}}
+\label{classAiboCore_a0fa33a5c79f9f53eebedde7e361a0753}
+
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 The entire Aibo and required Player classes. Core of driver. 
 
+\subsection{Member Function Documentation}
+\hypertarget{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}{
+\index{AiboCore@{AiboCore}!count@{count}}
+\index{count@{count}!AiboCore@{AiboCore}}
+\subsubsection[{count}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCore::count ()}}
+\label{classAiboCore_a7cf6b6a288291b36254dc29ae089d6bc}
+!!!!! Test compilation without this. !!!!! Called during driver initialization to create socket connections
+
+void AiboCore::connect(const char $\ast$ip\_\-addr) \{ walk.connect(ip\_\-addr, AiboWalkPort); head.connect(ip\_\-addr, AiboHeadPort); cam.connect(ip\_\-addr, AiboCamPort); state.connect(ip\_\-addr, AiboStatePort); \} Returns the number of Aibo's using the driver \hypertarget{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}{
+\index{AiboCore@{AiboCore}!MainQuit@{MainQuit}}
+\index{MainQuit@{MainQuit}!AiboCore@{AiboCore}}
+\subsubsection[{MainQuit}]{\setlength{\rightskip}{0pt plus 5cm}void AiboCore::MainQuit ()\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classAiboCore_a4a06b4d7957998e00ffa662ff9345662}
+Shutdown the driver. Basically set states and destroy mutex related stuff. \hypertarget{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}{
+\index{AiboCore@{AiboCore}!MainSetup@{MainSetup}}
+\index{MainSetup@{MainSetup}!AiboCore@{AiboCore}}
+\subsubsection[{MainSetup}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCore::MainSetup ()\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648}
+Set up the driver for each use. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{classAiboCore_a940aa3f41c521cfc8e1ea69b8a616648_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}{
+\index{AiboCore@{AiboCore}!ProcessMessage@{ProcessMessage}}
+\index{ProcessMessage@{ProcessMessage}!AiboCore@{AiboCore}}
+\subsubsection[{ProcessMessage}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCore::ProcessMessage (QueuePointer \& {\em resp\_\-queue}, \/  player\_\-msghdr $\ast$ {\em hdr}, \/  void $\ast$ {\em data})}}
+\label{classAiboCore_a2612cdb01d22f3b18fa0c42ec15b4525}
+Process Messages. This method catches messages published to the driver and routes them to the appropriate Player interface. 
+
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-/home/jesse/Dropbox/Aibo/src/AiboCore.h\item 
-/home/jesse/Dropbox/Aibo/src/AiboCore.cc\end{DoxyCompactItemize}
+/home/jesse/Dropbox/MetroBotics/aibo/src/AiboCore.h\item 
+/home/jesse/Dropbox/MetroBotics/aibo/src/AiboCore.cc\end{DoxyCompactItemize}

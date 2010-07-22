@@ -4,15 +4,14 @@
 }
 
 
-Class responsible for low level network communications.  
+{\ttfamily \#include $<$AiboNet.h$>$}
 
-
-{\ttfamily \#include $<$AiboNet.h$>$}\subsection*{Public Member Functions}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classAiboNet_ae2866fb8db1d5afb44a26279f3678106}{
-{\bfseries AiboNet} (const char $\ast$ip\_\-addr, unsigned int aibo\_\-port)}
-\label{classAiboNet_ae2866fb8db1d5afb44a26279f3678106}
+\hypertarget{classAiboNet_aa631dcf3126a326ad5736d269f017fbc}{
+{\bfseries AiboNet} (const char $\ast$ip\_\-addr, unsigned int aibo\_\-port, const int proto=TCP\_\-PROTO)}
+\label{classAiboNet_aa631dcf3126a326ad5736d269f017fbc}
 
 \item 
 \hypertarget{classAiboNet_abec9a724fac2faba709b4b7ffff98b20}{
@@ -25,9 +24,19 @@ int {\bfseries send\_\-data} (char command\mbox{[}$\,$\mbox{]}, float magnitude\
 \label{classAiboNet_aabeeda24d755f9963eabe94fe5be8168}
 
 \item 
+\hypertarget{classAiboNet_a1cf0ae8e162473c3a08087c1420afeb4}{
+int {\bfseries send\_\-data} (const char $\ast$command)}
+\label{classAiboNet_a1cf0ae8e162473c3a08087c1420afeb4}
+
+\item 
 \hypertarget{classAiboNet_aaafd2d9a66c4e5483452af2ffe0bb13b}{
 char $\ast$ {\bfseries read} (int count)}
 \label{classAiboNet_aaafd2d9a66c4e5483452af2ffe0bb13b}
+
+\item 
+\hypertarget{classAiboNet_a9e5426adfa21849e6a5a60e8ccc20c5b}{
+char $\ast$ {\bfseries readState} (int count, char $\ast$buf)}
+\label{classAiboNet_a9e5426adfa21849e6a5a60e8ccc20c5b}
 
 \item 
 \hypertarget{classAiboNet_ae00d09ceee6bece904ff24fcf7f8a180}{
@@ -38,9 +47,9 @@ char $\ast$ {\bfseries readUntil} (char stop)}
 
 
 \subsection{Detailed Description}
-Class responsible for low level network communications. 
+Responsible for low-\/level communcations. Constructor creates socket connection. 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-/home/jesse/Dropbox/Aibo/src/AiboNet.h\item 
-/home/jesse/Dropbox/Aibo/src/AiboNet.cc\end{DoxyCompactItemize}
+/home/jesse/Dropbox/MetroBotics/aibo/src/AiboNet.h\item 
+/home/jesse/Dropbox/MetroBotics/aibo/src/AiboNet.cc\end{DoxyCompactItemize}

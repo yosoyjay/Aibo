@@ -101,6 +101,7 @@ private:
 	// state variables
 	bool head_update;
 	bool walking;
+	bool gotoWalking;
 	bool walk_alive;
 	bool head_alive;
 	bool cam_alive;

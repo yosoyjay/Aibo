@@ -12,8 +12,10 @@ long convert(char *buff)
     retval += (buff[3] & 0xFF) << 24;
     return retval;
 }
-/*! \brief  Aibo's Camera
- *This clas represents and implements methods to capture images from the Aibo. */
+
+/**
+ *This clas represents and implements methods to capture images from the Aibo. 
+ */
 AiboCam::AiboCam()
 {
 	// True prints camera info for each frame.
@@ -27,28 +29,37 @@ AiboCam::AiboCam()
     if(debug)printf("intialized!\n");
 }
 
-/** Creates and connects a socket to capture images from the Aibo */
+/** 
+ * Creates and connects to a tcp socket to capture images from the Aibo 
+ */ 
 void AiboCam::connect(const char *hostname, int port)
 {
     aibolink = new AiboNet(hostname, port);
 }
 
-// JP: Added this
+/** 
+ * Creates and connects to a udp socket to capture images from the Aibo 
+ */ 
 void AiboCam::connect_udp(const char *hostname, int port)
 {
     aibolink = new AiboNet(hostname, port, UDP_PROTO);
 }
 
 /** Captures images from socket.  Argument is used to toggle 
-    decompression of image.  
-    1 = decompress
-    0 = no-decompress */
+ *  decompression of image.  
+ *  1 = decompress
+ *  0 = no-decompress 
+ *
+ *  If debug is set to true, the information about the image will be printed
+ *  to stdout.
+ */
 int AiboCam::updateMMap(int decompress=1)
 {
     char *header, *type, *creator, *fmt, *image_buffer;
 	char buffer[10000];
     long format, compression, newWidth, newHeight, timeStamp, frameNum, unknown1;
     long chanWidth, chanHeight, layer, chanID, unknown2, size;
+
     if(debug)printf("In updateMMap 1\n");
     lock.ReadLock();
     if(debug)printf("In updateMMap 2\n");
@@ -104,7 +115,6 @@ int AiboCam::updateMMap(int decompress=1)
     if(debug)printf("size: %ld\n", size);
     image_buffer = aibolink->read(size);
 
-    //// convert image from JPEG to RGB in mmap
     if (width == 0 && height == 0) {
         width = newWidth;
         height = newHeight;
@@ -115,10 +125,15 @@ int AiboCam::updateMMap(int decompress=1)
 
     if (decompress) {
         if (size > 0 && size < 10000) {
-            //printf("decompressing...\n");
+            if (debug) printf("decompressing...\n");
+
+			/** This method uses a slightly altered jpeg_decompress method with a 
+			 *	larger buffer because we ran into buffer overflows with the stock version
+			 *	provided by Player.
+			 */
             jpeg_decompressPyro((unsigned char *)image, (width * height * depth),
                                 (unsigned char *)image_buffer, (int) size);
-            //printf("done!\n");
+            if (debug) printf("done!\n");
             lock.ReadUnlock();
             return size;
         } else {

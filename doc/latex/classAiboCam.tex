@@ -4,20 +4,39 @@
 }
 
 
-The Aibo's camera.  
+{\ttfamily \#include $<$AiboCam.h$>$}
 
 
-{\ttfamily \#include $<$AiboCam.h$>$}Inheritance diagram for AiboCam:Collaboration diagram for AiboCam:\subsection*{Public Member Functions}
+
+Inheritance diagram for AiboCam:
+
+Collaboration diagram for AiboCam:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=144pt]{classAiboCam__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classAiboCam_a594411a1df57552aa2b9c609319c74d4}{
-\hyperlink{classAiboCam_a594411a1df57552aa2b9c609319c74d4}{AiboCam} ()}
-\label{classAiboCam_a594411a1df57552aa2b9c609319c74d4}
-
-\begin{DoxyCompactList}\small\item\em Aibo's Camera This clas represents and implements methods to capture images from the Aibo. \item\end{DoxyCompactList}\item 
+\hyperlink{classAiboCam_a594411a1df57552aa2b9c609319c74d4}{AiboCam} ()
+\item 
 int \hyperlink{classAiboCam_a72162af9d25b9b24d6449d41b234f8b2}{updateMMap} (int decompress)
 \item 
-void \hyperlink{classAiboCam_aa450f46c7d0bfc09ec6f6b16cb42fdc6}{connect} (const char $\ast$ip\_\-addr)
+void \hyperlink{classAiboCam_ad75cf19864fb15ed89a616368d1ee200}{connect} (const char $\ast$ip\_\-addr, int port)
+\item 
+void \hyperlink{classAiboCam_a96cac8c22b3676e4bfd71651af3cf825}{connect\_\-udp} (const char $\ast$ip\_\-addr, int port)
+\item 
+\hypertarget{classAiboCam_a27ac8c9cb0be12e2ae722bd04b1b7747}{
+bool {\bfseries getProvided} ()}
+\label{classAiboCam_a27ac8c9cb0be12e2ae722bd04b1b7747}
+
+\item 
+\hypertarget{classAiboCam_a3e21fa4560997a25adbf7b79572e249b}{
+void {\bfseries setProvided} (bool b)}
+\label{classAiboCam_a3e21fa4560997a25adbf7b79572e249b}
+
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -30,22 +49,41 @@ RWLock {\bfseries lock}}
 
 
 \subsection{Detailed Description}
-The Aibo's camera. This class represents the Aibo's camera. Note that the initial \hyperlink{classAiboCam_a72162af9d25b9b24d6449d41b234f8b2}{updateMMap()} and \hyperlink{classAiboCam_aa450f46c7d0bfc09ec6f6b16cb42fdc6}{connect()} calls must exists exactly where there are called in MainSetup(). 
+This class represents the Aibo's camera. Note that the initial \hyperlink{classAiboCam_a72162af9d25b9b24d6449d41b234f8b2}{updateMMap()} and \hyperlink{classAiboCam_ad75cf19864fb15ed89a616368d1ee200}{connect()} calls must exists exactly where there are called in MainSetup(). 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAiboCam_a594411a1df57552aa2b9c609319c74d4}{
+\index{AiboCam@{AiboCam}!AiboCam@{AiboCam}}
+\index{AiboCam@{AiboCam}!AiboCam@{AiboCam}}
+\subsubsection[{AiboCam}]{\setlength{\rightskip}{0pt plus 5cm}AiboCam::AiboCam ()}}
+\label{classAiboCam_a594411a1df57552aa2b9c609319c74d4}
+This clas represents and implements methods to capture images from the Aibo. 
 
 \subsection{Member Function Documentation}
-\hypertarget{classAiboCam_aa450f46c7d0bfc09ec6f6b16cb42fdc6}{
+\hypertarget{classAiboCam_ad75cf19864fb15ed89a616368d1ee200}{
 \index{AiboCam@{AiboCam}!connect@{connect}}
 \index{connect@{connect}!AiboCam@{AiboCam}}
-\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}void AiboCam::connect (const char $\ast$ {\em hostname})}}
-\label{classAiboCam_aa450f46c7d0bfc09ec6f6b16cb42fdc6}
-Creates and connects a socket to capture images from the Aibo \hypertarget{classAiboCam_a72162af9d25b9b24d6449d41b234f8b2}{
+\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}void AiboCam::connect (const char $\ast$ {\em hostname}, \/  int {\em port})}}
+\label{classAiboCam_ad75cf19864fb15ed89a616368d1ee200}
+Creates and connects to a tcp socket to capture images from the Aibo \hypertarget{classAiboCam_a96cac8c22b3676e4bfd71651af3cf825}{
+\index{AiboCam@{AiboCam}!connect\_\-udp@{connect\_\-udp}}
+\index{connect\_\-udp@{connect\_\-udp}!AiboCam@{AiboCam}}
+\subsubsection[{connect\_\-udp}]{\setlength{\rightskip}{0pt plus 5cm}void AiboCam::connect\_\-udp (const char $\ast$ {\em hostname}, \/  int {\em port})}}
+\label{classAiboCam_a96cac8c22b3676e4bfd71651af3cf825}
+Creates and connects to a udp socket to capture images from the Aibo \hypertarget{classAiboCam_a72162af9d25b9b24d6449d41b234f8b2}{
 \index{AiboCam@{AiboCam}!updateMMap@{updateMMap}}
 \index{updateMMap@{updateMMap}!AiboCam@{AiboCam}}
 \subsubsection[{updateMMap}]{\setlength{\rightskip}{0pt plus 5cm}int AiboCam::updateMMap (int {\em decompress} = {\ttfamily 1})}}
 \label{classAiboCam_a72162af9d25b9b24d6449d41b234f8b2}
-Captures images from socket. Argument is used to toggle decompression of image. 1 = decompress 0 = no-\/decompress 
+Captures images from socket. Argument is used to toggle decompression of image. 1 = decompress 0 = no-\/decompress
+
+If debug is set to true, the information about the image will be printed to stdout. 
+
+This method uses a slightly altered jpeg\_\-decompress method with a larger buffer because we ran into buffer overflows with the stock version provided by Player.
+
+
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-/home/jesse/Dropbox/Aibo/src/AiboCam.h\item 
-/home/jesse/Dropbox/Aibo/src/AiboCam.cc\end{DoxyCompactItemize}
+/home/jesse/Dropbox/MetroBotics/aibo/src/AiboCam.h\item 
+/home/jesse/Dropbox/MetroBotics/aibo/src/AiboCam.cc\end{DoxyCompactItemize}
