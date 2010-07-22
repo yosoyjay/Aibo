@@ -12,55 +12,6 @@ void AiboHead::connect(const char *ip_addr, int port)
 
 }
 
-int AiboHead::up(float magnitude)
-{
-
-    aibolink->send_data('t', magnitude);
-    return 0;
-}
-
-int AiboHead::down(float magnitude)
-{
-
-    aibolink->send_data('t', -magnitude);
-    return 0;
-}
-
-int AiboHead::left(float magnitude)
-{
-
-    aibolink->send_data('p', magnitude);
-    return 0;
-}
-
-int AiboHead::right(float magnitude)
-{
-
-    aibolink->send_data('p', -magnitude);
-    return 0;
-}
-
-int AiboHead::center()
-{
-
-    aibolink->send_data('p', 0);
-    return 0;
-}
-
-int AiboHead::yaw(float magnitude)
-{
-
-    aibolink->send_data('r', magnitude);
-    return 0;
-}
-
-int AiboHead::pitch(float magnitude)
-{
-
-    aibolink->send_data('r', -magnitude);
-    return 0;
-}
-
 int AiboHead::move(float pan, float tilt, float zoom)
 {
 
